@@ -1,13 +1,19 @@
 
 
+## Install
+
+```
+npm install
+```
+
 ## Build
 
 ```
-npm install --package-lock=false --workspace-config=build.package.json
+npm run generate
 ```
 
-## Generate Packages
+## Publish
 
 ```
-
+npm run publish
 ```
