@@ -1,0 +1,76 @@
+name: Check Provider Updates and Publish
+on:
+  schedule:
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-release:
+    runs-on: ubuntu-latest
+    outputs:
+      update_needed: ${{ steps.check_release.outputs.update_needed }}
+      new_version: ${{ steps.check_release.outputs.new_version }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check latest release
+        id: check_release
+        run: |
+          LATEST_VERSION=$(curl -s https://api.github.com/repos/airbytehq/terraform-provider-airbyte/releases/latest | jq -r .tag_name | sed 's/^v//')
+          echo "LATEST_VERSION=$LATEST_VERSION" >> $GITHUB_OUTPUT
+
+          CURRENT_VERSION=$(node -p "require('./packages/sdk/package.json').version")
+          echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+
+          if [ "$LATEST_VERSION" != "$CURRENT_VERSION" ]; then
+            echo "update_needed=true" >> $GITHUB_OUTPUT
+            echo "new_version=$LATEST_VERSION" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    needs: check-release
+    if: needs.check-release.outputs.update_needed == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Install dependencies and update lockfile
+        run: |
+          npm install
+          git add package-lock.json
+          if git diff --staged --quiet; then
+            echo "No changes to package-lock.json"
+          else
+            git commit -m "chore: update dependencies"
+            git push origin main
+          fi
+
+      - name: Generate new SDK
+        run: npm run generate
+
+      - name: Update package version
+        run: |
+          cd packages/sdk
+          npm version ${{ needs.check-release.outputs.new_version }} --no-git-tag-version
+
+          git add .
+          git commit -m "chore: update SDK version to ${{ needs.check-release.outputs.new_version }}"
+          git push origin main
+
+      - name: Build
+        run: npm run build
+
+      - name: Publish to npm
+        run: npm run publish-sdk
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
