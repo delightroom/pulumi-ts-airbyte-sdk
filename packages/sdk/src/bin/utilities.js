@@ -117,7 +117,7 @@ function getPackage() {
                 params.setValue(Uint8Array.from(atob("eyJyZW1vdGUiOnsidXJsIjoicmVnaXN0cnkub3BlbnRvZnUub3JnL2FpcmJ5dGVocS9haXJieXRlIiwidmVyc2lvbiI6IjAuNi41In19"), c => c.charCodeAt(0)));
                 const req = new resproto.RegisterPackageRequest();
                 req.setName("terraform-provider");
-                req.setVersion("0.6.0");
+                req.setVersion("0.4.0");
                 req.setDownloadUrl("");
                 req.setParameterization(params);
                 const resp = yield new Promise((resolve, reject) => {
