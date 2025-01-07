@@ -1,0 +1,12 @@
+{
+    "name": "@delightroom/pulumi-airbyte-sdk",
+    "version": "1.0.1",
+    "main": "index.ts",
+    "devDependencies": {
+        "@types/node": "^18",
+        "typescript": "^5.0.0"
+    },
+    "dependencies": {
+        "@pulumi/pulumi": "^3.0.0"
+    }
+}

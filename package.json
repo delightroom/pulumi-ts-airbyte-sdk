@@ -1,0 +1,12 @@
+{
+  "name": "pulumi-airbyte-sdk-root",
+  "private": true,
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "generate": "npm run generate -w pulumi-airbyte-sdk-build",
+    "publish": "npm publish -w @delightroom/pulumi-airbyte-sdk"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.0"
+  }
+}

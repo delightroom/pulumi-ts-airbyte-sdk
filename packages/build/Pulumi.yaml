@@ -1,0 +1,6 @@
+name: pulumi-airbyte-sdk
+description: Dummy Pulumi Project for boilerplate code generation purposes only.
+runtime:
+  name: nodejs
+  options:
+    packagemanager: npm
