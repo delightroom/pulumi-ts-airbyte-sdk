@@ -1,6 +1,6 @@
 {
     "name": "@delightroom/pulumi-airbyte-sdk",
-    "version": "1.0.1",
+    "version": "0.6.5",
     "main": "index.ts",
     "devDependencies": {
         "@types/node": "^18",
