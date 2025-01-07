@@ -68,6 +68,6 @@ jobs:
           git push origin main
 
       - name: Publish to npm
-        run: npm run publish-sdk
+        run: npm run publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
