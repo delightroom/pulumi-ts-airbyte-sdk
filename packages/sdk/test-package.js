@@ -1,7 +1,7 @@
 // Test CommonJS import
 try {
   const cjsImport = require('./bin/index.js');
-  console.log('✅ CommonJS import successful');
+  console.log('✅ CommonJS index import successful');
 } catch (error) {
   console.error('❌ CommonJS import failed:', error);
   process.exit(1);

@@ -12,7 +12,8 @@
         "noImplicitReturns": true,
         "forceConsistentCasingInFileNames": true,
         "declaration": true,
-        "declarationMap": true
+        "declarationMap": true,
+        "esModuleInterop": true
     },
     "files": [
         "index.ts"

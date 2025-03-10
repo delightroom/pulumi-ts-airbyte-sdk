@@ -1,11 +1,22 @@
 {
     "extends": "./tsconfig.json",
     "compilerOptions": {
-        "module": "esnext",
+        "strict": true,
         "outDir": "bin",
+        "target": "es2020",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "experimentalDecorators": true,
+        "pretty": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "forceConsistentCasingInFileNames": true,
         "declaration": true,
         "declarationMap": true,
-        "moduleResolution": "node",
-        "target": "es2020"
-    }
+        "esModuleInterop": true
+    },
+    "files": [
+        "index.ts"
+    ]
 }
