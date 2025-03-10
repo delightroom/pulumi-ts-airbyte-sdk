@@ -81,6 +81,13 @@ jobs:
 
       - name: Test build artifacts
         run: |
+          # Run the test script
+          npm run test
+
+          # Additional verification
+          echo "Verifying file structure..."
+          find packages/sdk/bin -type f | sort
+
           # Verify that both CommonJS and ESM builds exist
           if [ ! -f "packages/sdk/bin/index.js" ]; then
             echo "CommonJS build missing"
@@ -96,6 +103,11 @@ jobs:
             echo "TypeScript declarations missing"
             exit 1
           fi
+
+          # Test importing the package
+          echo "Testing package import..."
+          node -e "require('./packages/sdk/bin/index.js')"
+          node --input-type=module -e "import('./packages/sdk/bin/index.mjs')"
 
           echo "Build verification successful"
 

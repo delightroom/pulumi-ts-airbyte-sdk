@@ -1,6 +1,6 @@
 {
     "name": "@delightroom/pulumi-airbyte-sdk",
-    "version": "0.7.0-beta3",
+    "version": "0.7.0-beta4",
     "main": "bin/index.js",
     "module": "bin/index.mjs",
     "types": "bin/index.d.ts",
@@ -11,8 +11,13 @@
             "types": "./bin/index.d.ts"
         }
     },
+    "files": [
+        "bin/**/*",
+        "README.md"
+    ],
     "scripts": {
-        "build": "node build.js"
+        "build": "node build.js",
+        "prepublishOnly": "npm run build"
     },
     "devDependencies": {
         "@types/node": "^18",

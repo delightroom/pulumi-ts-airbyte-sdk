@@ -1,11 +1,12 @@
 {
   "name": "pulumi-airbyte-sdk-root",
-  "private": false,
+  "private": true,
   "workspaces": ["packages/*"],
   "scripts": {
     "generate": "npm run generate -w pulumi-airbyte-sdk-build",
     "build": "npm run build -w @delightroom/pulumi-airbyte-sdk",
-    "test": "npm run build && node -e \"require('./packages/sdk')\"",
+    "test": "npm run build && node packages/sdk/test-package.js",
+    "prepublish": "npm run build && npm run test",
     "publish": "npm publish -w @delightroom/pulumi-airbyte-sdk"
   },
   "devDependencies": {
