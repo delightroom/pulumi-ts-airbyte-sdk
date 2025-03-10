@@ -19,7 +19,7 @@
     "pulumi": {
         "resource": true,
         "name": "terraform-provider",
-        "version": "0.6.0",
+        "version": "0.8.1",
         "parameterization": {
             "name": "airbyte",
             "version": "0.6.5",
