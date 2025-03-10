@@ -4,7 +4,8 @@
   "workspaces": ["packages/*"],
   "scripts": {
     "generate": "npm run generate -w pulumi-airbyte-sdk-build",
-    "publish": "npm publish -w @delightroom/pulumi-airbyte-sdk"
+    "build": "npm run build -w @delightroom/pulumi-airbyte-sdk",
+    "publish": "npm run build && npm publish -w @delightroom/pulumi-airbyte-sdk"
   },
   "devDependencies": {
     "typescript": "^4.0.0"

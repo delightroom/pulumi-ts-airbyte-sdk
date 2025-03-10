@@ -67,7 +67,7 @@ jobs:
           git commit -m "chore: update SDK version to ${{ needs.check-release.outputs.new_version }}"
           git push origin main
 
-      - name: Publish to npm
+      - name: Build and Publish to npm
         run: npm run publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
