@@ -34,6 +34,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch all history for proper merging
+
       - uses: actions/setup-node@v3
         with:
           node-version: '18.x'
@@ -43,6 +46,12 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Ensure we're on latest main
+        run: |
+          git fetch origin
+          git checkout main
+          git pull origin main
 
       - name: Install dependencies and update lockfile
         run: |
@@ -67,7 +76,35 @@ jobs:
           git commit -m "chore: update SDK version to ${{ needs.check-release.outputs.new_version }}"
           git push origin main
 
-      - name: Build and Publish to npm
-        run: npm run publish
+      - name: Build SDK
+        run: npm run build
+
+      - name: Test build artifacts
+        run: |
+          # Verify that both CommonJS and ESM builds exist
+          if [ ! -f "packages/sdk/bin/index.js" ]; then
+            echo "CommonJS build missing"
+            exit 1
+          fi
+
+          if [ ! -f "packages/sdk/bin/index.mjs" ]; then
+            echo "ESM build missing"
+            exit 1
+          fi
+
+          if [ ! -f "packages/sdk/bin/index.d.ts" ]; then
+            echo "TypeScript declarations missing"
+            exit 1
+          fi
+
+          echo "Build verification successful"
+
+      - name: Publish to npm
+        run: npm publish -w @delightroom/pulumi-airbyte-sdk
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create Git tag
+        run: |
+          git tag v${{ needs.check-release.outputs.new_version }}
+          git push origin v${{ needs.check-release.outputs.new_version }}
