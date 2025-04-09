@@ -34,10 +34,12 @@ class DestinationTimeplus extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState;
             resourceInputs["configuration"] = state ? state.configuration : undefined;
+            resourceInputs["createdAt"] = state ? state.createdAt : undefined;
             resourceInputs["definitionId"] = state ? state.definitionId : undefined;
             resourceInputs["destinationId"] = state ? state.destinationId : undefined;
             resourceInputs["destinationType"] = state ? state.destinationType : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["resourceAllocation"] = state ? state.resourceAllocation : undefined;
             resourceInputs["workspaceId"] = state ? state.workspaceId : undefined;
         }
         else {
@@ -52,8 +54,10 @@ class DestinationTimeplus extends pulumi.CustomResource {
             resourceInputs["definitionId"] = args ? args.definitionId : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["workspaceId"] = args ? args.workspaceId : undefined;
+            resourceInputs["createdAt"] = undefined /*out*/;
             resourceInputs["destinationId"] = undefined /*out*/;
             resourceInputs["destinationType"] = undefined /*out*/;
+            resourceInputs["resourceAllocation"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(DestinationTimeplus.__pulumiType, name, resourceInputs, opts, false /*dependency*/, utilities.getPackage());

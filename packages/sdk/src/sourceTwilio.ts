@@ -35,15 +35,22 @@ export class SourceTwilio extends pulumi.CustomResource {
     }
 
     public readonly configuration!: pulumi.Output<outputs.SourceTwilioConfiguration>;
+    public /*out*/ readonly createdAt!: pulumi.Output<number>;
     /**
      * The UUID of the connector definition. One of configuration.sourceType or definitionId must be provided. Requires
      * replacement if changed.
      */
-    public readonly definitionId!: pulumi.Output<string | undefined>;
+    public readonly definitionId!: pulumi.Output<string>;
     /**
      * Name of the source e.g. dev-mysql-instance.
      */
     public readonly name!: pulumi.Output<string>;
+    /**
+     * actor or actor definition specific resource requirements. if default is set, these are the requirements that should be
+     * set for ALL jobs run for this actor definition. it is overriden by the job type specific configurations. if not set, the
+     * platform will use defaults. these values will be overriden by configuration at the connection level.
+     */
+    public /*out*/ readonly resourceAllocation!: pulumi.Output<outputs.SourceTwilioResourceAllocation>;
     /**
      * Optional secretID obtained through the public API OAuth redirect flow. Requires replacement if changed.
      */
@@ -66,8 +73,10 @@ export class SourceTwilio extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as SourceTwilioState | undefined;
             resourceInputs["configuration"] = state ? state.configuration : undefined;
+            resourceInputs["createdAt"] = state ? state.createdAt : undefined;
             resourceInputs["definitionId"] = state ? state.definitionId : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["resourceAllocation"] = state ? state.resourceAllocation : undefined;
             resourceInputs["secretId"] = state ? state.secretId : undefined;
             resourceInputs["sourceId"] = state ? state.sourceId : undefined;
             resourceInputs["sourceType"] = state ? state.sourceType : undefined;
@@ -85,6 +94,8 @@ export class SourceTwilio extends pulumi.CustomResource {
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["secretId"] = args ? args.secretId : undefined;
             resourceInputs["workspaceId"] = args ? args.workspaceId : undefined;
+            resourceInputs["createdAt"] = undefined /*out*/;
+            resourceInputs["resourceAllocation"] = undefined /*out*/;
             resourceInputs["sourceId"] = undefined /*out*/;
             resourceInputs["sourceType"] = undefined /*out*/;
         }
@@ -98,6 +109,7 @@ export class SourceTwilio extends pulumi.CustomResource {
  */
 export interface SourceTwilioState {
     configuration?: pulumi.Input<inputs.SourceTwilioConfiguration>;
+    createdAt?: pulumi.Input<number>;
     /**
      * The UUID of the connector definition. One of configuration.sourceType or definitionId must be provided. Requires
      * replacement if changed.
@@ -107,6 +119,12 @@ export interface SourceTwilioState {
      * Name of the source e.g. dev-mysql-instance.
      */
     name?: pulumi.Input<string>;
+    /**
+     * actor or actor definition specific resource requirements. if default is set, these are the requirements that should be
+     * set for ALL jobs run for this actor definition. it is overriden by the job type specific configurations. if not set, the
+     * platform will use defaults. these values will be overriden by configuration at the connection level.
+     */
+    resourceAllocation?: pulumi.Input<inputs.SourceTwilioResourceAllocation>;
     /**
      * Optional secretID obtained through the public API OAuth redirect flow. Requires replacement if changed.
      */

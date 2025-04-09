@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getDestinationFirebolt(args: GetDestinationFireboltArgs, opts?: pulumi.InvokeOptions): Promise<GetDestinationFireboltResult>;
 /**
  * A collection of arguments for invoking getDestinationFirebolt.
@@ -11,6 +12,8 @@ export interface GetDestinationFireboltArgs {
  */
 export interface GetDestinationFireboltResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     readonly destinationId: string;
     readonly destinationType: string;
     /**
@@ -18,6 +21,7 @@ export interface GetDestinationFireboltResult {
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetDestinationFireboltResourceAllocation;
     readonly workspaceId: string;
 }
 export declare function getDestinationFireboltOutput(args: GetDestinationFireboltOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetDestinationFireboltResult>;

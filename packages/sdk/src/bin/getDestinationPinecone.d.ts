@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getDestinationPinecone(args: GetDestinationPineconeArgs, opts?: pulumi.InvokeOptions): Promise<GetDestinationPineconeResult>;
 /**
  * A collection of arguments for invoking getDestinationPinecone.
@@ -11,6 +12,8 @@ export interface GetDestinationPineconeArgs {
  */
 export interface GetDestinationPineconeResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     readonly destinationId: string;
     readonly destinationType: string;
     /**
@@ -18,6 +21,7 @@ export interface GetDestinationPineconeResult {
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetDestinationPineconeResourceAllocation;
     readonly workspaceId: string;
 }
 export declare function getDestinationPineconeOutput(args: GetDestinationPineconeOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetDestinationPineconeResult>;

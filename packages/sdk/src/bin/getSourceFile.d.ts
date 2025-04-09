@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getSourceFile(args: GetSourceFileArgs, opts?: pulumi.InvokeOptions): Promise<GetSourceFileResult>;
 /**
  * A collection of arguments for invoking getSourceFile.
@@ -11,11 +12,14 @@ export interface GetSourceFileArgs {
  */
 export interface GetSourceFileResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetSourceFileResourceAllocation;
     readonly sourceId: string;
     readonly sourceType: string;
     readonly workspaceId: string;

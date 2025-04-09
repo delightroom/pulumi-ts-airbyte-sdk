@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getDestinationAstra(args: GetDestinationAstraArgs, opts?: pulumi.InvokeOptions): Promise<GetDestinationAstraResult>;
 /**
  * A collection of arguments for invoking getDestinationAstra.
@@ -11,6 +12,8 @@ export interface GetDestinationAstraArgs {
  */
 export interface GetDestinationAstraResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     readonly destinationId: string;
     readonly destinationType: string;
     /**
@@ -18,6 +21,7 @@ export interface GetDestinationAstraResult {
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetDestinationAstraResourceAllocation;
     readonly workspaceId: string;
 }
 export declare function getDestinationAstraOutput(args: GetDestinationAstraOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetDestinationAstraResult>;

@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getSourceRkiCovid(args: GetSourceRkiCovidArgs, opts?: pulumi.InvokeOptions): Promise<GetSourceRkiCovidResult>;
 /**
  * A collection of arguments for invoking getSourceRkiCovid.
@@ -11,11 +12,14 @@ export interface GetSourceRkiCovidArgs {
  */
 export interface GetSourceRkiCovidResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetSourceRkiCovidResourceAllocation;
     readonly sourceId: string;
     readonly sourceType: string;
     readonly workspaceId: string;

@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getSourceGoogleWebfonts(args: GetSourceGoogleWebfontsArgs, opts?: pulumi.InvokeOptions): Promise<GetSourceGoogleWebfontsResult>;
 /**
  * A collection of arguments for invoking getSourceGoogleWebfonts.
@@ -11,11 +12,14 @@ export interface GetSourceGoogleWebfontsArgs {
  */
 export interface GetSourceGoogleWebfontsResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetSourceGoogleWebfontsResourceAllocation;
     readonly sourceId: string;
     readonly sourceType: string;
     readonly workspaceId: string;

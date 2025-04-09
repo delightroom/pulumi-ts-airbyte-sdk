@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getSourceTypeform(args: GetSourceTypeformArgs, opts?: pulumi.InvokeOptions): Promise<GetSourceTypeformResult>;
 /**
  * A collection of arguments for invoking getSourceTypeform.
@@ -11,11 +12,14 @@ export interface GetSourceTypeformArgs {
  */
 export interface GetSourceTypeformResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetSourceTypeformResourceAllocation;
     readonly sourceId: string;
     readonly sourceType: string;
     readonly workspaceId: string;

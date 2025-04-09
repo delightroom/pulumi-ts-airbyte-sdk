@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 export function getDestinationTimeplus(args: GetDestinationTimeplusArgs, opts?: pulumi.InvokeOptions): Promise<GetDestinationTimeplusResult> {
@@ -23,6 +25,8 @@ export interface GetDestinationTimeplusArgs {
  */
 export interface GetDestinationTimeplusResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     readonly destinationId: string;
     readonly destinationType: string;
     /**
@@ -30,6 +34,7 @@ export interface GetDestinationTimeplusResult {
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetDestinationTimeplusResourceAllocation;
     readonly workspaceId: string;
 }
 export function getDestinationTimeplusOutput(args: GetDestinationTimeplusOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetDestinationTimeplusResult> {

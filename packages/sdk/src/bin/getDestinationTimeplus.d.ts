@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getDestinationTimeplus(args: GetDestinationTimeplusArgs, opts?: pulumi.InvokeOptions): Promise<GetDestinationTimeplusResult>;
 /**
  * A collection of arguments for invoking getDestinationTimeplus.
@@ -11,6 +12,8 @@ export interface GetDestinationTimeplusArgs {
  */
 export interface GetDestinationTimeplusResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     readonly destinationId: string;
     readonly destinationType: string;
     /**
@@ -18,6 +21,7 @@ export interface GetDestinationTimeplusResult {
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetDestinationTimeplusResourceAllocation;
     readonly workspaceId: string;
 }
 export declare function getDestinationTimeplusOutput(args: GetDestinationTimeplusOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetDestinationTimeplusResult>;

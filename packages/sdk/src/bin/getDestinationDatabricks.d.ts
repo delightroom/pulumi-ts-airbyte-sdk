@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getDestinationDatabricks(args: GetDestinationDatabricksArgs, opts?: pulumi.InvokeOptions): Promise<GetDestinationDatabricksResult>;
 /**
  * A collection of arguments for invoking getDestinationDatabricks.
@@ -11,6 +12,8 @@ export interface GetDestinationDatabricksArgs {
  */
 export interface GetDestinationDatabricksResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     readonly destinationId: string;
     readonly destinationType: string;
     /**
@@ -18,6 +21,7 @@ export interface GetDestinationDatabricksResult {
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetDestinationDatabricksResourceAllocation;
     readonly workspaceId: string;
 }
 export declare function getDestinationDatabricksOutput(args: GetDestinationDatabricksOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetDestinationDatabricksResult>;

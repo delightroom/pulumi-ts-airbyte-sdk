@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getDestinationPostgres(args: GetDestinationPostgresArgs, opts?: pulumi.InvokeOptions): Promise<GetDestinationPostgresResult>;
 /**
  * A collection of arguments for invoking getDestinationPostgres.
@@ -11,6 +12,8 @@ export interface GetDestinationPostgresArgs {
  */
 export interface GetDestinationPostgresResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     readonly destinationId: string;
     readonly destinationType: string;
     /**
@@ -18,6 +21,7 @@ export interface GetDestinationPostgresResult {
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetDestinationPostgresResourceAllocation;
     readonly workspaceId: string;
 }
 export declare function getDestinationPostgresOutput(args: GetDestinationPostgresOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetDestinationPostgresResult>;

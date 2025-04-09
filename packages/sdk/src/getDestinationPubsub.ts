@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 export function getDestinationPubsub(args: GetDestinationPubsubArgs, opts?: pulumi.InvokeOptions): Promise<GetDestinationPubsubResult> {
@@ -23,6 +25,8 @@ export interface GetDestinationPubsubArgs {
  */
 export interface GetDestinationPubsubResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     readonly destinationId: string;
     readonly destinationType: string;
     /**
@@ -30,6 +34,7 @@ export interface GetDestinationPubsubResult {
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetDestinationPubsubResourceAllocation;
     readonly workspaceId: string;
 }
 export function getDestinationPubsubOutput(args: GetDestinationPubsubOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetDestinationPubsubResult> {

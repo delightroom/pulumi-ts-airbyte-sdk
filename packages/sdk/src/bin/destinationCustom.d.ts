@@ -1,4 +1,6 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 export declare class DestinationCustom extends pulumi.CustomResource {
     /**
      * Get an existing DestinationCustom resource's state with the given name, ID, and optional extra
@@ -19,17 +21,24 @@ export declare class DestinationCustom extends pulumi.CustomResource {
      * The values required to configure the destination. Parsed as JSON.
      */
     readonly configuration: pulumi.Output<string>;
+    readonly createdAt: pulumi.Output<number>;
     /**
      * The UUID of the connector definition. One of configuration.destinationType or definitionId must be provided. Requires
      * replacement if changed.
      */
-    readonly definitionId: pulumi.Output<string | undefined>;
+    readonly definitionId: pulumi.Output<string>;
     readonly destinationId: pulumi.Output<string>;
     readonly destinationType: pulumi.Output<string>;
     /**
      * Name of the destination e.g. dev-mysql-instance.
      */
     readonly name: pulumi.Output<string>;
+    /**
+     * actor or actor definition specific resource requirements. if default is set, these are the requirements that should be
+     * set for ALL jobs run for this actor definition. it is overriden by the job type specific configurations. if not set, the
+     * platform will use defaults. these values will be overriden by configuration at the connection level.
+     */
+    readonly resourceAllocation: pulumi.Output<outputs.DestinationCustomResourceAllocation>;
     readonly workspaceId: pulumi.Output<string>;
     /**
      * Create a DestinationCustom resource with the given unique name, arguments, and options.
@@ -48,6 +57,7 @@ export interface DestinationCustomState {
      * The values required to configure the destination. Parsed as JSON.
      */
     configuration?: pulumi.Input<string>;
+    createdAt?: pulumi.Input<number>;
     /**
      * The UUID of the connector definition. One of configuration.destinationType or definitionId must be provided. Requires
      * replacement if changed.
@@ -59,6 +69,12 @@ export interface DestinationCustomState {
      * Name of the destination e.g. dev-mysql-instance.
      */
     name?: pulumi.Input<string>;
+    /**
+     * actor or actor definition specific resource requirements. if default is set, these are the requirements that should be
+     * set for ALL jobs run for this actor definition. it is overriden by the job type specific configurations. if not set, the
+     * platform will use defaults. these values will be overriden by configuration at the connection level.
+     */
+    resourceAllocation?: pulumi.Input<inputs.DestinationCustomResourceAllocation>;
     workspaceId?: pulumi.Input<string>;
 }
 /**

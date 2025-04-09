@@ -25,17 +25,24 @@ export declare class DestinationPinecone extends pulumi.CustomResource {
      * indexing configuration is provided by the destination connector in the sub class.
      */
     readonly configuration: pulumi.Output<outputs.DestinationPineconeConfiguration>;
+    readonly createdAt: pulumi.Output<number>;
     /**
      * The UUID of the connector definition. One of configuration.destinationType or definitionId must be provided. Requires
      * replacement if changed.
      */
-    readonly definitionId: pulumi.Output<string | undefined>;
+    readonly definitionId: pulumi.Output<string>;
     readonly destinationId: pulumi.Output<string>;
     readonly destinationType: pulumi.Output<string>;
     /**
      * Name of the destination e.g. dev-mysql-instance.
      */
     readonly name: pulumi.Output<string>;
+    /**
+     * actor or actor definition specific resource requirements. if default is set, these are the requirements that should be
+     * set for ALL jobs run for this actor definition. it is overriden by the job type specific configurations. if not set, the
+     * platform will use defaults. these values will be overriden by configuration at the connection level.
+     */
+    readonly resourceAllocation: pulumi.Output<outputs.DestinationPineconeResourceAllocation>;
     readonly workspaceId: pulumi.Output<string>;
     /**
      * Create a DestinationPinecone resource with the given unique name, arguments, and options.
@@ -58,6 +65,7 @@ export interface DestinationPineconeState {
      * indexing configuration is provided by the destination connector in the sub class.
      */
     configuration?: pulumi.Input<inputs.DestinationPineconeConfiguration>;
+    createdAt?: pulumi.Input<number>;
     /**
      * The UUID of the connector definition. One of configuration.destinationType or definitionId must be provided. Requires
      * replacement if changed.
@@ -69,6 +77,12 @@ export interface DestinationPineconeState {
      * Name of the destination e.g. dev-mysql-instance.
      */
     name?: pulumi.Input<string>;
+    /**
+     * actor or actor definition specific resource requirements. if default is set, these are the requirements that should be
+     * set for ALL jobs run for this actor definition. it is overriden by the job type specific configurations. if not set, the
+     * platform will use defaults. these values will be overriden by configuration at the connection level.
+     */
+    resourceAllocation?: pulumi.Input<inputs.DestinationPineconeResourceAllocation>;
     workspaceId?: pulumi.Input<string>;
 }
 /**

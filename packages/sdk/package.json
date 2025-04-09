@@ -1,6 +1,6 @@
 {
     "name": "@delightroom/pulumi-airbyte-sdk",
-    "version": "0.8.1-beta",
+    "version": "0.9.0",
     "type": "commonjs",
     "main": "bin/index.js",
     "module": "bin/index.mjs",

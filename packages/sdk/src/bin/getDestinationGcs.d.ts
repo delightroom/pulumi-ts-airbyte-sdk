@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getDestinationGcs(args: GetDestinationGcsArgs, opts?: pulumi.InvokeOptions): Promise<GetDestinationGcsResult>;
 /**
  * A collection of arguments for invoking getDestinationGcs.
@@ -11,6 +12,8 @@ export interface GetDestinationGcsArgs {
  */
 export interface GetDestinationGcsResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     readonly destinationId: string;
     readonly destinationType: string;
     /**
@@ -18,6 +21,7 @@ export interface GetDestinationGcsResult {
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetDestinationGcsResourceAllocation;
     readonly workspaceId: string;
 }
 export declare function getDestinationGcsOutput(args: GetDestinationGcsOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetDestinationGcsResult>;

@@ -22,8 +22,8 @@ export declare class Permission extends pulumi.CustomResource {
     readonly permissionId: pulumi.Output<string>;
     /**
      * Subset of `PermissionType` (removing `instance_admin`), could be used in public-api. must be one of
-     * ["organization_admin", "organization_editor", "organization_reader", "organization_member", "workspace_admin",
-     * "workspace_editor", "workspace_reader"]
+     * ["organization_admin", "organization_editor", "organization_runner", "organization_reader", "organization_member",
+     * "workspace_admin", "workspace_editor", "workspace_runner", "workspace_reader"]
      */
     readonly permissionType: pulumi.Output<string>;
     /**
@@ -54,8 +54,8 @@ export interface PermissionState {
     permissionId?: pulumi.Input<string>;
     /**
      * Subset of `PermissionType` (removing `instance_admin`), could be used in public-api. must be one of
-     * ["organization_admin", "organization_editor", "organization_reader", "organization_member", "workspace_admin",
-     * "workspace_editor", "workspace_reader"]
+     * ["organization_admin", "organization_editor", "organization_runner", "organization_reader", "organization_member",
+     * "workspace_admin", "workspace_editor", "workspace_runner", "workspace_reader"]
      */
     permissionType?: pulumi.Input<string>;
     /**
@@ -77,8 +77,8 @@ export interface PermissionArgs {
     organizationId?: pulumi.Input<string>;
     /**
      * Subset of `PermissionType` (removing `instance_admin`), could be used in public-api. must be one of
-     * ["organization_admin", "organization_editor", "organization_reader", "organization_member", "workspace_admin",
-     * "workspace_editor", "workspace_reader"]
+     * ["organization_admin", "organization_editor", "organization_runner", "organization_reader", "organization_member",
+     * "workspace_admin", "workspace_editor", "workspace_runner", "workspace_reader"]
      */
     permissionType: pulumi.Input<string>;
     /**

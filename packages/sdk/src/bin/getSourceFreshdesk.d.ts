@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getSourceFreshdesk(args: GetSourceFreshdeskArgs, opts?: pulumi.InvokeOptions): Promise<GetSourceFreshdeskResult>;
 /**
  * A collection of arguments for invoking getSourceFreshdesk.
@@ -11,11 +12,14 @@ export interface GetSourceFreshdeskArgs {
  */
 export interface GetSourceFreshdeskResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetSourceFreshdeskResourceAllocation;
     readonly sourceId: string;
     readonly sourceType: string;
     readonly workspaceId: string;

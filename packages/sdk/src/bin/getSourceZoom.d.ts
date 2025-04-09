@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getSourceZoom(args: GetSourceZoomArgs, opts?: pulumi.InvokeOptions): Promise<GetSourceZoomResult>;
 /**
  * A collection of arguments for invoking getSourceZoom.
@@ -11,11 +12,14 @@ export interface GetSourceZoomArgs {
  */
 export interface GetSourceZoomResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetSourceZoomResourceAllocation;
     readonly sourceId: string;
     readonly sourceType: string;
     readonly workspaceId: string;

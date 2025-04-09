@@ -1,4 +1,6 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 export declare class SourceCustom extends pulumi.CustomResource {
     /**
      * Get an existing SourceCustom resource's state with the given name, ID, and optional extra
@@ -19,15 +21,22 @@ export declare class SourceCustom extends pulumi.CustomResource {
      * The values required to configure the source. Parsed as JSON.
      */
     readonly configuration: pulumi.Output<string>;
+    readonly createdAt: pulumi.Output<number>;
     /**
      * The UUID of the connector definition. One of configuration.sourceType or definitionId must be provided. Requires
      * replacement if changed.
      */
-    readonly definitionId: pulumi.Output<string | undefined>;
+    readonly definitionId: pulumi.Output<string>;
     /**
      * Name of the source e.g. dev-mysql-instance.
      */
     readonly name: pulumi.Output<string>;
+    /**
+     * actor or actor definition specific resource requirements. if default is set, these are the requirements that should be
+     * set for ALL jobs run for this actor definition. it is overriden by the job type specific configurations. if not set, the
+     * platform will use defaults. these values will be overriden by configuration at the connection level.
+     */
+    readonly resourceAllocation: pulumi.Output<outputs.SourceCustomResourceAllocation>;
     /**
      * Optional secretID obtained through the public API OAuth redirect flow. Requires replacement if changed.
      */
@@ -52,6 +61,7 @@ export interface SourceCustomState {
      * The values required to configure the source. Parsed as JSON.
      */
     configuration?: pulumi.Input<string>;
+    createdAt?: pulumi.Input<number>;
     /**
      * The UUID of the connector definition. One of configuration.sourceType or definitionId must be provided. Requires
      * replacement if changed.
@@ -61,6 +71,12 @@ export interface SourceCustomState {
      * Name of the source e.g. dev-mysql-instance.
      */
     name?: pulumi.Input<string>;
+    /**
+     * actor or actor definition specific resource requirements. if default is set, these are the requirements that should be
+     * set for ALL jobs run for this actor definition. it is overriden by the job type specific configurations. if not set, the
+     * platform will use defaults. these values will be overriden by configuration at the connection level.
+     */
+    resourceAllocation?: pulumi.Input<inputs.SourceCustomResourceAllocation>;
     /**
      * Optional secretID obtained through the public API OAuth redirect flow. Requires replacement if changed.
      */

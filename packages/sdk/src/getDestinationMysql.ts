@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 export function getDestinationMysql(args: GetDestinationMysqlArgs, opts?: pulumi.InvokeOptions): Promise<GetDestinationMysqlResult> {
@@ -23,6 +25,8 @@ export interface GetDestinationMysqlArgs {
  */
 export interface GetDestinationMysqlResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     readonly destinationId: string;
     readonly destinationType: string;
     /**
@@ -30,6 +34,7 @@ export interface GetDestinationMysqlResult {
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetDestinationMysqlResourceAllocation;
     readonly workspaceId: string;
 }
 export function getDestinationMysqlOutput(args: GetDestinationMysqlOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetDestinationMysqlResult> {

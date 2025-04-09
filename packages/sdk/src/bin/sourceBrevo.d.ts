@@ -18,15 +18,22 @@ export declare class SourceBrevo extends pulumi.CustomResource {
      */
     static isInstance(obj: any): obj is SourceBrevo;
     readonly configuration: pulumi.Output<outputs.SourceBrevoConfiguration>;
+    readonly createdAt: pulumi.Output<number>;
     /**
      * The UUID of the connector definition. One of configuration.sourceType or definitionId must be provided. Requires
      * replacement if changed.
      */
-    readonly definitionId: pulumi.Output<string | undefined>;
+    readonly definitionId: pulumi.Output<string>;
     /**
      * Name of the source e.g. dev-mysql-instance.
      */
     readonly name: pulumi.Output<string>;
+    /**
+     * actor or actor definition specific resource requirements. if default is set, these are the requirements that should be
+     * set for ALL jobs run for this actor definition. it is overriden by the job type specific configurations. if not set, the
+     * platform will use defaults. these values will be overriden by configuration at the connection level.
+     */
+    readonly resourceAllocation: pulumi.Output<outputs.SourceBrevoResourceAllocation>;
     /**
      * Optional secretID obtained through the public API OAuth redirect flow. Requires replacement if changed.
      */
@@ -48,6 +55,7 @@ export declare class SourceBrevo extends pulumi.CustomResource {
  */
 export interface SourceBrevoState {
     configuration?: pulumi.Input<inputs.SourceBrevoConfiguration>;
+    createdAt?: pulumi.Input<number>;
     /**
      * The UUID of the connector definition. One of configuration.sourceType or definitionId must be provided. Requires
      * replacement if changed.
@@ -57,6 +65,12 @@ export interface SourceBrevoState {
      * Name of the source e.g. dev-mysql-instance.
      */
     name?: pulumi.Input<string>;
+    /**
+     * actor or actor definition specific resource requirements. if default is set, these are the requirements that should be
+     * set for ALL jobs run for this actor definition. it is overriden by the job type specific configurations. if not set, the
+     * platform will use defaults. these values will be overriden by configuration at the connection level.
+     */
+    resourceAllocation?: pulumi.Input<inputs.SourceBrevoResourceAllocation>;
     /**
      * Optional secretID obtained through the public API OAuth redirect flow. Requires replacement if changed.
      */

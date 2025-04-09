@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getSourceChargebee(args: GetSourceChargebeeArgs, opts?: pulumi.InvokeOptions): Promise<GetSourceChargebeeResult>;
 /**
  * A collection of arguments for invoking getSourceChargebee.
@@ -11,11 +12,14 @@ export interface GetSourceChargebeeArgs {
  */
 export interface GetSourceChargebeeResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetSourceChargebeeResourceAllocation;
     readonly sourceId: string;
     readonly sourceType: string;
     readonly workspaceId: string;

@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 export function getDestinationS3(args: GetDestinationS3Args, opts?: pulumi.InvokeOptions): Promise<GetDestinationS3Result> {
@@ -23,6 +25,8 @@ export interface GetDestinationS3Args {
  */
 export interface GetDestinationS3Result {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     readonly destinationId: string;
     readonly destinationType: string;
     /**
@@ -30,6 +34,7 @@ export interface GetDestinationS3Result {
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetDestinationS3ResourceAllocation;
     readonly workspaceId: string;
 }
 export function getDestinationS3Output(args: GetDestinationS3OutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetDestinationS3Result> {

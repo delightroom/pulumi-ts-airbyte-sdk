@@ -33,6 +33,7 @@ export class Provider extends pulumi.ProviderResource {
      * Server URL (defaults to https://api.airbyte.com/v1)
      */
     public readonly serverUrl!: pulumi.Output<string | undefined>;
+    public readonly tokenUrl!: pulumi.Output<string | undefined>;
     public readonly username!: pulumi.Output<string | undefined>;
 
     /**
@@ -51,10 +52,11 @@ export class Provider extends pulumi.ProviderResource {
             resourceInputs["clientSecret"] = args?.clientSecret ? pulumi.secret(args.clientSecret) : undefined;
             resourceInputs["password"] = args?.password ? pulumi.secret(args.password) : undefined;
             resourceInputs["serverUrl"] = args ? args.serverUrl : undefined;
+            resourceInputs["tokenUrl"] = args?.tokenUrl ? pulumi.secret(args.tokenUrl) : undefined;
             resourceInputs["username"] = args?.username ? pulumi.secret(args.username) : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const secretOpts = { additionalSecretOutputs: ["bearerAuth", "clientId", "clientSecret", "password", "username"] };
+        const secretOpts = { additionalSecretOutputs: ["bearerAuth", "clientId", "clientSecret", "password", "tokenUrl", "username"] };
         opts = pulumi.mergeOptions(opts, secretOpts);
         super(Provider.__pulumiType, name, resourceInputs, opts, false /*dependency*/, utilities.getPackage());
     }
@@ -72,5 +74,6 @@ export interface ProviderArgs {
      * Server URL (defaults to https://api.airbyte.com/v1)
      */
     serverUrl?: pulumi.Input<string>;
+    tokenUrl?: pulumi.Input<string>;
     username?: pulumi.Input<string>;
 }

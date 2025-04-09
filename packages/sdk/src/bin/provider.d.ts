@@ -19,6 +19,7 @@ export declare class Provider extends pulumi.ProviderResource {
      * Server URL (defaults to https://api.airbyte.com/v1)
      */
     readonly serverUrl: pulumi.Output<string | undefined>;
+    readonly tokenUrl: pulumi.Output<string | undefined>;
     readonly username: pulumi.Output<string | undefined>;
     /**
      * Create a Provider resource with the given unique name, arguments, and options.
@@ -41,5 +42,6 @@ export interface ProviderArgs {
      * Server URL (defaults to https://api.airbyte.com/v1)
      */
     serverUrl?: pulumi.Input<string>;
+    tokenUrl?: pulumi.Input<string>;
     username?: pulumi.Input<string>;
 }

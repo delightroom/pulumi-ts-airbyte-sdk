@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getDestinationSnowflake(args: GetDestinationSnowflakeArgs, opts?: pulumi.InvokeOptions): Promise<GetDestinationSnowflakeResult>;
 /**
  * A collection of arguments for invoking getDestinationSnowflake.
@@ -11,6 +12,8 @@ export interface GetDestinationSnowflakeArgs {
  */
 export interface GetDestinationSnowflakeResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     readonly destinationId: string;
     readonly destinationType: string;
     /**
@@ -18,6 +21,7 @@ export interface GetDestinationSnowflakeResult {
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetDestinationSnowflakeResourceAllocation;
     readonly workspaceId: string;
 }
 export declare function getDestinationSnowflakeOutput(args: GetDestinationSnowflakeOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetDestinationSnowflakeResult>;

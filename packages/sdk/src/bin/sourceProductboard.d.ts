@@ -18,15 +18,22 @@ export declare class SourceProductboard extends pulumi.CustomResource {
      */
     static isInstance(obj: any): obj is SourceProductboard;
     readonly configuration: pulumi.Output<outputs.SourceProductboardConfiguration>;
+    readonly createdAt: pulumi.Output<number>;
     /**
      * The UUID of the connector definition. One of configuration.sourceType or definitionId must be provided. Requires
      * replacement if changed.
      */
-    readonly definitionId: pulumi.Output<string | undefined>;
+    readonly definitionId: pulumi.Output<string>;
     /**
      * Name of the source e.g. dev-mysql-instance.
      */
     readonly name: pulumi.Output<string>;
+    /**
+     * actor or actor definition specific resource requirements. if default is set, these are the requirements that should be
+     * set for ALL jobs run for this actor definition. it is overriden by the job type specific configurations. if not set, the
+     * platform will use defaults. these values will be overriden by configuration at the connection level.
+     */
+    readonly resourceAllocation: pulumi.Output<outputs.SourceProductboardResourceAllocation>;
     /**
      * Optional secretID obtained through the public API OAuth redirect flow. Requires replacement if changed.
      */
@@ -48,6 +55,7 @@ export declare class SourceProductboard extends pulumi.CustomResource {
  */
 export interface SourceProductboardState {
     configuration?: pulumi.Input<inputs.SourceProductboardConfiguration>;
+    createdAt?: pulumi.Input<number>;
     /**
      * The UUID of the connector definition. One of configuration.sourceType or definitionId must be provided. Requires
      * replacement if changed.
@@ -57,6 +65,12 @@ export interface SourceProductboardState {
      * Name of the source e.g. dev-mysql-instance.
      */
     name?: pulumi.Input<string>;
+    /**
+     * actor or actor definition specific resource requirements. if default is set, these are the requirements that should be
+     * set for ALL jobs run for this actor definition. it is overriden by the job type specific configurations. if not set, the
+     * platform will use defaults. these values will be overriden by configuration at the connection level.
+     */
+    resourceAllocation?: pulumi.Input<inputs.SourceProductboardResourceAllocation>;
     /**
      * Optional secretID obtained through the public API OAuth redirect flow. Requires replacement if changed.
      */

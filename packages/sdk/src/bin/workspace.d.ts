@@ -1,4 +1,6 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 export declare class Workspace extends pulumi.CustomResource {
     /**
      * Get an existing Workspace resource's state with the given name, ID, and optional extra
@@ -15,18 +17,20 @@ export declare class Workspace extends pulumi.CustomResource {
      * when multiple copies of the Pulumi SDK have been loaded into the same process.
      */
     static isInstance(obj: any): obj is Workspace;
-    /**
-     * must be one of ["auto", "us", "eu"]
-     */
     readonly dataResidency: pulumi.Output<string>;
     /**
      * Name of the workspace
      */
     readonly name: pulumi.Output<string>;
     /**
+     * Configures workspace notifications.
+     */
+    readonly notifications: pulumi.Output<outputs.WorkspaceNotifications>;
+    /**
      * ID of organization to add workspace to. Requires replacement if changed.
      */
     readonly organizationId: pulumi.Output<string | undefined>;
+    readonly regionId: pulumi.Output<string | undefined>;
     readonly workspaceId: pulumi.Output<string>;
     /**
      * Create a Workspace resource with the given unique name, arguments, and options.
@@ -41,18 +45,20 @@ export declare class Workspace extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Workspace resources.
  */
 export interface WorkspaceState {
-    /**
-     * must be one of ["auto", "us", "eu"]
-     */
     dataResidency?: pulumi.Input<string>;
     /**
      * Name of the workspace
      */
     name?: pulumi.Input<string>;
     /**
+     * Configures workspace notifications.
+     */
+    notifications?: pulumi.Input<inputs.WorkspaceNotifications>;
+    /**
      * ID of organization to add workspace to. Requires replacement if changed.
      */
     organizationId?: pulumi.Input<string>;
+    regionId?: pulumi.Input<string>;
     workspaceId?: pulumi.Input<string>;
 }
 /**
@@ -64,7 +70,12 @@ export interface WorkspaceArgs {
      */
     name?: pulumi.Input<string>;
     /**
+     * Configures workspace notifications.
+     */
+    notifications?: pulumi.Input<inputs.WorkspaceNotifications>;
+    /**
      * ID of organization to add workspace to. Requires replacement if changed.
      */
     organizationId?: pulumi.Input<string>;
+    regionId?: pulumi.Input<string>;
 }

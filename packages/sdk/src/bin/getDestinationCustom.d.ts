@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getDestinationCustom(args: GetDestinationCustomArgs, opts?: pulumi.InvokeOptions): Promise<GetDestinationCustomResult>;
 /**
  * A collection of arguments for invoking getDestinationCustom.
@@ -11,6 +12,8 @@ export interface GetDestinationCustomArgs {
  */
 export interface GetDestinationCustomResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     readonly destinationId: string;
     readonly destinationType: string;
     /**
@@ -18,6 +21,7 @@ export interface GetDestinationCustomResult {
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetDestinationCustomResourceAllocation;
     readonly workspaceId: string;
 }
 export declare function getDestinationCustomOutput(args: GetDestinationCustomOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetDestinationCustomResult>;

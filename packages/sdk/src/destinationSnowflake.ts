@@ -35,17 +35,24 @@ export class DestinationSnowflake extends pulumi.CustomResource {
     }
 
     public readonly configuration!: pulumi.Output<outputs.DestinationSnowflakeConfiguration>;
+    public /*out*/ readonly createdAt!: pulumi.Output<number>;
     /**
      * The UUID of the connector definition. One of configuration.destinationType or definitionId must be provided. Requires
      * replacement if changed.
      */
-    public readonly definitionId!: pulumi.Output<string | undefined>;
+    public readonly definitionId!: pulumi.Output<string>;
     public /*out*/ readonly destinationId!: pulumi.Output<string>;
     public /*out*/ readonly destinationType!: pulumi.Output<string>;
     /**
      * Name of the destination e.g. dev-mysql-instance.
      */
     public readonly name!: pulumi.Output<string>;
+    /**
+     * actor or actor definition specific resource requirements. if default is set, these are the requirements that should be
+     * set for ALL jobs run for this actor definition. it is overriden by the job type specific configurations. if not set, the
+     * platform will use defaults. these values will be overriden by configuration at the connection level.
+     */
+    public /*out*/ readonly resourceAllocation!: pulumi.Output<outputs.DestinationSnowflakeResourceAllocation>;
     public readonly workspaceId!: pulumi.Output<string>;
 
     /**
@@ -62,10 +69,12 @@ export class DestinationSnowflake extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as DestinationSnowflakeState | undefined;
             resourceInputs["configuration"] = state ? state.configuration : undefined;
+            resourceInputs["createdAt"] = state ? state.createdAt : undefined;
             resourceInputs["definitionId"] = state ? state.definitionId : undefined;
             resourceInputs["destinationId"] = state ? state.destinationId : undefined;
             resourceInputs["destinationType"] = state ? state.destinationType : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["resourceAllocation"] = state ? state.resourceAllocation : undefined;
             resourceInputs["workspaceId"] = state ? state.workspaceId : undefined;
         } else {
             const args = argsOrState as DestinationSnowflakeArgs | undefined;
@@ -79,8 +88,10 @@ export class DestinationSnowflake extends pulumi.CustomResource {
             resourceInputs["definitionId"] = args ? args.definitionId : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["workspaceId"] = args ? args.workspaceId : undefined;
+            resourceInputs["createdAt"] = undefined /*out*/;
             resourceInputs["destinationId"] = undefined /*out*/;
             resourceInputs["destinationType"] = undefined /*out*/;
+            resourceInputs["resourceAllocation"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(DestinationSnowflake.__pulumiType, name, resourceInputs, opts, false /*dependency*/, utilities.getPackage());
@@ -92,6 +103,7 @@ export class DestinationSnowflake extends pulumi.CustomResource {
  */
 export interface DestinationSnowflakeState {
     configuration?: pulumi.Input<inputs.DestinationSnowflakeConfiguration>;
+    createdAt?: pulumi.Input<number>;
     /**
      * The UUID of the connector definition. One of configuration.destinationType or definitionId must be provided. Requires
      * replacement if changed.
@@ -103,6 +115,12 @@ export interface DestinationSnowflakeState {
      * Name of the destination e.g. dev-mysql-instance.
      */
     name?: pulumi.Input<string>;
+    /**
+     * actor or actor definition specific resource requirements. if default is set, these are the requirements that should be
+     * set for ALL jobs run for this actor definition. it is overriden by the job type specific configurations. if not set, the
+     * platform will use defaults. these values will be overriden by configuration at the connection level.
+     */
+    resourceAllocation?: pulumi.Input<inputs.DestinationSnowflakeResourceAllocation>;
     workspaceId?: pulumi.Input<string>;
 }
 

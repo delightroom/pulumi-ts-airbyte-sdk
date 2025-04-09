@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 export class DestinationCustom extends pulumi.CustomResource {
@@ -36,17 +38,24 @@ export class DestinationCustom extends pulumi.CustomResource {
      * The values required to configure the destination. Parsed as JSON.
      */
     public readonly configuration!: pulumi.Output<string>;
+    public /*out*/ readonly createdAt!: pulumi.Output<number>;
     /**
      * The UUID of the connector definition. One of configuration.destinationType or definitionId must be provided. Requires
      * replacement if changed.
      */
-    public readonly definitionId!: pulumi.Output<string | undefined>;
+    public readonly definitionId!: pulumi.Output<string>;
     public /*out*/ readonly destinationId!: pulumi.Output<string>;
     public /*out*/ readonly destinationType!: pulumi.Output<string>;
     /**
      * Name of the destination e.g. dev-mysql-instance.
      */
     public readonly name!: pulumi.Output<string>;
+    /**
+     * actor or actor definition specific resource requirements. if default is set, these are the requirements that should be
+     * set for ALL jobs run for this actor definition. it is overriden by the job type specific configurations. if not set, the
+     * platform will use defaults. these values will be overriden by configuration at the connection level.
+     */
+    public /*out*/ readonly resourceAllocation!: pulumi.Output<outputs.DestinationCustomResourceAllocation>;
     public readonly workspaceId!: pulumi.Output<string>;
 
     /**
@@ -63,10 +72,12 @@ export class DestinationCustom extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as DestinationCustomState | undefined;
             resourceInputs["configuration"] = state ? state.configuration : undefined;
+            resourceInputs["createdAt"] = state ? state.createdAt : undefined;
             resourceInputs["definitionId"] = state ? state.definitionId : undefined;
             resourceInputs["destinationId"] = state ? state.destinationId : undefined;
             resourceInputs["destinationType"] = state ? state.destinationType : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["resourceAllocation"] = state ? state.resourceAllocation : undefined;
             resourceInputs["workspaceId"] = state ? state.workspaceId : undefined;
         } else {
             const args = argsOrState as DestinationCustomArgs | undefined;
@@ -80,8 +91,10 @@ export class DestinationCustom extends pulumi.CustomResource {
             resourceInputs["definitionId"] = args ? args.definitionId : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["workspaceId"] = args ? args.workspaceId : undefined;
+            resourceInputs["createdAt"] = undefined /*out*/;
             resourceInputs["destinationId"] = undefined /*out*/;
             resourceInputs["destinationType"] = undefined /*out*/;
+            resourceInputs["resourceAllocation"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(DestinationCustom.__pulumiType, name, resourceInputs, opts, false /*dependency*/, utilities.getPackage());
@@ -96,6 +109,7 @@ export interface DestinationCustomState {
      * The values required to configure the destination. Parsed as JSON.
      */
     configuration?: pulumi.Input<string>;
+    createdAt?: pulumi.Input<number>;
     /**
      * The UUID of the connector definition. One of configuration.destinationType or definitionId must be provided. Requires
      * replacement if changed.
@@ -107,6 +121,12 @@ export interface DestinationCustomState {
      * Name of the destination e.g. dev-mysql-instance.
      */
     name?: pulumi.Input<string>;
+    /**
+     * actor or actor definition specific resource requirements. if default is set, these are the requirements that should be
+     * set for ALL jobs run for this actor definition. it is overriden by the job type specific configurations. if not set, the
+     * platform will use defaults. these values will be overriden by configuration at the connection level.
+     */
+    resourceAllocation?: pulumi.Input<inputs.DestinationCustomResourceAllocation>;
     workspaceId?: pulumi.Input<string>;
 }
 

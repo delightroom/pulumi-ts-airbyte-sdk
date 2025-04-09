@@ -50,6 +50,14 @@ Object.defineProperty(exports, "serverUrl", {
     enumerable: true,
 });
 
+export declare const tokenUrl: string | undefined;
+Object.defineProperty(exports, "tokenUrl", {
+    get() {
+        return __config.get("tokenUrl");
+    },
+    enumerable: true,
+});
+
 export declare const username: string | undefined;
 Object.defineProperty(exports, "username", {
     get() {

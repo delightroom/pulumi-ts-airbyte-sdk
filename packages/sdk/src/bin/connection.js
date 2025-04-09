@@ -35,6 +35,7 @@ class Connection extends pulumi.CustomResource {
             const state = argsOrState;
             resourceInputs["configurations"] = state ? state.configurations : undefined;
             resourceInputs["connectionId"] = state ? state.connectionId : undefined;
+            resourceInputs["createdAt"] = state ? state.createdAt : undefined;
             resourceInputs["dataResidency"] = state ? state.dataResidency : undefined;
             resourceInputs["destinationId"] = state ? state.destinationId : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
@@ -45,6 +46,7 @@ class Connection extends pulumi.CustomResource {
             resourceInputs["schedule"] = state ? state.schedule : undefined;
             resourceInputs["sourceId"] = state ? state.sourceId : undefined;
             resourceInputs["status"] = state ? state.status : undefined;
+            resourceInputs["tags"] = state ? state.tags : undefined;
             resourceInputs["workspaceId"] = state ? state.workspaceId : undefined;
         }
         else {
@@ -66,7 +68,9 @@ class Connection extends pulumi.CustomResource {
             resourceInputs["schedule"] = args ? args.schedule : undefined;
             resourceInputs["sourceId"] = args ? args.sourceId : undefined;
             resourceInputs["status"] = args ? args.status : undefined;
+            resourceInputs["tags"] = args ? args.tags : undefined;
             resourceInputs["connectionId"] = undefined /*out*/;
+            resourceInputs["createdAt"] = undefined /*out*/;
             resourceInputs["workspaceId"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);

@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 export function getDestinationSnowflakeCortex(args: GetDestinationSnowflakeCortexArgs, opts?: pulumi.InvokeOptions): Promise<GetDestinationSnowflakeCortexResult> {
@@ -23,6 +25,8 @@ export interface GetDestinationSnowflakeCortexArgs {
  */
 export interface GetDestinationSnowflakeCortexResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     readonly destinationId: string;
     readonly destinationType: string;
     /**
@@ -30,6 +34,7 @@ export interface GetDestinationSnowflakeCortexResult {
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetDestinationSnowflakeCortexResourceAllocation;
     readonly workspaceId: string;
 }
 export function getDestinationSnowflakeCortexOutput(args: GetDestinationSnowflakeCortexOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetDestinationSnowflakeCortexResult> {

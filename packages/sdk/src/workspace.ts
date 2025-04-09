@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 export class Workspace extends pulumi.CustomResource {
@@ -32,18 +34,20 @@ export class Workspace extends pulumi.CustomResource {
         return obj['__pulumiType'] === Workspace.__pulumiType;
     }
 
-    /**
-     * must be one of ["auto", "us", "eu"]
-     */
     public /*out*/ readonly dataResidency!: pulumi.Output<string>;
     /**
      * Name of the workspace
      */
     public readonly name!: pulumi.Output<string>;
     /**
+     * Configures workspace notifications.
+     */
+    public readonly notifications!: pulumi.Output<outputs.WorkspaceNotifications>;
+    /**
      * ID of organization to add workspace to. Requires replacement if changed.
      */
     public readonly organizationId!: pulumi.Output<string | undefined>;
+    public readonly regionId!: pulumi.Output<string | undefined>;
     public /*out*/ readonly workspaceId!: pulumi.Output<string>;
 
     /**
@@ -61,12 +65,16 @@ export class Workspace extends pulumi.CustomResource {
             const state = argsOrState as WorkspaceState | undefined;
             resourceInputs["dataResidency"] = state ? state.dataResidency : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["notifications"] = state ? state.notifications : undefined;
             resourceInputs["organizationId"] = state ? state.organizationId : undefined;
+            resourceInputs["regionId"] = state ? state.regionId : undefined;
             resourceInputs["workspaceId"] = state ? state.workspaceId : undefined;
         } else {
             const args = argsOrState as WorkspaceArgs | undefined;
             resourceInputs["name"] = args ? args.name : undefined;
+            resourceInputs["notifications"] = args ? args.notifications : undefined;
             resourceInputs["organizationId"] = args ? args.organizationId : undefined;
+            resourceInputs["regionId"] = args ? args.regionId : undefined;
             resourceInputs["dataResidency"] = undefined /*out*/;
             resourceInputs["workspaceId"] = undefined /*out*/;
         }
@@ -79,18 +87,20 @@ export class Workspace extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Workspace resources.
  */
 export interface WorkspaceState {
-    /**
-     * must be one of ["auto", "us", "eu"]
-     */
     dataResidency?: pulumi.Input<string>;
     /**
      * Name of the workspace
      */
     name?: pulumi.Input<string>;
     /**
+     * Configures workspace notifications.
+     */
+    notifications?: pulumi.Input<inputs.WorkspaceNotifications>;
+    /**
      * ID of organization to add workspace to. Requires replacement if changed.
      */
     organizationId?: pulumi.Input<string>;
+    regionId?: pulumi.Input<string>;
     workspaceId?: pulumi.Input<string>;
 }
 
@@ -103,7 +113,12 @@ export interface WorkspaceArgs {
      */
     name?: pulumi.Input<string>;
     /**
+     * Configures workspace notifications.
+     */
+    notifications?: pulumi.Input<inputs.WorkspaceNotifications>;
+    /**
      * ID of organization to add workspace to. Requires replacement if changed.
      */
     organizationId?: pulumi.Input<string>;
+    regionId?: pulumi.Input<string>;
 }

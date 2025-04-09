@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getDestinationTeradata(args: GetDestinationTeradataArgs, opts?: pulumi.InvokeOptions): Promise<GetDestinationTeradataResult>;
 /**
  * A collection of arguments for invoking getDestinationTeradata.
@@ -11,6 +12,8 @@ export interface GetDestinationTeradataArgs {
  */
 export interface GetDestinationTeradataResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     readonly destinationId: string;
     readonly destinationType: string;
     /**
@@ -18,6 +21,7 @@ export interface GetDestinationTeradataResult {
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetDestinationTeradataResourceAllocation;
     readonly workspaceId: string;
 }
 export declare function getDestinationTeradataOutput(args: GetDestinationTeradataOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetDestinationTeradataResult>;

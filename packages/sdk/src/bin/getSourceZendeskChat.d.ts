@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getSourceZendeskChat(args: GetSourceZendeskChatArgs, opts?: pulumi.InvokeOptions): Promise<GetSourceZendeskChatResult>;
 /**
  * A collection of arguments for invoking getSourceZendeskChat.
@@ -11,11 +12,14 @@ export interface GetSourceZendeskChatArgs {
  */
 export interface GetSourceZendeskChatResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetSourceZendeskChatResourceAllocation;
     readonly sourceId: string;
     readonly sourceType: string;
     readonly workspaceId: string;

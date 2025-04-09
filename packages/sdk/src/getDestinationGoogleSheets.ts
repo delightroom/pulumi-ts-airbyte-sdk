@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 export function getDestinationGoogleSheets(args: GetDestinationGoogleSheetsArgs, opts?: pulumi.InvokeOptions): Promise<GetDestinationGoogleSheetsResult> {
@@ -23,6 +25,8 @@ export interface GetDestinationGoogleSheetsArgs {
  */
 export interface GetDestinationGoogleSheetsResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     readonly destinationId: string;
     readonly destinationType: string;
     /**
@@ -30,6 +34,7 @@ export interface GetDestinationGoogleSheetsResult {
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetDestinationGoogleSheetsResourceAllocation;
     readonly workspaceId: string;
 }
 export function getDestinationGoogleSheetsOutput(args: GetDestinationGoogleSheetsOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetDestinationGoogleSheetsResult> {

@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getDestinationConvex(args: GetDestinationConvexArgs, opts?: pulumi.InvokeOptions): Promise<GetDestinationConvexResult>;
 /**
  * A collection of arguments for invoking getDestinationConvex.
@@ -11,6 +12,8 @@ export interface GetDestinationConvexArgs {
  */
 export interface GetDestinationConvexResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     readonly destinationId: string;
     readonly destinationType: string;
     /**
@@ -18,6 +21,7 @@ export interface GetDestinationConvexResult {
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetDestinationConvexResourceAllocation;
     readonly workspaceId: string;
 }
 export declare function getDestinationConvexOutput(args: GetDestinationConvexOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetDestinationConvexResult>;

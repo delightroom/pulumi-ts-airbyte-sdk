@@ -38,10 +38,11 @@ class Provider extends pulumi.ProviderResource {
             resourceInputs["clientSecret"] = (args === null || args === void 0 ? void 0 : args.clientSecret) ? pulumi.secret(args.clientSecret) : undefined;
             resourceInputs["password"] = (args === null || args === void 0 ? void 0 : args.password) ? pulumi.secret(args.password) : undefined;
             resourceInputs["serverUrl"] = args ? args.serverUrl : undefined;
+            resourceInputs["tokenUrl"] = (args === null || args === void 0 ? void 0 : args.tokenUrl) ? pulumi.secret(args.tokenUrl) : undefined;
             resourceInputs["username"] = (args === null || args === void 0 ? void 0 : args.username) ? pulumi.secret(args.username) : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const secretOpts = { additionalSecretOutputs: ["bearerAuth", "clientId", "clientSecret", "password", "username"] };
+        const secretOpts = { additionalSecretOutputs: ["bearerAuth", "clientId", "clientSecret", "password", "tokenUrl", "username"] };
         opts = pulumi.mergeOptions(opts, secretOpts);
         super(Provider.__pulumiType, name, resourceInputs, opts, false /*dependency*/, utilities.getPackage());
     }

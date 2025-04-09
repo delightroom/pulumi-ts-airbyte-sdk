@@ -35,13 +35,17 @@ class Workspace extends pulumi.CustomResource {
             const state = argsOrState;
             resourceInputs["dataResidency"] = state ? state.dataResidency : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["notifications"] = state ? state.notifications : undefined;
             resourceInputs["organizationId"] = state ? state.organizationId : undefined;
+            resourceInputs["regionId"] = state ? state.regionId : undefined;
             resourceInputs["workspaceId"] = state ? state.workspaceId : undefined;
         }
         else {
             const args = argsOrState;
             resourceInputs["name"] = args ? args.name : undefined;
+            resourceInputs["notifications"] = args ? args.notifications : undefined;
             resourceInputs["organizationId"] = args ? args.organizationId : undefined;
+            resourceInputs["regionId"] = args ? args.regionId : undefined;
             resourceInputs["dataResidency"] = undefined /*out*/;
             resourceInputs["workspaceId"] = undefined /*out*/;
         }

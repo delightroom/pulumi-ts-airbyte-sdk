@@ -13,6 +13,7 @@ export interface GetConnectionArgs {
 export interface GetConnectionResult {
     readonly configurations: outputs.GetConnectionConfigurations;
     readonly connectionId: string;
+    readonly createdAt: number;
     readonly dataResidency: string;
     readonly destinationId: string;
     /**
@@ -27,6 +28,7 @@ export interface GetConnectionResult {
     readonly schedule: outputs.GetConnectionSchedule;
     readonly sourceId: string;
     readonly status: string;
+    readonly tags: outputs.GetConnectionTag[];
     readonly workspaceId: string;
 }
 export declare function getConnectionOutput(args: GetConnectionOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetConnectionResult>;

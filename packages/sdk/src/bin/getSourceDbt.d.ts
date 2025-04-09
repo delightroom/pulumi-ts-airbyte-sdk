@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getSourceDbt(args: GetSourceDbtArgs, opts?: pulumi.InvokeOptions): Promise<GetSourceDbtResult>;
 /**
  * A collection of arguments for invoking getSourceDbt.
@@ -11,11 +12,14 @@ export interface GetSourceDbtArgs {
  */
 export interface GetSourceDbtResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetSourceDbtResourceAllocation;
     readonly sourceId: string;
     readonly sourceType: string;
     readonly workspaceId: string;

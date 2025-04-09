@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as outputs from "./types/output";
 export declare function getSourceRecruitee(args: GetSourceRecruiteeArgs, opts?: pulumi.InvokeOptions): Promise<GetSourceRecruiteeResult>;
 /**
  * A collection of arguments for invoking getSourceRecruitee.
@@ -11,11 +12,14 @@ export interface GetSourceRecruiteeArgs {
  */
 export interface GetSourceRecruiteeResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetSourceRecruiteeResourceAllocation;
     readonly sourceId: string;
     readonly sourceType: string;
     readonly workspaceId: string;

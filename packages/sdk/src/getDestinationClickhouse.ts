@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 export function getDestinationClickhouse(args: GetDestinationClickhouseArgs, opts?: pulumi.InvokeOptions): Promise<GetDestinationClickhouseResult> {
@@ -23,6 +25,8 @@ export interface GetDestinationClickhouseArgs {
  */
 export interface GetDestinationClickhouseResult {
     readonly configuration: string;
+    readonly createdAt: number;
+    readonly definitionId: string;
     readonly destinationId: string;
     readonly destinationType: string;
     /**
@@ -30,6 +34,7 @@ export interface GetDestinationClickhouseResult {
      */
     readonly id: string;
     readonly name: string;
+    readonly resourceAllocation: outputs.GetDestinationClickhouseResourceAllocation;
     readonly workspaceId: string;
 }
 export function getDestinationClickhouseOutput(args: GetDestinationClickhouseOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetDestinationClickhouseResult> {

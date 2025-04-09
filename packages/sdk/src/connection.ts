@@ -39,9 +39,7 @@ export class Connection extends pulumi.CustomResource {
      */
     public readonly configurations!: pulumi.Output<outputs.ConnectionConfigurations>;
     public /*out*/ readonly connectionId!: pulumi.Output<string>;
-    /**
-     * must be one of ["auto", "us", "eu"]; Default: "auto"
-     */
+    public /*out*/ readonly createdAt!: pulumi.Output<number>;
     public readonly dataResidency!: pulumi.Output<string>;
     /**
      * Requires replacement if changed.
@@ -52,23 +50,23 @@ export class Connection extends pulumi.CustomResource {
      */
     public readonly name!: pulumi.Output<string>;
     /**
-     * Define the location where the data will be stored in the destination. must be one of ["source", "destination",
-     * "custom_format"]; Default: "destination"
+     * Define the location where the data will be stored in the destination. Default: "destination"; must be one of ["source",
+     * "destination", "custom_format"]
      */
     public readonly namespaceDefinition!: pulumi.Output<string>;
     /**
      * Used when namespaceDefinition is 'custom_format'. If blank then behaves like namespaceDefinition = 'destination'. If
-     * "${SOURCE_NAMESPACE}" then behaves like namespaceDefinition = 'source'. Default: null
+     * "${SOURCE_NAMESPACE}" then behaves like namespaceDefinition = 'source'.
      */
     public readonly namespaceFormat!: pulumi.Output<string>;
     /**
-     * Set how Airbyte handles syncs when it detects a non-breaking schema change in the source. must be one of ["ignore",
-     * "disable_connection", "propagate_columns", "propagate_fully"]; Default: "ignore"
+     * Set how Airbyte handles syncs when it detects a non-breaking schema change in the source. Default: "ignore"; must be one
+     * of ["ignore", "disable_connection", "propagate_columns", "propagate_fully"]
      */
     public readonly nonBreakingSchemaUpdatesBehavior!: pulumi.Output<string>;
     /**
      * Prefix that will be prepended to the name of each stream when it is written to the destination (ex. “airbyte_”
-     * causes “projects” => “airbyte_projects”).
+     * causes “projects” => “airbyte_projects”). Default: ""
      */
     public readonly prefix!: pulumi.Output<string>;
     /**
@@ -83,6 +81,7 @@ export class Connection extends pulumi.CustomResource {
      * must be one of ["active", "inactive", "deprecated"]
      */
     public readonly status!: pulumi.Output<string>;
+    public readonly tags!: pulumi.Output<outputs.ConnectionTag[]>;
     public /*out*/ readonly workspaceId!: pulumi.Output<string>;
 
     /**
@@ -100,6 +99,7 @@ export class Connection extends pulumi.CustomResource {
             const state = argsOrState as ConnectionState | undefined;
             resourceInputs["configurations"] = state ? state.configurations : undefined;
             resourceInputs["connectionId"] = state ? state.connectionId : undefined;
+            resourceInputs["createdAt"] = state ? state.createdAt : undefined;
             resourceInputs["dataResidency"] = state ? state.dataResidency : undefined;
             resourceInputs["destinationId"] = state ? state.destinationId : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
@@ -110,6 +110,7 @@ export class Connection extends pulumi.CustomResource {
             resourceInputs["schedule"] = state ? state.schedule : undefined;
             resourceInputs["sourceId"] = state ? state.sourceId : undefined;
             resourceInputs["status"] = state ? state.status : undefined;
+            resourceInputs["tags"] = state ? state.tags : undefined;
             resourceInputs["workspaceId"] = state ? state.workspaceId : undefined;
         } else {
             const args = argsOrState as ConnectionArgs | undefined;
@@ -130,7 +131,9 @@ export class Connection extends pulumi.CustomResource {
             resourceInputs["schedule"] = args ? args.schedule : undefined;
             resourceInputs["sourceId"] = args ? args.sourceId : undefined;
             resourceInputs["status"] = args ? args.status : undefined;
+            resourceInputs["tags"] = args ? args.tags : undefined;
             resourceInputs["connectionId"] = undefined /*out*/;
+            resourceInputs["createdAt"] = undefined /*out*/;
             resourceInputs["workspaceId"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -147,9 +150,7 @@ export interface ConnectionState {
      */
     configurations?: pulumi.Input<inputs.ConnectionConfigurations>;
     connectionId?: pulumi.Input<string>;
-    /**
-     * must be one of ["auto", "us", "eu"]; Default: "auto"
-     */
+    createdAt?: pulumi.Input<number>;
     dataResidency?: pulumi.Input<string>;
     /**
      * Requires replacement if changed.
@@ -160,23 +161,23 @@ export interface ConnectionState {
      */
     name?: pulumi.Input<string>;
     /**
-     * Define the location where the data will be stored in the destination. must be one of ["source", "destination",
-     * "custom_format"]; Default: "destination"
+     * Define the location where the data will be stored in the destination. Default: "destination"; must be one of ["source",
+     * "destination", "custom_format"]
      */
     namespaceDefinition?: pulumi.Input<string>;
     /**
      * Used when namespaceDefinition is 'custom_format'. If blank then behaves like namespaceDefinition = 'destination'. If
-     * "${SOURCE_NAMESPACE}" then behaves like namespaceDefinition = 'source'. Default: null
+     * "${SOURCE_NAMESPACE}" then behaves like namespaceDefinition = 'source'.
      */
     namespaceFormat?: pulumi.Input<string>;
     /**
-     * Set how Airbyte handles syncs when it detects a non-breaking schema change in the source. must be one of ["ignore",
-     * "disable_connection", "propagate_columns", "propagate_fully"]; Default: "ignore"
+     * Set how Airbyte handles syncs when it detects a non-breaking schema change in the source. Default: "ignore"; must be one
+     * of ["ignore", "disable_connection", "propagate_columns", "propagate_fully"]
      */
     nonBreakingSchemaUpdatesBehavior?: pulumi.Input<string>;
     /**
      * Prefix that will be prepended to the name of each stream when it is written to the destination (ex. “airbyte_”
-     * causes “projects” => “airbyte_projects”).
+     * causes “projects” => “airbyte_projects”). Default: ""
      */
     prefix?: pulumi.Input<string>;
     /**
@@ -191,6 +192,7 @@ export interface ConnectionState {
      * must be one of ["active", "inactive", "deprecated"]
      */
     status?: pulumi.Input<string>;
+    tags?: pulumi.Input<pulumi.Input<inputs.ConnectionTag>[]>;
     workspaceId?: pulumi.Input<string>;
 }
 
@@ -202,9 +204,6 @@ export interface ConnectionArgs {
      * A list of configured stream options for a connection.
      */
     configurations?: pulumi.Input<inputs.ConnectionConfigurations>;
-    /**
-     * must be one of ["auto", "us", "eu"]; Default: "auto"
-     */
     dataResidency?: pulumi.Input<string>;
     /**
      * Requires replacement if changed.
@@ -215,23 +214,23 @@ export interface ConnectionArgs {
      */
     name?: pulumi.Input<string>;
     /**
-     * Define the location where the data will be stored in the destination. must be one of ["source", "destination",
-     * "custom_format"]; Default: "destination"
+     * Define the location where the data will be stored in the destination. Default: "destination"; must be one of ["source",
+     * "destination", "custom_format"]
      */
     namespaceDefinition?: pulumi.Input<string>;
     /**
      * Used when namespaceDefinition is 'custom_format'. If blank then behaves like namespaceDefinition = 'destination'. If
-     * "${SOURCE_NAMESPACE}" then behaves like namespaceDefinition = 'source'. Default: null
+     * "${SOURCE_NAMESPACE}" then behaves like namespaceDefinition = 'source'.
      */
     namespaceFormat?: pulumi.Input<string>;
     /**
-     * Set how Airbyte handles syncs when it detects a non-breaking schema change in the source. must be one of ["ignore",
-     * "disable_connection", "propagate_columns", "propagate_fully"]; Default: "ignore"
+     * Set how Airbyte handles syncs when it detects a non-breaking schema change in the source. Default: "ignore"; must be one
+     * of ["ignore", "disable_connection", "propagate_columns", "propagate_fully"]
      */
     nonBreakingSchemaUpdatesBehavior?: pulumi.Input<string>;
     /**
      * Prefix that will be prepended to the name of each stream when it is written to the destination (ex. “airbyte_”
-     * causes “projects” => “airbyte_projects”).
+     * causes “projects” => “airbyte_projects”). Default: ""
      */
     prefix?: pulumi.Input<string>;
     /**
@@ -246,4 +245,5 @@ export interface ConnectionArgs {
      * must be one of ["active", "inactive", "deprecated"]
      */
     status?: pulumi.Input<string>;
+    tags?: pulumi.Input<pulumi.Input<inputs.ConnectionTag>[]>;
 }

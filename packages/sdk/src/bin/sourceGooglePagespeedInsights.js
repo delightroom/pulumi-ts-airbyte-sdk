@@ -34,8 +34,10 @@ class SourceGooglePagespeedInsights extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState;
             resourceInputs["configuration"] = state ? state.configuration : undefined;
+            resourceInputs["createdAt"] = state ? state.createdAt : undefined;
             resourceInputs["definitionId"] = state ? state.definitionId : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["resourceAllocation"] = state ? state.resourceAllocation : undefined;
             resourceInputs["secretId"] = state ? state.secretId : undefined;
             resourceInputs["sourceId"] = state ? state.sourceId : undefined;
             resourceInputs["sourceType"] = state ? state.sourceType : undefined;
@@ -54,6 +56,8 @@ class SourceGooglePagespeedInsights extends pulumi.CustomResource {
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["secretId"] = args ? args.secretId : undefined;
             resourceInputs["workspaceId"] = args ? args.workspaceId : undefined;
+            resourceInputs["createdAt"] = undefined /*out*/;
+            resourceInputs["resourceAllocation"] = undefined /*out*/;
             resourceInputs["sourceId"] = undefined /*out*/;
             resourceInputs["sourceType"] = undefined /*out*/;
         }

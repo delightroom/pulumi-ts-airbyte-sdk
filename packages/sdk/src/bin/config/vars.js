@@ -34,6 +34,12 @@ Object.defineProperty(exports, "serverUrl", {
     },
     enumerable: true,
 });
+Object.defineProperty(exports, "tokenUrl", {
+    get() {
+        return __config.get("tokenUrl");
+    },
+    enumerable: true,
+});
 Object.defineProperty(exports, "username", {
     get() {
         return __config.get("username");

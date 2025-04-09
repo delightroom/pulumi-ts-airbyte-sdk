@@ -18,17 +18,24 @@ export declare class DestinationAwsDatalake extends pulumi.CustomResource {
      */
     static isInstance(obj: any): obj is DestinationAwsDatalake;
     readonly configuration: pulumi.Output<outputs.DestinationAwsDatalakeConfiguration>;
+    readonly createdAt: pulumi.Output<number>;
     /**
      * The UUID of the connector definition. One of configuration.destinationType or definitionId must be provided. Requires
      * replacement if changed.
      */
-    readonly definitionId: pulumi.Output<string | undefined>;
+    readonly definitionId: pulumi.Output<string>;
     readonly destinationId: pulumi.Output<string>;
     readonly destinationType: pulumi.Output<string>;
     /**
      * Name of the destination e.g. dev-mysql-instance.
      */
     readonly name: pulumi.Output<string>;
+    /**
+     * actor or actor definition specific resource requirements. if default is set, these are the requirements that should be
+     * set for ALL jobs run for this actor definition. it is overriden by the job type specific configurations. if not set, the
+     * platform will use defaults. these values will be overriden by configuration at the connection level.
+     */
+    readonly resourceAllocation: pulumi.Output<outputs.DestinationAwsDatalakeResourceAllocation>;
     readonly workspaceId: pulumi.Output<string>;
     /**
      * Create a DestinationAwsDatalake resource with the given unique name, arguments, and options.
@@ -44,6 +51,7 @@ export declare class DestinationAwsDatalake extends pulumi.CustomResource {
  */
 export interface DestinationAwsDatalakeState {
     configuration?: pulumi.Input<inputs.DestinationAwsDatalakeConfiguration>;
+    createdAt?: pulumi.Input<number>;
     /**
      * The UUID of the connector definition. One of configuration.destinationType or definitionId must be provided. Requires
      * replacement if changed.
@@ -55,6 +63,12 @@ export interface DestinationAwsDatalakeState {
      * Name of the destination e.g. dev-mysql-instance.
      */
     name?: pulumi.Input<string>;
+    /**
+     * actor or actor definition specific resource requirements. if default is set, these are the requirements that should be
+     * set for ALL jobs run for this actor definition. it is overriden by the job type specific configurations. if not set, the
+     * platform will use defaults. these values will be overriden by configuration at the connection level.
+     */
+    resourceAllocation?: pulumi.Input<inputs.DestinationAwsDatalakeResourceAllocation>;
     workspaceId?: pulumi.Input<string>;
 }
 /**
