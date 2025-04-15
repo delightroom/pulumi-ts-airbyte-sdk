@@ -23,6 +23,9 @@ export declare class Connection extends pulumi.CustomResource {
     readonly configurations: pulumi.Output<outputs.ConnectionConfigurations>;
     readonly connectionId: pulumi.Output<string>;
     readonly createdAt: pulumi.Output<number>;
+    /**
+     * @deprecated Deprecated
+     */
     readonly dataResidency: pulumi.Output<string>;
     /**
      * Requires replacement if changed.
@@ -85,6 +88,9 @@ export interface ConnectionState {
     configurations?: pulumi.Input<inputs.ConnectionConfigurations>;
     connectionId?: pulumi.Input<string>;
     createdAt?: pulumi.Input<number>;
+    /**
+     * @deprecated Deprecated
+     */
     dataResidency?: pulumi.Input<string>;
     /**
      * Requires replacement if changed.
@@ -137,6 +143,9 @@ export interface ConnectionArgs {
      * A list of configured stream options for a connection.
      */
     configurations?: pulumi.Input<inputs.ConnectionConfigurations>;
+    /**
+     * @deprecated Deprecated
+     */
     dataResidency?: pulumi.Input<string>;
     /**
      * Requires replacement if changed.

@@ -481,33 +481,33 @@ export interface DestinationAwsDatalakeResourceAllocationJobSpecificResourceRequ
 }
 export interface DestinationAzureBlobStorageConfiguration {
     /**
-     * The Azure blob storage account key.
+     * The Azure blob storage account key. If you set this value, you must not set the Shared Access Signature.
      */
-    azureBlobStorageAccountKey: string;
+    azureBlobStorageAccountKey?: string;
     /**
-     * The account's name of the Azure Blob Storage.
+     * The name of the Azure Blob Storage Account. Read more <a href="https://learn.microsoft.com/en-gb/azure/storage/blobs/storage-blobs-introduction#storage-accounts">here</a>.
      */
     azureBlobStorageAccountName: string;
     /**
-     * The name of the Azure blob storage container. If not exists - will be created automatically. May be empty, then will be created automatically airbytecontainer+timestamp
+     * The name of the Azure Blob Storage Container. Read more <a href="https://learn.microsoft.com/en-gb/azure/storage/blobs/storage-blobs-introduction#containers">here</a>.
      */
-    azureBlobStorageContainerName?: string;
+    azureBlobStorageContainerName: string;
     /**
-     * This is Azure Blob Storage endpoint domain name. Leave default value (or leave it empty if run container from command line) to use Microsoft native from example. Default: "blob.core.windows.net"
+     * This is Azure Blob Storage endpoint domain name. Leave default value (or leave it empty if run container from command line) to use Microsoft native from example.
      */
-    azureBlobStorageEndpointDomainName: string;
-    /**
-     * The amount of megabytes to buffer for the output stream to Azure. This will impact memory footprint on workers, but may need adjustment for performance and appropriate block size in Azure. Default: 5
-     */
-    azureBlobStorageOutputBufferSize: number;
+    azureBlobStorageEndpointDomainName?: string;
     /**
      * The amount of megabytes after which the connector should spill the records in a new blob object. Make sure to configure size greater than individual records. Enter 0 if not applicable. Default: 500
      */
     azureBlobStorageSpillSize: number;
     /**
-     * Output data format
+     * Format of the data output.
      */
     format: outputs.DestinationAzureBlobStorageConfigurationFormat;
+    /**
+     * A shared access signature (SAS) provides secure delegated access to resources in your storage account. Read more <a href="https://learn.microsoft.com/en-gb/azure/storage/common/storage-sas-overview?toc=%2Fazure%2Fstorage%2Fblobs%2Ftoc.json&bc=%2Fazure%2Fstorage%2Fblobs%2Fbreadcrumb%2Ftoc.json">here</a>. If you set this value, you must not set the account key.
+     */
+    sharedAccessSignature?: string;
 }
 export interface DestinationAzureBlobStorageConfigurationFormat {
     csvCommaSeparatedValues?: outputs.DestinationAzureBlobStorageConfigurationFormatCsvCommaSeparatedValues;
@@ -515,19 +515,31 @@ export interface DestinationAzureBlobStorageConfigurationFormat {
 }
 export interface DestinationAzureBlobStorageConfigurationFormatCsvCommaSeparatedValues {
     /**
-     * Add file extensions to the output file. Default: false
+     * Parsed as JSON.
      */
-    fileExtension: boolean;
+    additionalProperties?: string;
     /**
-     * Whether the input json data should be normalized (flattened) in the output CSV. Please refer to docs for details. Default: "No flattening"; must be one of ["No flattening", "Root level flattening"]
+     * Default: "No flattening"; must be one of ["No flattening", "Root level flattening"]
      */
     flattening: string;
+    /**
+     * Default: "CSV"; must be "CSV"
+     */
+    formatType: string;
 }
 export interface DestinationAzureBlobStorageConfigurationFormatJsonLinesNewlineDelimitedJson {
     /**
-     * Add file extensions to the output file. Default: false
+     * Parsed as JSON.
      */
-    fileExtension: boolean;
+    additionalProperties?: string;
+    /**
+     * Default: "No flattening"; must be one of ["No flattening", "Root level flattening"]
+     */
+    flattening: string;
+    /**
+     * Default: "JSONL"; must be "JSONL"
+     */
+    formatType: string;
 }
 export interface DestinationAzureBlobStorageResourceAllocation {
     /**
@@ -2413,6 +2425,10 @@ export interface DestinationMssqlConfigurationLoadTypeBulkLoad {
      */
     additionalProperties?: string;
     /**
+     * The Azure blob storage account key. Mutually exclusive with a Shared Access Signature
+     */
+    azureBlobStorageAccountKey?: string;
+    /**
      * The name of the Azure Blob Storage account. See: https://learn.microsoft.com/azure/storage/blobs/storage-blobs-introduction#storage-accounts
      */
     azureBlobStorageAccountName: string;
@@ -2433,9 +2449,9 @@ export interface DestinationMssqlConfigurationLoadTypeBulkLoad {
      */
     loadType: string;
     /**
-     * A shared access signature (SAS) provides secure delegated access to resources in your storage account. See: https://learn.microsoft.com/azure/storage/common/storage-sas-overview
+     * A shared access signature (SAS) provides secure delegated access to resources in your storage account. See: https://learn.microsoft.com/azure/storage/common/storage-sas-overview.Mutually exclusive with an account key
      */
-    sharedAccessSignature: string;
+    sharedAccessSignature?: string;
 }
 export interface DestinationMssqlConfigurationLoadTypeInsertLoad {
     /**
@@ -7285,6 +7301,39 @@ export interface GetDestinationYellowbrickResourceAllocationJobSpecificResourceR
     memoryLimit: string;
     memoryRequest: string;
 }
+export interface GetSource100msResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSource100msResourceAllocationDefault;
+    jobSpecifics: outputs.GetSource100msResourceAllocationJobSpecific[];
+}
+export interface GetSource100msResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSource100msResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSource100msResourceAllocationJobSpecificResourceRequirements;
+}
+export interface GetSource100msResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
 export interface GetSource7shiftsResourceAllocation {
     /**
      * optional resource requirements to run workers (blank for unbounded allocations)
@@ -8044,6 +8093,39 @@ export interface GetSourceAshbyResourceAllocationJobSpecificResourceRequirements
     memoryLimit: string;
     memoryRequest: string;
 }
+export interface GetSourceAssemblyaiResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceAssemblyaiResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceAssemblyaiResourceAllocationJobSpecific[];
+}
+export interface GetSourceAssemblyaiResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceAssemblyaiResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceAssemblyaiResourceAllocationJobSpecificResourceRequirements;
+}
+export interface GetSourceAssemblyaiResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
 export interface GetSourceAuth0ResourceAllocation {
     /**
      * optional resource requirements to run workers (blank for unbounded allocations)
@@ -8070,6 +8152,39 @@ export interface GetSourceAuth0ResourceAllocationJobSpecific {
     resourceRequirements: outputs.GetSourceAuth0ResourceAllocationJobSpecificResourceRequirements;
 }
 export interface GetSourceAuth0ResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceAviationstackResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceAviationstackResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceAviationstackResourceAllocationJobSpecific[];
+}
+export interface GetSourceAviationstackResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceAviationstackResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceAviationstackResourceAllocationJobSpecificResourceRequirements;
+}
+export interface GetSourceAviationstackResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -8466,6 +8581,39 @@ export interface GetSourceBloggerResourceAllocationJobSpecific {
     resourceRequirements: outputs.GetSourceBloggerResourceAllocationJobSpecificResourceRequirements;
 }
 export interface GetSourceBloggerResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceBluetallyResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceBluetallyResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceBluetallyResourceAllocationJobSpecific[];
+}
+export interface GetSourceBluetallyResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceBluetallyResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceBluetallyResourceAllocationJobSpecificResourceRequirements;
+}
+export interface GetSourceBluetallyResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -11476,6 +11624,39 @@ export interface GetSourceFastbillResourceAllocationJobSpecificResourceRequireme
     memoryLimit: string;
     memoryRequest: string;
 }
+export interface GetSourceFastlyResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceFastlyResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceFastlyResourceAllocationJobSpecific[];
+}
+export interface GetSourceFastlyResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceFastlyResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceFastlyResourceAllocationJobSpecificResourceRequirements;
+}
+export interface GetSourceFastlyResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
 export interface GetSourceFaunaResourceAllocation {
     /**
      * optional resource requirements to run workers (blank for unbounded allocations)
@@ -12459,6 +12640,39 @@ export interface GetSourceGetlagoResourceAllocationJobSpecific {
     resourceRequirements: outputs.GetSourceGetlagoResourceAllocationJobSpecificResourceRequirements;
 }
 export interface GetSourceGetlagoResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceGiphyResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceGiphyResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceGiphyResourceAllocationJobSpecific[];
+}
+export interface GetSourceGiphyResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceGiphyResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceGiphyResourceAllocationJobSpecificResourceRequirements;
+}
+export interface GetSourceGiphyResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -13885,6 +14099,39 @@ export interface GetSourceIlluminaBasespaceResourceAllocationJobSpecificResource
     memoryLimit: string;
     memoryRequest: string;
 }
+export interface GetSourceImaggaResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceImaggaResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceImaggaResourceAllocationJobSpecific[];
+}
+export interface GetSourceImaggaResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceImaggaResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceImaggaResourceAllocationJobSpecificResourceRequirements;
+}
+export interface GetSourceImaggaResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
 export interface GetSourceIncidentIoResourceAllocation {
     /**
      * optional resource requirements to run workers (blank for unbounded allocations)
@@ -13944,6 +14191,39 @@ export interface GetSourceInflowinventoryResourceAllocationJobSpecific {
     resourceRequirements: outputs.GetSourceInflowinventoryResourceAllocationJobSpecificResourceRequirements;
 }
 export interface GetSourceInflowinventoryResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceInsightfulResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceInsightfulResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceInsightfulResourceAllocationJobSpecific[];
+}
+export interface GetSourceInsightfulResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceInsightfulResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceInsightfulResourceAllocationJobSpecificResourceRequirements;
+}
+export interface GetSourceInsightfulResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -14241,6 +14521,39 @@ export interface GetSourceIterableResourceAllocationJobSpecific {
     resourceRequirements: outputs.GetSourceIterableResourceAllocationJobSpecificResourceRequirements;
 }
 export interface GetSourceIterableResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceJamfProResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceJamfProResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceJamfProResourceAllocationJobSpecific[];
+}
+export interface GetSourceJamfProResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceJamfProResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceJamfProResourceAllocationJobSpecificResourceRequirements;
+}
+export interface GetSourceJamfProResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -15469,6 +15782,39 @@ export interface GetSourceMarketstackResourceAllocationJobSpecificResourceRequir
     memoryLimit: string;
     memoryRequest: string;
 }
+export interface GetSourceMendeleyResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceMendeleyResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceMendeleyResourceAllocationJobSpecific[];
+}
+export interface GetSourceMendeleyResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceMendeleyResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceMendeleyResourceAllocationJobSpecificResourceRequirements;
+}
+export interface GetSourceMendeleyResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
 export interface GetSourceMentionResourceAllocation {
     /**
      * optional resource requirements to run workers (blank for unbounded allocations)
@@ -16419,6 +16765,39 @@ export interface GetSourceNewsdataResourceAllocationJobSpecific {
     resourceRequirements: outputs.GetSourceNewsdataResourceAllocationJobSpecificResourceRequirements;
 }
 export interface GetSourceNewsdataResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceNexiopayResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceNexiopayResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceNexiopayResourceAllocationJobSpecific[];
+}
+export interface GetSourceNexiopayResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceNexiopayResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceNexiopayResourceAllocationJobSpecificResourceRequirements;
+}
+export interface GetSourceNexiopayResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -17746,6 +18125,39 @@ export interface GetSourcePennylaneResourceAllocationJobSpecificResourceRequirem
     memoryLimit: string;
     memoryRequest: string;
 }
+export interface GetSourcePerigonResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourcePerigonResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourcePerigonResourceAllocationJobSpecific[];
+}
+export interface GetSourcePerigonResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourcePerigonResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourcePerigonResourceAllocationJobSpecificResourceRequirements;
+}
+export interface GetSourcePerigonResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
 export interface GetSourcePersistiqResourceAllocation {
     /**
      * optional resource requirements to run workers (blank for unbounded allocations)
@@ -18531,6 +18943,39 @@ export interface GetSourcePrimetricResourceAllocationJobSpecific {
     resourceRequirements: outputs.GetSourcePrimetricResourceAllocationJobSpecificResourceRequirements;
 }
 export interface GetSourcePrimetricResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourcePrintifyResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourcePrintifyResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourcePrintifyResourceAllocationJobSpecific[];
+}
+export interface GetSourcePrintifyResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourcePrintifyResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourcePrintifyResourceAllocationJobSpecificResourceRequirements;
+}
+export interface GetSourcePrintifyResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -20353,6 +20798,39 @@ export interface GetSourceShopifyResourceAllocationJobSpecificResourceRequiremen
     memoryLimit: string;
     memoryRequest: string;
 }
+export interface GetSourceShopwiredResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceShopwiredResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceShopwiredResourceAllocationJobSpecific[];
+}
+export interface GetSourceShopwiredResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceShopwiredResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceShopwiredResourceAllocationJobSpecificResourceRequirements;
+}
+export interface GetSourceShopwiredResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
 export interface GetSourceShortcutResourceAllocation {
     /**
      * optional resource requirements to run workers (blank for unbounded allocations)
@@ -21409,6 +21887,39 @@ export interface GetSourceSurvicateResourceAllocationJobSpecificResourceRequirem
     memoryLimit: string;
     memoryRequest: string;
 }
+export interface GetSourceSvixResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceSvixResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceSvixResourceAllocationJobSpecific[];
+}
+export interface GetSourceSvixResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceSvixResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceSvixResourceAllocationJobSpecificResourceRequirements;
+}
+export interface GetSourceSvixResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
 export interface GetSourceSystemeResourceAllocation {
     /**
      * optional resource requirements to run workers (blank for unbounded allocations)
@@ -21468,6 +21979,39 @@ export interface GetSourceTaboolaResourceAllocationJobSpecific {
     resourceRequirements: outputs.GetSourceTaboolaResourceAllocationJobSpecificResourceRequirements;
 }
 export interface GetSourceTaboolaResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceTavusResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceTavusResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceTavusResourceAllocationJobSpecific[];
+}
+export interface GetSourceTavusResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceTavusResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceTavusResourceAllocationJobSpecificResourceRequirements;
+}
+export interface GetSourceTavusResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -22755,6 +23299,39 @@ export interface GetSourceWasabiStatsApiResourceAllocationJobSpecific {
     resourceRequirements: outputs.GetSourceWasabiStatsApiResourceAllocationJobSpecificResourceRequirements;
 }
 export interface GetSourceWasabiStatsApiResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceWatchmodeResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceWatchmodeResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceWatchmodeResourceAllocationJobSpecific[];
+}
+export interface GetSourceWatchmodeResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface GetSourceWatchmodeResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceWatchmodeResourceAllocationJobSpecificResourceRequirements;
+}
+export interface GetSourceWatchmodeResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -24342,6 +24919,46 @@ export interface GetWorkspaceNotificationsSyncDisabledWebhook {
     enabled: boolean;
     url: string;
 }
+export interface Source100msConfiguration {
+    /**
+     * The management token used for authenticating API requests. You can find or generate this token in your 100ms dashboard under the API section. Refer to the documentation at https://www.100ms.live/docs/concepts/v2/concepts/security-and-tokens#management-token-for-rest-api for more details.
+     */
+    managementToken: string;
+    startDate: string;
+}
+export interface Source100msResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.Source100msResourceAllocationDefault;
+    jobSpecifics: outputs.Source100msResourceAllocationJobSpecific[];
+}
+export interface Source100msResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface Source100msResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.Source100msResourceAllocationJobSpecificResourceRequirements;
+}
+export interface Source100msResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
 export interface Source7shiftsConfiguration {
     /**
      * Access token to use for authentication. Generate it in the 7shifts Developer Tools.
@@ -24518,6 +25135,10 @@ export interface SourceAhaResourceAllocationJobSpecificResourceRequirements {
 export interface SourceAirbyteConfiguration {
     clientId: string;
     clientSecret: string;
+    /**
+     * The Host URL of your Self-Managed Deployment (e.x. airbtye.mydomain.com)
+     */
+    host?: string;
     startDate: string;
 }
 export interface SourceAirbyteResourceAllocation {
@@ -24947,6 +25568,16 @@ export interface SourceAmazonSellerPartnerConfiguration {
      * Select the AWS Environment. Default: "PRODUCTION"; must be one of ["PRODUCTION", "SANDBOX"]
      */
     awsEnvironment: string;
+    /**
+     * The time window size (in days) for fetching financial events data in chunks. Options are 1 day, 7 days, 14 days, 30 days, 60 days, and 190 days, based on API limitations.
+     *
+     * - **Smaller step sizes (e.g., 1 day)** are better for large data volumes. They fetch smaller chunks per request, reducing the risk of timeouts or overwhelming the API, though more requests may slow syncing and increase the chance of hitting rate limits.
+     * - **Larger step sizes (e.g., 14 days)** are better for smaller data volumes. They fetch more data per request, speeding up syncing and reducing the number of API calls, which minimizes strain on rate limits.
+     *
+     * Select a step size that matches your data volume to optimize syncing speed and API performance.
+     * Default: "180"; must be one of ["1", "7", "14", "30", "60", "90", "180"]
+     */
+    financialEventsStep: string;
     /**
      * Your Login with Amazon Client ID.
      */
@@ -25543,6 +26174,54 @@ export interface SourceAshbyResourceAllocationJobSpecificResourceRequirements {
     memoryLimit: string;
     memoryRequest: string;
 }
+export interface SourceAssemblyaiConfiguration {
+    /**
+     * Your AssemblyAI API key. You can find it in the AssemblyAI dashboard at https://www.assemblyai.com/app/api-keys.
+     */
+    apiKey: string;
+    /**
+     * The request ID for LeMur responses
+     */
+    requestId?: string;
+    startDate: string;
+    /**
+     * The subtitle format for transcript_subtitle stream. Default: "srt"; must be one of ["vtt", "srt"]
+     */
+    subtitleFormat: string;
+}
+export interface SourceAssemblyaiResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceAssemblyaiResourceAllocationDefault;
+    jobSpecifics: outputs.SourceAssemblyaiResourceAllocationJobSpecific[];
+}
+export interface SourceAssemblyaiResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceAssemblyaiResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceAssemblyaiResourceAllocationJobSpecificResourceRequirements;
+}
+export interface SourceAssemblyaiResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
 export interface SourceAuth0Configuration {
     /**
      * The Authentication API is served over HTTPS. All URLs referenced in the documentation have the following base `https://YOUR_DOMAIN`
@@ -25604,6 +26283,46 @@ export interface SourceAuth0ResourceAllocationJobSpecific {
     resourceRequirements: outputs.SourceAuth0ResourceAllocationJobSpecificResourceRequirements;
 }
 export interface SourceAuth0ResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceAviationstackConfiguration {
+    /**
+     * Your unique API key for authenticating with the Aviation API. You can find it in your Aviation account dashboard at https://aviationstack.com/dashboard
+     */
+    accessKey: string;
+    startDate: string;
+}
+export interface SourceAviationstackResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceAviationstackResourceAllocationDefault;
+    jobSpecifics: outputs.SourceAviationstackResourceAllocationJobSpecific[];
+}
+export interface SourceAviationstackResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceAviationstackResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceAviationstackResourceAllocationJobSpecificResourceRequirements;
+}
+export interface SourceAviationstackResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -26413,6 +27132,46 @@ export interface SourceBloggerResourceAllocationJobSpecific {
     resourceRequirements: outputs.SourceBloggerResourceAllocationJobSpecificResourceRequirements;
 }
 export interface SourceBloggerResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceBluetallyConfiguration {
+    /**
+     * Your API key to authenticate with the BlueTally API. You can generate it by navigating to your account settings, selecting 'API Keys', and clicking 'Create API Key'.
+     */
+    apiKey: string;
+    startDate: string;
+}
+export interface SourceBluetallyResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceBluetallyResourceAllocationDefault;
+    jobSpecifics: outputs.SourceBluetallyResourceAllocationJobSpecific[];
+}
+export interface SourceBluetallyResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceBluetallyResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceBluetallyResourceAllocationJobSpecificResourceRequirements;
+}
+export interface SourceBluetallyResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -27716,10 +28475,6 @@ export interface SourceCin7Configuration {
      * The API key associated with your account.
      */
     apiKey: string;
-    /**
-     * 1970-01-01T00:00:00Z
-     */
-    startDate: string;
 }
 export interface SourceCin7ResourceAllocation {
     /**
@@ -30653,6 +31408,46 @@ export interface SourceFastbillResourceAllocationJobSpecificResourceRequirements
     memoryLimit: string;
     memoryRequest: string;
 }
+export interface SourceFastlyConfiguration {
+    /**
+     * Your Fastly API token. You can generate this token in the Fastly web interface under Account Settings or via the Fastly API. Ensure the token has the appropriate scope for your use case.
+     */
+    fastlyApiToken: string;
+    startDate: string;
+}
+export interface SourceFastlyResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceFastlyResourceAllocationDefault;
+    jobSpecifics: outputs.SourceFastlyResourceAllocationJobSpecific[];
+}
+export interface SourceFastlyResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceFastlyResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceFastlyResourceAllocationJobSpecificResourceRequirements;
+}
+export interface SourceFastlyResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
 export interface SourceFaunaConfiguration {
     /**
      * Settings for the Fauna Collection.
@@ -32327,6 +33122,62 @@ export interface SourceGetlagoResourceAllocationJobSpecific {
     resourceRequirements: outputs.SourceGetlagoResourceAllocationJobSpecificResourceRequirements;
 }
 export interface SourceGetlagoResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceGiphyConfiguration {
+    /**
+     * Your GIPHY API Key. You can create and find your API key in the GIPHY Developer Dashboard at https://developers.giphy.com/dashboard/.
+     */
+    apiKey: string;
+    /**
+     * A query for search endpoint. Default: "foo"
+     */
+    query: string;
+    /**
+     * Query for clips search endpoint. Default: "foo"
+     */
+    queryForClips: string;
+    /**
+     * Query for gif search endpoint. Default: "foo"
+     */
+    queryForGif: string;
+    /**
+     * Query for stickers search endpoint. Default: "foo"
+     */
+    queryForStickers: string;
+    startDate: string;
+}
+export interface SourceGiphyResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceGiphyResourceAllocationDefault;
+    jobSpecifics: outputs.SourceGiphyResourceAllocationJobSpecific[];
+}
+export interface SourceGiphyResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceGiphyResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceGiphyResourceAllocationJobSpecificResourceRequirements;
+}
+export interface SourceGiphyResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -35409,6 +36260,53 @@ export interface SourceIlluminaBasespaceResourceAllocationJobSpecificResourceReq
     memoryLimit: string;
     memoryRequest: string;
 }
+export interface SourceImaggaConfiguration {
+    /**
+     * Your Imagga API key, available in your Imagga dashboard. Could be found at `https://imagga.com/profile/dashboard`
+     */
+    apiKey: string;
+    /**
+     * Your Imagga API secret, available in your Imagga dashboard. Could be found at `https://imagga.com/profile/dashboard`
+     */
+    apiSecret: string;
+    /**
+     * An image for detection endpoints. Default: "https://imagga.com/static/images/categorization/child-476506_640.jpg"
+     */
+    imgForDetection: string;
+}
+export interface SourceImaggaResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceImaggaResourceAllocationDefault;
+    jobSpecifics: outputs.SourceImaggaResourceAllocationJobSpecific[];
+}
+export interface SourceImaggaResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceImaggaResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceImaggaResourceAllocationJobSpecificResourceRequirements;
+}
+export interface SourceImaggaResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
 export interface SourceIncidentIoConfiguration {
     /**
      * API key to use. Find it at https://app.incident.io/settings/api-keys
@@ -35478,6 +36376,46 @@ export interface SourceInflowinventoryResourceAllocationJobSpecific {
     resourceRequirements: outputs.SourceInflowinventoryResourceAllocationJobSpecificResourceRequirements;
 }
 export interface SourceInflowinventoryResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceInsightfulConfiguration {
+    /**
+     * Your API token for accessing the Insightful API. Generate it by logging in as an Admin to your organization's account, navigating to the API page, and creating a new token. Note that this token will only be shown once, so store it securely.
+     */
+    apiToken: string;
+    startDate: string;
+}
+export interface SourceInsightfulResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceInsightfulResourceAllocationDefault;
+    jobSpecifics: outputs.SourceInsightfulResourceAllocationJobSpecific[];
+}
+export interface SourceInsightfulResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceInsightfulResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceInsightfulResourceAllocationJobSpecificResourceRequirements;
+}
+export interface SourceInsightfulResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -35874,6 +36812,47 @@ export interface SourceIterableResourceAllocationJobSpecific {
     resourceRequirements: outputs.SourceIterableResourceAllocationJobSpecificResourceRequirements;
 }
 export interface SourceIterableResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceJamfProConfiguration {
+    password?: string;
+    /**
+     * The unique subdomain for your Jamf Pro instance.
+     */
+    subdomain: string;
+    username: string;
+}
+export interface SourceJamfProResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceJamfProResourceAllocationDefault;
+    jobSpecifics: outputs.SourceJamfProResourceAllocationJobSpecific[];
+}
+export interface SourceJamfProResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceJamfProResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceJamfProResourceAllocationJobSpecificResourceRequirements;
+}
+export interface SourceJamfProResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -37622,6 +38601,62 @@ export interface SourceMarketstackResourceAllocationJobSpecific {
     resourceRequirements: outputs.SourceMarketstackResourceAllocationJobSpecificResourceRequirements;
 }
 export interface SourceMarketstackResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceMendeleyConfiguration {
+    /**
+     * Could be found at `https://dev.mendeley.com/myapps.html`
+     */
+    clientId: string;
+    /**
+     * Use cURL or Postman with the OAuth 2.0 Authorization tab. Set the Auth URL to https://api.mendeley.com/oauth/authorize, the Token URL to https://api.mendeley.com/oauth/token, and use all as the scope.
+     */
+    clientRefreshToken: string;
+    /**
+     * Could be found at `https://dev.mendeley.com/myapps.html`
+     */
+    clientSecret: string;
+    /**
+     * The name parameter for institutions search. Default: "City University"
+     */
+    nameForInstitution: string;
+    /**
+     * Query for catalog search. Default: "Polar Bear"
+     */
+    queryForCatalog: string;
+    startDate: string;
+}
+export interface SourceMendeleyResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceMendeleyResourceAllocationDefault;
+    jobSpecifics: outputs.SourceMendeleyResourceAllocationJobSpecific[];
+}
+export interface SourceMendeleyResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceMendeleyResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceMendeleyResourceAllocationJobSpecificResourceRequirements;
+}
+export interface SourceMendeleyResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -40232,6 +41267,54 @@ export interface SourceNewsdataResourceAllocationJobSpecificResourceRequirements
     memoryLimit: string;
     memoryRequest: string;
 }
+export interface SourceNexiopayConfiguration {
+    /**
+     * Your Nexio API key (password). You can find it in the Nexio Dashboard under Settings > User Management. Select the API user and copy the API key.
+     */
+    apiKey: string;
+    startDate: string;
+    /**
+     * The subdomain for the Nexio API environment, such as 'nexiopaysandbox' or 'nexiopay'. Default: "nexiopay"; must be one of ["nexiopaysandbox", "nexiopay"]
+     */
+    subdomain: string;
+    /**
+     * Your Nexio API username. You can find it in the Nexio Dashboard under Settings > User Management. Select the API user and copy the username.
+     */
+    username: string;
+}
+export interface SourceNexiopayResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceNexiopayResourceAllocationDefault;
+    jobSpecifics: outputs.SourceNexiopayResourceAllocationJobSpecific[];
+}
+export interface SourceNexiopayResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceNexiopayResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceNexiopayResourceAllocationJobSpecificResourceRequirements;
+}
+export interface SourceNexiopayResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
 export interface SourceNinjaoneRmmConfiguration {
     /**
      * Token could be generated natively by authorize section of NinjaOne swagger documentation `https://app.ninjarmm.com/apidocs/?links.active=authorization`
@@ -42511,6 +43594,46 @@ export interface SourcePennylaneResourceAllocationJobSpecificResourceRequirement
     memoryLimit: string;
     memoryRequest: string;
 }
+export interface SourcePerigonConfiguration {
+    /**
+     * Your API key for authenticating with the Perigon API. Obtain it by creating an account at https://www.perigon.io/sign-up and verifying your email. The API key will be visible on your account dashboard.
+     */
+    apiKey: string;
+    startDate: string;
+}
+export interface SourcePerigonResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourcePerigonResourceAllocationDefault;
+    jobSpecifics: outputs.SourcePerigonResourceAllocationJobSpecific[];
+}
+export interface SourcePerigonResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourcePerigonResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourcePerigonResourceAllocationJobSpecificResourceRequirements;
+}
+export interface SourcePerigonResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
 export interface SourcePersistiqConfiguration {
     /**
      * PersistIq API Key. See the <a href="https://apidocs.persistiq.com/#authentication">docs</a> for more information on where to find that key.
@@ -43916,6 +45039,45 @@ export interface SourcePrimetricResourceAllocationJobSpecific {
     resourceRequirements: outputs.SourcePrimetricResourceAllocationJobSpecificResourceRequirements;
 }
 export interface SourcePrimetricResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourcePrintifyConfiguration {
+    /**
+     * Your Printify API token. Obtain it from your Printify account settings.
+     */
+    apiToken: string;
+}
+export interface SourcePrintifyResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourcePrintifyResourceAllocationDefault;
+    jobSpecifics: outputs.SourcePrintifyResourceAllocationJobSpecific[];
+}
+export interface SourcePrintifyResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourcePrintifyResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourcePrintifyResourceAllocationJobSpecificResourceRequirements;
+}
+export interface SourcePrintifyResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -47197,6 +48359,50 @@ export interface SourceShopifyResourceAllocationJobSpecificResourceRequirements 
     memoryLimit: string;
     memoryRequest: string;
 }
+export interface SourceShopwiredConfiguration {
+    /**
+     * Your API Key, which acts as the username for Basic Authentication. You can find it in your ShopWired account under API settings.
+     */
+    apiKey: string;
+    /**
+     * Your API Secret, which acts as the password for Basic Authentication. You can find it in your ShopWired account under API settings.
+     */
+    apiSecret: string;
+    startDate: string;
+}
+export interface SourceShopwiredResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceShopwiredResourceAllocationDefault;
+    jobSpecifics: outputs.SourceShopwiredResourceAllocationJobSpecific[];
+}
+export interface SourceShopwiredResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceShopwiredResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceShopwiredResourceAllocationJobSpecificResourceRequirements;
+}
+export interface SourceShopwiredResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
 export interface SourceShortcutConfiguration {
     apiKey2: string;
     /**
@@ -48832,6 +50038,46 @@ export interface SourceSurvicateResourceAllocationJobSpecificResourceRequirement
     memoryLimit: string;
     memoryRequest: string;
 }
+export interface SourceSvixConfiguration {
+    /**
+     * API key or access token
+     */
+    apiKey: string;
+    startDate: string;
+}
+export interface SourceSvixResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceSvixResourceAllocationDefault;
+    jobSpecifics: outputs.SourceSvixResourceAllocationJobSpecific[];
+}
+export interface SourceSvixResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceSvixResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceSvixResourceAllocationJobSpecificResourceRequirements;
+}
+export interface SourceSvixResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
 export interface SourceSystemeConfiguration {
     apiKey: string;
 }
@@ -48902,6 +50148,46 @@ export interface SourceTaboolaResourceAllocationJobSpecific {
     resourceRequirements: outputs.SourceTaboolaResourceAllocationJobSpecificResourceRequirements;
 }
 export interface SourceTaboolaResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceTavusConfiguration {
+    /**
+     * Your Tavus API key. You can find this in your Tavus account settings or API dashboard.
+     */
+    apiKey: string;
+    startDate: string;
+}
+export interface SourceTavusResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceTavusResourceAllocationDefault;
+    jobSpecifics: outputs.SourceTavusResourceAllocationJobSpecific[];
+}
+export interface SourceTavusResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceTavusResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceTavusResourceAllocationJobSpecificResourceRequirements;
+}
+export interface SourceTavusResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -50734,6 +52020,50 @@ export interface SourceWasabiStatsApiResourceAllocationJobSpecific {
     resourceRequirements: outputs.SourceWasabiStatsApiResourceAllocationJobSpecificResourceRequirements;
 }
 export interface SourceWasabiStatsApiResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceWatchmodeConfiguration {
+    /**
+     * Your API key for authenticating with the Watchmode API. You can request a free API key at https://api.watchmode.com/requestApiKey/.
+     */
+    apiKey: string;
+    /**
+     * The name value for search stream. Default: "Terminator"
+     */
+    searchVal: string;
+    startDate: string;
+}
+export interface SourceWatchmodeResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceWatchmodeResourceAllocationDefault;
+    jobSpecifics: outputs.SourceWatchmodeResourceAllocationJobSpecific[];
+}
+export interface SourceWatchmodeResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+export interface SourceWatchmodeResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceWatchmodeResourceAllocationJobSpecificResourceRequirements;
+}
+export interface SourceWatchmodeResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;

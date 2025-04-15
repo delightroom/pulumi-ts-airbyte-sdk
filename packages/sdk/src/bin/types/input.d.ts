@@ -482,33 +482,33 @@ export interface DestinationAwsDatalakeResourceAllocationJobSpecificResourceRequ
 }
 export interface DestinationAzureBlobStorageConfiguration {
     /**
-     * The Azure blob storage account key.
+     * The Azure blob storage account key. If you set this value, you must not set the Shared Access Signature.
      */
-    azureBlobStorageAccountKey: pulumi.Input<string>;
+    azureBlobStorageAccountKey?: pulumi.Input<string>;
     /**
-     * The account's name of the Azure Blob Storage.
+     * The name of the Azure Blob Storage Account. Read more <a href="https://learn.microsoft.com/en-gb/azure/storage/blobs/storage-blobs-introduction#storage-accounts">here</a>.
      */
     azureBlobStorageAccountName: pulumi.Input<string>;
     /**
-     * The name of the Azure blob storage container. If not exists - will be created automatically. May be empty, then will be created automatically airbytecontainer+timestamp
+     * The name of the Azure Blob Storage Container. Read more <a href="https://learn.microsoft.com/en-gb/azure/storage/blobs/storage-blobs-introduction#containers">here</a>.
      */
-    azureBlobStorageContainerName?: pulumi.Input<string>;
+    azureBlobStorageContainerName: pulumi.Input<string>;
     /**
-     * This is Azure Blob Storage endpoint domain name. Leave default value (or leave it empty if run container from command line) to use Microsoft native from example. Default: "blob.core.windows.net"
+     * This is Azure Blob Storage endpoint domain name. Leave default value (or leave it empty if run container from command line) to use Microsoft native from example.
      */
     azureBlobStorageEndpointDomainName?: pulumi.Input<string>;
-    /**
-     * The amount of megabytes to buffer for the output stream to Azure. This will impact memory footprint on workers, but may need adjustment for performance and appropriate block size in Azure. Default: 5
-     */
-    azureBlobStorageOutputBufferSize?: pulumi.Input<number>;
     /**
      * The amount of megabytes after which the connector should spill the records in a new blob object. Make sure to configure size greater than individual records. Enter 0 if not applicable. Default: 500
      */
     azureBlobStorageSpillSize?: pulumi.Input<number>;
     /**
-     * Output data format
+     * Format of the data output.
      */
     format: pulumi.Input<inputs.DestinationAzureBlobStorageConfigurationFormat>;
+    /**
+     * A shared access signature (SAS) provides secure delegated access to resources in your storage account. Read more <a href="https://learn.microsoft.com/en-gb/azure/storage/common/storage-sas-overview?toc=%2Fazure%2Fstorage%2Fblobs%2Ftoc.json&bc=%2Fazure%2Fstorage%2Fblobs%2Fbreadcrumb%2Ftoc.json">here</a>. If you set this value, you must not set the account key.
+     */
+    sharedAccessSignature?: pulumi.Input<string>;
 }
 export interface DestinationAzureBlobStorageConfigurationFormat {
     csvCommaSeparatedValues?: pulumi.Input<inputs.DestinationAzureBlobStorageConfigurationFormatCsvCommaSeparatedValues>;
@@ -516,19 +516,31 @@ export interface DestinationAzureBlobStorageConfigurationFormat {
 }
 export interface DestinationAzureBlobStorageConfigurationFormatCsvCommaSeparatedValues {
     /**
-     * Add file extensions to the output file. Default: false
+     * Parsed as JSON.
      */
-    fileExtension?: pulumi.Input<boolean>;
+    additionalProperties?: pulumi.Input<string>;
     /**
-     * Whether the input json data should be normalized (flattened) in the output CSV. Please refer to docs for details. Default: "No flattening"; must be one of ["No flattening", "Root level flattening"]
+     * Default: "No flattening"; must be one of ["No flattening", "Root level flattening"]
      */
     flattening?: pulumi.Input<string>;
+    /**
+     * Default: "CSV"; must be "CSV"
+     */
+    formatType?: pulumi.Input<string>;
 }
 export interface DestinationAzureBlobStorageConfigurationFormatJsonLinesNewlineDelimitedJson {
     /**
-     * Add file extensions to the output file. Default: false
+     * Parsed as JSON.
      */
-    fileExtension?: pulumi.Input<boolean>;
+    additionalProperties?: pulumi.Input<string>;
+    /**
+     * Default: "No flattening"; must be one of ["No flattening", "Root level flattening"]
+     */
+    flattening?: pulumi.Input<string>;
+    /**
+     * Default: "JSONL"; must be "JSONL"
+     */
+    formatType?: pulumi.Input<string>;
 }
 export interface DestinationAzureBlobStorageResourceAllocation {
     /**
@@ -2414,6 +2426,10 @@ export interface DestinationMssqlConfigurationLoadTypeBulkLoad {
      */
     additionalProperties?: pulumi.Input<string>;
     /**
+     * The Azure blob storage account key. Mutually exclusive with a Shared Access Signature
+     */
+    azureBlobStorageAccountKey?: pulumi.Input<string>;
+    /**
      * The name of the Azure Blob Storage account. See: https://learn.microsoft.com/azure/storage/blobs/storage-blobs-introduction#storage-accounts
      */
     azureBlobStorageAccountName: pulumi.Input<string>;
@@ -2434,9 +2450,9 @@ export interface DestinationMssqlConfigurationLoadTypeBulkLoad {
      */
     loadType?: pulumi.Input<string>;
     /**
-     * A shared access signature (SAS) provides secure delegated access to resources in your storage account. See: https://learn.microsoft.com/azure/storage/common/storage-sas-overview
+     * A shared access signature (SAS) provides secure delegated access to resources in your storage account. See: https://learn.microsoft.com/azure/storage/common/storage-sas-overview.Mutually exclusive with an account key
      */
-    sharedAccessSignature: pulumi.Input<string>;
+    sharedAccessSignature?: pulumi.Input<string>;
 }
 export interface DestinationMssqlConfigurationLoadTypeInsertLoad {
     /**
@@ -5768,6 +5784,46 @@ export interface DestinationYellowbrickResourceAllocationJobSpecificResourceRequ
     memoryLimit?: pulumi.Input<string>;
     memoryRequest?: pulumi.Input<string>;
 }
+export interface Source100msConfiguration {
+    /**
+     * The management token used for authenticating API requests. You can find or generate this token in your 100ms dashboard under the API section. Refer to the documentation at https://www.100ms.live/docs/concepts/v2/concepts/security-and-tokens#management-token-for-rest-api for more details.
+     */
+    managementToken: pulumi.Input<string>;
+    startDate: pulumi.Input<string>;
+}
+export interface Source100msResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.Source100msResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.Source100msResourceAllocationJobSpecific>[]>;
+}
+export interface Source100msResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface Source100msResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.Source100msResourceAllocationJobSpecificResourceRequirements>;
+}
+export interface Source100msResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
 export interface Source7shiftsConfiguration {
     /**
      * Access token to use for authentication. Generate it in the 7shifts Developer Tools.
@@ -5944,6 +6000,10 @@ export interface SourceAhaResourceAllocationJobSpecificResourceRequirements {
 export interface SourceAirbyteConfiguration {
     clientId: pulumi.Input<string>;
     clientSecret: pulumi.Input<string>;
+    /**
+     * The Host URL of your Self-Managed Deployment (e.x. airbtye.mydomain.com)
+     */
+    host?: pulumi.Input<string>;
     startDate: pulumi.Input<string>;
 }
 export interface SourceAirbyteResourceAllocation {
@@ -6373,6 +6433,16 @@ export interface SourceAmazonSellerPartnerConfiguration {
      * Select the AWS Environment. Default: "PRODUCTION"; must be one of ["PRODUCTION", "SANDBOX"]
      */
     awsEnvironment?: pulumi.Input<string>;
+    /**
+     * The time window size (in days) for fetching financial events data in chunks. Options are 1 day, 7 days, 14 days, 30 days, 60 days, and 190 days, based on API limitations.
+     *
+     * - **Smaller step sizes (e.g., 1 day)** are better for large data volumes. They fetch smaller chunks per request, reducing the risk of timeouts or overwhelming the API, though more requests may slow syncing and increase the chance of hitting rate limits.
+     * - **Larger step sizes (e.g., 14 days)** are better for smaller data volumes. They fetch more data per request, speeding up syncing and reducing the number of API calls, which minimizes strain on rate limits.
+     *
+     * Select a step size that matches your data volume to optimize syncing speed and API performance.
+     * Default: "180"; must be one of ["1", "7", "14", "30", "60", "90", "180"]
+     */
+    financialEventsStep?: pulumi.Input<string>;
     /**
      * Your Login with Amazon Client ID.
      */
@@ -6969,6 +7039,54 @@ export interface SourceAshbyResourceAllocationJobSpecificResourceRequirements {
     memoryLimit?: pulumi.Input<string>;
     memoryRequest?: pulumi.Input<string>;
 }
+export interface SourceAssemblyaiConfiguration {
+    /**
+     * Your AssemblyAI API key. You can find it in the AssemblyAI dashboard at https://www.assemblyai.com/app/api-keys.
+     */
+    apiKey: pulumi.Input<string>;
+    /**
+     * The request ID for LeMur responses
+     */
+    requestId?: pulumi.Input<string>;
+    startDate: pulumi.Input<string>;
+    /**
+     * The subtitle format for transcript_subtitle stream. Default: "srt"; must be one of ["vtt", "srt"]
+     */
+    subtitleFormat?: pulumi.Input<string>;
+}
+export interface SourceAssemblyaiResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceAssemblyaiResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceAssemblyaiResourceAllocationJobSpecific>[]>;
+}
+export interface SourceAssemblyaiResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceAssemblyaiResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceAssemblyaiResourceAllocationJobSpecificResourceRequirements>;
+}
+export interface SourceAssemblyaiResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
 export interface SourceAuth0Configuration {
     /**
      * The Authentication API is served over HTTPS. All URLs referenced in the documentation have the following base `https://YOUR_DOMAIN`
@@ -7030,6 +7148,46 @@ export interface SourceAuth0ResourceAllocationJobSpecific {
     resourceRequirements?: pulumi.Input<inputs.SourceAuth0ResourceAllocationJobSpecificResourceRequirements>;
 }
 export interface SourceAuth0ResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceAviationstackConfiguration {
+    /**
+     * Your unique API key for authenticating with the Aviation API. You can find it in your Aviation account dashboard at https://aviationstack.com/dashboard
+     */
+    accessKey: pulumi.Input<string>;
+    startDate: pulumi.Input<string>;
+}
+export interface SourceAviationstackResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceAviationstackResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceAviationstackResourceAllocationJobSpecific>[]>;
+}
+export interface SourceAviationstackResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceAviationstackResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceAviationstackResourceAllocationJobSpecificResourceRequirements>;
+}
+export interface SourceAviationstackResourceAllocationJobSpecificResourceRequirements {
     cpuLimit?: pulumi.Input<string>;
     cpuRequest?: pulumi.Input<string>;
     ephemeralStorageLimit?: pulumi.Input<string>;
@@ -7839,6 +7997,46 @@ export interface SourceBloggerResourceAllocationJobSpecific {
     resourceRequirements?: pulumi.Input<inputs.SourceBloggerResourceAllocationJobSpecificResourceRequirements>;
 }
 export interface SourceBloggerResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceBluetallyConfiguration {
+    /**
+     * Your API key to authenticate with the BlueTally API. You can generate it by navigating to your account settings, selecting 'API Keys', and clicking 'Create API Key'.
+     */
+    apiKey: pulumi.Input<string>;
+    startDate: pulumi.Input<string>;
+}
+export interface SourceBluetallyResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceBluetallyResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceBluetallyResourceAllocationJobSpecific>[]>;
+}
+export interface SourceBluetallyResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceBluetallyResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceBluetallyResourceAllocationJobSpecificResourceRequirements>;
+}
+export interface SourceBluetallyResourceAllocationJobSpecificResourceRequirements {
     cpuLimit?: pulumi.Input<string>;
     cpuRequest?: pulumi.Input<string>;
     ephemeralStorageLimit?: pulumi.Input<string>;
@@ -9142,10 +9340,6 @@ export interface SourceCin7Configuration {
      * The API key associated with your account.
      */
     apiKey: pulumi.Input<string>;
-    /**
-     * 1970-01-01T00:00:00Z
-     */
-    startDate: pulumi.Input<string>;
 }
 export interface SourceCin7ResourceAllocation {
     /**
@@ -12079,6 +12273,46 @@ export interface SourceFastbillResourceAllocationJobSpecificResourceRequirements
     memoryLimit?: pulumi.Input<string>;
     memoryRequest?: pulumi.Input<string>;
 }
+export interface SourceFastlyConfiguration {
+    /**
+     * Your Fastly API token. You can generate this token in the Fastly web interface under Account Settings or via the Fastly API. Ensure the token has the appropriate scope for your use case.
+     */
+    fastlyApiToken: pulumi.Input<string>;
+    startDate: pulumi.Input<string>;
+}
+export interface SourceFastlyResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceFastlyResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceFastlyResourceAllocationJobSpecific>[]>;
+}
+export interface SourceFastlyResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceFastlyResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceFastlyResourceAllocationJobSpecificResourceRequirements>;
+}
+export interface SourceFastlyResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
 export interface SourceFaunaConfiguration {
     /**
      * Settings for the Fauna Collection.
@@ -13753,6 +13987,62 @@ export interface SourceGetlagoResourceAllocationJobSpecific {
     resourceRequirements?: pulumi.Input<inputs.SourceGetlagoResourceAllocationJobSpecificResourceRequirements>;
 }
 export interface SourceGetlagoResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceGiphyConfiguration {
+    /**
+     * Your GIPHY API Key. You can create and find your API key in the GIPHY Developer Dashboard at https://developers.giphy.com/dashboard/.
+     */
+    apiKey: pulumi.Input<string>;
+    /**
+     * A query for search endpoint. Default: "foo"
+     */
+    query?: pulumi.Input<string>;
+    /**
+     * Query for clips search endpoint. Default: "foo"
+     */
+    queryForClips?: pulumi.Input<string>;
+    /**
+     * Query for gif search endpoint. Default: "foo"
+     */
+    queryForGif?: pulumi.Input<string>;
+    /**
+     * Query for stickers search endpoint. Default: "foo"
+     */
+    queryForStickers?: pulumi.Input<string>;
+    startDate: pulumi.Input<string>;
+}
+export interface SourceGiphyResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceGiphyResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceGiphyResourceAllocationJobSpecific>[]>;
+}
+export interface SourceGiphyResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceGiphyResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceGiphyResourceAllocationJobSpecificResourceRequirements>;
+}
+export interface SourceGiphyResourceAllocationJobSpecificResourceRequirements {
     cpuLimit?: pulumi.Input<string>;
     cpuRequest?: pulumi.Input<string>;
     ephemeralStorageLimit?: pulumi.Input<string>;
@@ -16835,6 +17125,53 @@ export interface SourceIlluminaBasespaceResourceAllocationJobSpecificResourceReq
     memoryLimit?: pulumi.Input<string>;
     memoryRequest?: pulumi.Input<string>;
 }
+export interface SourceImaggaConfiguration {
+    /**
+     * Your Imagga API key, available in your Imagga dashboard. Could be found at `https://imagga.com/profile/dashboard`
+     */
+    apiKey: pulumi.Input<string>;
+    /**
+     * Your Imagga API secret, available in your Imagga dashboard. Could be found at `https://imagga.com/profile/dashboard`
+     */
+    apiSecret: pulumi.Input<string>;
+    /**
+     * An image for detection endpoints. Default: "https://imagga.com/static/images/categorization/child-476506_640.jpg"
+     */
+    imgForDetection?: pulumi.Input<string>;
+}
+export interface SourceImaggaResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceImaggaResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceImaggaResourceAllocationJobSpecific>[]>;
+}
+export interface SourceImaggaResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceImaggaResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceImaggaResourceAllocationJobSpecificResourceRequirements>;
+}
+export interface SourceImaggaResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
 export interface SourceIncidentIoConfiguration {
     /**
      * API key to use. Find it at https://app.incident.io/settings/api-keys
@@ -16904,6 +17241,46 @@ export interface SourceInflowinventoryResourceAllocationJobSpecific {
     resourceRequirements?: pulumi.Input<inputs.SourceInflowinventoryResourceAllocationJobSpecificResourceRequirements>;
 }
 export interface SourceInflowinventoryResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceInsightfulConfiguration {
+    /**
+     * Your API token for accessing the Insightful API. Generate it by logging in as an Admin to your organization's account, navigating to the API page, and creating a new token. Note that this token will only be shown once, so store it securely.
+     */
+    apiToken: pulumi.Input<string>;
+    startDate: pulumi.Input<string>;
+}
+export interface SourceInsightfulResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceInsightfulResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceInsightfulResourceAllocationJobSpecific>[]>;
+}
+export interface SourceInsightfulResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceInsightfulResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceInsightfulResourceAllocationJobSpecificResourceRequirements>;
+}
+export interface SourceInsightfulResourceAllocationJobSpecificResourceRequirements {
     cpuLimit?: pulumi.Input<string>;
     cpuRequest?: pulumi.Input<string>;
     ephemeralStorageLimit?: pulumi.Input<string>;
@@ -17300,6 +17677,47 @@ export interface SourceIterableResourceAllocationJobSpecific {
     resourceRequirements?: pulumi.Input<inputs.SourceIterableResourceAllocationJobSpecificResourceRequirements>;
 }
 export interface SourceIterableResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceJamfProConfiguration {
+    password?: pulumi.Input<string>;
+    /**
+     * The unique subdomain for your Jamf Pro instance.
+     */
+    subdomain: pulumi.Input<string>;
+    username: pulumi.Input<string>;
+}
+export interface SourceJamfProResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceJamfProResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceJamfProResourceAllocationJobSpecific>[]>;
+}
+export interface SourceJamfProResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceJamfProResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceJamfProResourceAllocationJobSpecificResourceRequirements>;
+}
+export interface SourceJamfProResourceAllocationJobSpecificResourceRequirements {
     cpuLimit?: pulumi.Input<string>;
     cpuRequest?: pulumi.Input<string>;
     ephemeralStorageLimit?: pulumi.Input<string>;
@@ -19048,6 +19466,62 @@ export interface SourceMarketstackResourceAllocationJobSpecific {
     resourceRequirements?: pulumi.Input<inputs.SourceMarketstackResourceAllocationJobSpecificResourceRequirements>;
 }
 export interface SourceMarketstackResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceMendeleyConfiguration {
+    /**
+     * Could be found at `https://dev.mendeley.com/myapps.html`
+     */
+    clientId: pulumi.Input<string>;
+    /**
+     * Use cURL or Postman with the OAuth 2.0 Authorization tab. Set the Auth URL to https://api.mendeley.com/oauth/authorize, the Token URL to https://api.mendeley.com/oauth/token, and use all as the scope.
+     */
+    clientRefreshToken: pulumi.Input<string>;
+    /**
+     * Could be found at `https://dev.mendeley.com/myapps.html`
+     */
+    clientSecret: pulumi.Input<string>;
+    /**
+     * The name parameter for institutions search. Default: "City University"
+     */
+    nameForInstitution?: pulumi.Input<string>;
+    /**
+     * Query for catalog search. Default: "Polar Bear"
+     */
+    queryForCatalog?: pulumi.Input<string>;
+    startDate: pulumi.Input<string>;
+}
+export interface SourceMendeleyResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceMendeleyResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceMendeleyResourceAllocationJobSpecific>[]>;
+}
+export interface SourceMendeleyResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceMendeleyResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceMendeleyResourceAllocationJobSpecificResourceRequirements>;
+}
+export interface SourceMendeleyResourceAllocationJobSpecificResourceRequirements {
     cpuLimit?: pulumi.Input<string>;
     cpuRequest?: pulumi.Input<string>;
     ephemeralStorageLimit?: pulumi.Input<string>;
@@ -21658,6 +22132,54 @@ export interface SourceNewsdataResourceAllocationJobSpecificResourceRequirements
     memoryLimit?: pulumi.Input<string>;
     memoryRequest?: pulumi.Input<string>;
 }
+export interface SourceNexiopayConfiguration {
+    /**
+     * Your Nexio API key (password). You can find it in the Nexio Dashboard under Settings > User Management. Select the API user and copy the API key.
+     */
+    apiKey: pulumi.Input<string>;
+    startDate: pulumi.Input<string>;
+    /**
+     * The subdomain for the Nexio API environment, such as 'nexiopaysandbox' or 'nexiopay'. Default: "nexiopay"; must be one of ["nexiopaysandbox", "nexiopay"]
+     */
+    subdomain?: pulumi.Input<string>;
+    /**
+     * Your Nexio API username. You can find it in the Nexio Dashboard under Settings > User Management. Select the API user and copy the username.
+     */
+    username: pulumi.Input<string>;
+}
+export interface SourceNexiopayResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceNexiopayResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceNexiopayResourceAllocationJobSpecific>[]>;
+}
+export interface SourceNexiopayResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceNexiopayResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceNexiopayResourceAllocationJobSpecificResourceRequirements>;
+}
+export interface SourceNexiopayResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
 export interface SourceNinjaoneRmmConfiguration {
     /**
      * Token could be generated natively by authorize section of NinjaOne swagger documentation `https://app.ninjarmm.com/apidocs/?links.active=authorization`
@@ -23937,6 +24459,46 @@ export interface SourcePennylaneResourceAllocationJobSpecificResourceRequirement
     memoryLimit?: pulumi.Input<string>;
     memoryRequest?: pulumi.Input<string>;
 }
+export interface SourcePerigonConfiguration {
+    /**
+     * Your API key for authenticating with the Perigon API. Obtain it by creating an account at https://www.perigon.io/sign-up and verifying your email. The API key will be visible on your account dashboard.
+     */
+    apiKey: pulumi.Input<string>;
+    startDate: pulumi.Input<string>;
+}
+export interface SourcePerigonResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourcePerigonResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourcePerigonResourceAllocationJobSpecific>[]>;
+}
+export interface SourcePerigonResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourcePerigonResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourcePerigonResourceAllocationJobSpecificResourceRequirements>;
+}
+export interface SourcePerigonResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
 export interface SourcePersistiqConfiguration {
     /**
      * PersistIq API Key. See the <a href="https://apidocs.persistiq.com/#authentication">docs</a> for more information on where to find that key.
@@ -25342,6 +25904,45 @@ export interface SourcePrimetricResourceAllocationJobSpecific {
     resourceRequirements?: pulumi.Input<inputs.SourcePrimetricResourceAllocationJobSpecificResourceRequirements>;
 }
 export interface SourcePrimetricResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourcePrintifyConfiguration {
+    /**
+     * Your Printify API token. Obtain it from your Printify account settings.
+     */
+    apiToken: pulumi.Input<string>;
+}
+export interface SourcePrintifyResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourcePrintifyResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourcePrintifyResourceAllocationJobSpecific>[]>;
+}
+export interface SourcePrintifyResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourcePrintifyResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourcePrintifyResourceAllocationJobSpecificResourceRequirements>;
+}
+export interface SourcePrintifyResourceAllocationJobSpecificResourceRequirements {
     cpuLimit?: pulumi.Input<string>;
     cpuRequest?: pulumi.Input<string>;
     ephemeralStorageLimit?: pulumi.Input<string>;
@@ -28623,6 +29224,50 @@ export interface SourceShopifyResourceAllocationJobSpecificResourceRequirements 
     memoryLimit?: pulumi.Input<string>;
     memoryRequest?: pulumi.Input<string>;
 }
+export interface SourceShopwiredConfiguration {
+    /**
+     * Your API Key, which acts as the username for Basic Authentication. You can find it in your ShopWired account under API settings.
+     */
+    apiKey: pulumi.Input<string>;
+    /**
+     * Your API Secret, which acts as the password for Basic Authentication. You can find it in your ShopWired account under API settings.
+     */
+    apiSecret: pulumi.Input<string>;
+    startDate: pulumi.Input<string>;
+}
+export interface SourceShopwiredResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceShopwiredResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceShopwiredResourceAllocationJobSpecific>[]>;
+}
+export interface SourceShopwiredResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceShopwiredResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceShopwiredResourceAllocationJobSpecificResourceRequirements>;
+}
+export interface SourceShopwiredResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
 export interface SourceShortcutConfiguration {
     apiKey2: pulumi.Input<string>;
     /**
@@ -30258,6 +30903,46 @@ export interface SourceSurvicateResourceAllocationJobSpecificResourceRequirement
     memoryLimit?: pulumi.Input<string>;
     memoryRequest?: pulumi.Input<string>;
 }
+export interface SourceSvixConfiguration {
+    /**
+     * API key or access token
+     */
+    apiKey: pulumi.Input<string>;
+    startDate: pulumi.Input<string>;
+}
+export interface SourceSvixResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceSvixResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceSvixResourceAllocationJobSpecific>[]>;
+}
+export interface SourceSvixResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceSvixResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceSvixResourceAllocationJobSpecificResourceRequirements>;
+}
+export interface SourceSvixResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
 export interface SourceSystemeConfiguration {
     apiKey: pulumi.Input<string>;
 }
@@ -30328,6 +31013,46 @@ export interface SourceTaboolaResourceAllocationJobSpecific {
     resourceRequirements?: pulumi.Input<inputs.SourceTaboolaResourceAllocationJobSpecificResourceRequirements>;
 }
 export interface SourceTaboolaResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceTavusConfiguration {
+    /**
+     * Your Tavus API key. You can find this in your Tavus account settings or API dashboard.
+     */
+    apiKey: pulumi.Input<string>;
+    startDate: pulumi.Input<string>;
+}
+export interface SourceTavusResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceTavusResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceTavusResourceAllocationJobSpecific>[]>;
+}
+export interface SourceTavusResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceTavusResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceTavusResourceAllocationJobSpecificResourceRequirements>;
+}
+export interface SourceTavusResourceAllocationJobSpecificResourceRequirements {
     cpuLimit?: pulumi.Input<string>;
     cpuRequest?: pulumi.Input<string>;
     ephemeralStorageLimit?: pulumi.Input<string>;
@@ -32160,6 +32885,50 @@ export interface SourceWasabiStatsApiResourceAllocationJobSpecific {
     resourceRequirements?: pulumi.Input<inputs.SourceWasabiStatsApiResourceAllocationJobSpecificResourceRequirements>;
 }
 export interface SourceWasabiStatsApiResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceWatchmodeConfiguration {
+    /**
+     * Your API key for authenticating with the Watchmode API. You can request a free API key at https://api.watchmode.com/requestApiKey/.
+     */
+    apiKey: pulumi.Input<string>;
+    /**
+     * The name value for search stream. Default: "Terminator"
+     */
+    searchVal?: pulumi.Input<string>;
+    startDate: pulumi.Input<string>;
+}
+export interface SourceWatchmodeResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceWatchmodeResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceWatchmodeResourceAllocationJobSpecific>[]>;
+}
+export interface SourceWatchmodeResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+export interface SourceWatchmodeResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceWatchmodeResourceAllocationJobSpecificResourceRequirements>;
+}
+export interface SourceWatchmodeResourceAllocationJobSpecificResourceRequirements {
     cpuLimit?: pulumi.Input<string>;
     cpuRequest?: pulumi.Input<string>;
     ephemeralStorageLimit?: pulumi.Input<string>;

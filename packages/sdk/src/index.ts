@@ -10,6 +10,11 @@ export type Connection = import("./connection").Connection;
 export const Connection: typeof import("./connection").Connection = null as any;
 utilities.lazyLoad(exports, ["Connection"], () => require("./connection"));
 
+export { DeclarativeSourceDefinitionArgs, DeclarativeSourceDefinitionState } from "./declarativeSourceDefinition";
+export type DeclarativeSourceDefinition = import("./declarativeSourceDefinition").DeclarativeSourceDefinition;
+export const DeclarativeSourceDefinition: typeof import("./declarativeSourceDefinition").DeclarativeSourceDefinition = null as any;
+utilities.lazyLoad(exports, ["DeclarativeSourceDefinition"], () => require("./declarativeSourceDefinition"));
+
 export { DestinationAstraArgs, DestinationAstraState } from "./destinationAstra";
 export type DestinationAstra = import("./destinationAstra").DestinationAstra;
 export const DestinationAstra: typeof import("./destinationAstra").DestinationAstra = null as any;
@@ -59,6 +64,11 @@ export { DestinationDeepsetArgs, DestinationDeepsetState } from "./destinationDe
 export type DestinationDeepset = import("./destinationDeepset").DestinationDeepset;
 export const DestinationDeepset: typeof import("./destinationDeepset").DestinationDeepset = null as any;
 utilities.lazyLoad(exports, ["DestinationDeepset"], () => require("./destinationDeepset"));
+
+export { DestinationDefinitionArgs, DestinationDefinitionState } from "./destinationDefinition";
+export type DestinationDefinition = import("./destinationDefinition").DestinationDefinition;
+export const DestinationDefinition: typeof import("./destinationDefinition").DestinationDefinition = null as any;
+utilities.lazyLoad(exports, ["DestinationDefinition"], () => require("./destinationDefinition"));
 
 export { DestinationDevNullArgs, DestinationDevNullState } from "./destinationDevNull";
 export type DestinationDevNull = import("./destinationDevNull").DestinationDevNull;
@@ -230,6 +240,11 @@ export const getConnection: typeof import("./getConnection").getConnection = nul
 export const getConnectionOutput: typeof import("./getConnection").getConnectionOutput = null as any;
 utilities.lazyLoad(exports, ["getConnection","getConnectionOutput"], () => require("./getConnection"));
 
+export { GetDeclarativeSourceDefinitionArgs, GetDeclarativeSourceDefinitionResult, GetDeclarativeSourceDefinitionOutputArgs } from "./getDeclarativeSourceDefinition";
+export const getDeclarativeSourceDefinition: typeof import("./getDeclarativeSourceDefinition").getDeclarativeSourceDefinition = null as any;
+export const getDeclarativeSourceDefinitionOutput: typeof import("./getDeclarativeSourceDefinition").getDeclarativeSourceDefinitionOutput = null as any;
+utilities.lazyLoad(exports, ["getDeclarativeSourceDefinition","getDeclarativeSourceDefinitionOutput"], () => require("./getDeclarativeSourceDefinition"));
+
 export { GetDestinationAstraArgs, GetDestinationAstraResult, GetDestinationAstraOutputArgs } from "./getDestinationAstra";
 export const getDestinationAstra: typeof import("./getDestinationAstra").getDestinationAstra = null as any;
 export const getDestinationAstraOutput: typeof import("./getDestinationAstra").getDestinationAstraOutput = null as any;
@@ -279,6 +294,11 @@ export { GetDestinationDeepsetArgs, GetDestinationDeepsetResult, GetDestinationD
 export const getDestinationDeepset: typeof import("./getDestinationDeepset").getDestinationDeepset = null as any;
 export const getDestinationDeepsetOutput: typeof import("./getDestinationDeepset").getDestinationDeepsetOutput = null as any;
 utilities.lazyLoad(exports, ["getDestinationDeepset","getDestinationDeepsetOutput"], () => require("./getDestinationDeepset"));
+
+export { GetDestinationDefinitionArgs, GetDestinationDefinitionResult, GetDestinationDefinitionOutputArgs } from "./getDestinationDefinition";
+export const getDestinationDefinition: typeof import("./getDestinationDefinition").getDestinationDefinition = null as any;
+export const getDestinationDefinitionOutput: typeof import("./getDestinationDefinition").getDestinationDefinitionOutput = null as any;
+utilities.lazyLoad(exports, ["getDestinationDefinition","getDestinationDefinitionOutput"], () => require("./getDestinationDefinition"));
 
 export { GetDestinationDevNullArgs, GetDestinationDevNullResult, GetDestinationDevNullOutputArgs } from "./getDestinationDevNull";
 export const getDestinationDevNull: typeof import("./getDestinationDevNull").getDestinationDevNull = null as any;
@@ -450,6 +470,11 @@ export const getPermission: typeof import("./getPermission").getPermission = nul
 export const getPermissionOutput: typeof import("./getPermission").getPermissionOutput = null as any;
 utilities.lazyLoad(exports, ["getPermission","getPermissionOutput"], () => require("./getPermission"));
 
+export { GetSource100msArgs, GetSource100msResult, GetSource100msOutputArgs } from "./getSource100ms";
+export const getSource100ms: typeof import("./getSource100ms").getSource100ms = null as any;
+export const getSource100msOutput: typeof import("./getSource100ms").getSource100msOutput = null as any;
+utilities.lazyLoad(exports, ["getSource100ms","getSource100msOutput"], () => require("./getSource100ms"));
+
 export { GetSource7shiftsArgs, GetSource7shiftsResult, GetSource7shiftsOutputArgs } from "./getSource7shifts";
 export const getSource7shifts: typeof import("./getSource7shifts").getSource7shifts = null as any;
 export const getSource7shiftsOutput: typeof import("./getSource7shifts").getSource7shiftsOutput = null as any;
@@ -565,10 +590,20 @@ export const getSourceAshby: typeof import("./getSourceAshby").getSourceAshby = 
 export const getSourceAshbyOutput: typeof import("./getSourceAshby").getSourceAshbyOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceAshby","getSourceAshbyOutput"], () => require("./getSourceAshby"));
 
+export { GetSourceAssemblyaiArgs, GetSourceAssemblyaiResult, GetSourceAssemblyaiOutputArgs } from "./getSourceAssemblyai";
+export const getSourceAssemblyai: typeof import("./getSourceAssemblyai").getSourceAssemblyai = null as any;
+export const getSourceAssemblyaiOutput: typeof import("./getSourceAssemblyai").getSourceAssemblyaiOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceAssemblyai","getSourceAssemblyaiOutput"], () => require("./getSourceAssemblyai"));
+
 export { GetSourceAuth0Args, GetSourceAuth0Result, GetSourceAuth0OutputArgs } from "./getSourceAuth0";
 export const getSourceAuth0: typeof import("./getSourceAuth0").getSourceAuth0 = null as any;
 export const getSourceAuth0Output: typeof import("./getSourceAuth0").getSourceAuth0Output = null as any;
 utilities.lazyLoad(exports, ["getSourceAuth0","getSourceAuth0Output"], () => require("./getSourceAuth0"));
+
+export { GetSourceAviationstackArgs, GetSourceAviationstackResult, GetSourceAviationstackOutputArgs } from "./getSourceAviationstack";
+export const getSourceAviationstack: typeof import("./getSourceAviationstack").getSourceAviationstack = null as any;
+export const getSourceAviationstackOutput: typeof import("./getSourceAviationstack").getSourceAviationstackOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceAviationstack","getSourceAviationstackOutput"], () => require("./getSourceAviationstack"));
 
 export { GetSourceAwsCloudtrailArgs, GetSourceAwsCloudtrailResult, GetSourceAwsCloudtrailOutputArgs } from "./getSourceAwsCloudtrail";
 export const getSourceAwsCloudtrail: typeof import("./getSourceAwsCloudtrail").getSourceAwsCloudtrail = null as any;
@@ -629,6 +664,11 @@ export { GetSourceBloggerArgs, GetSourceBloggerResult, GetSourceBloggerOutputArg
 export const getSourceBlogger: typeof import("./getSourceBlogger").getSourceBlogger = null as any;
 export const getSourceBloggerOutput: typeof import("./getSourceBlogger").getSourceBloggerOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceBlogger","getSourceBloggerOutput"], () => require("./getSourceBlogger"));
+
+export { GetSourceBluetallyArgs, GetSourceBluetallyResult, GetSourceBluetallyOutputArgs } from "./getSourceBluetally";
+export const getSourceBluetally: typeof import("./getSourceBluetally").getSourceBluetally = null as any;
+export const getSourceBluetallyOutput: typeof import("./getSourceBluetally").getSourceBluetallyOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceBluetally","getSourceBluetallyOutput"], () => require("./getSourceBluetally"));
 
 export { GetSourceBoldsignArgs, GetSourceBoldsignResult, GetSourceBoldsignOutputArgs } from "./getSourceBoldsign";
 export const getSourceBoldsign: typeof import("./getSourceBoldsign").getSourceBoldsign = null as any;
@@ -935,6 +975,11 @@ export const getSourceDbt: typeof import("./getSourceDbt").getSourceDbt = null a
 export const getSourceDbtOutput: typeof import("./getSourceDbt").getSourceDbtOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceDbt","getSourceDbtOutput"], () => require("./getSourceDbt"));
 
+export { GetSourceDefinitionArgs, GetSourceDefinitionResult, GetSourceDefinitionOutputArgs } from "./getSourceDefinition";
+export const getSourceDefinition: typeof import("./getSourceDefinition").getSourceDefinition = null as any;
+export const getSourceDefinitionOutput: typeof import("./getSourceDefinition").getSourceDefinitionOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceDefinition","getSourceDefinitionOutput"], () => require("./getSourceDefinition"));
+
 export { GetSourceDelightedArgs, GetSourceDelightedResult, GetSourceDelightedOutputArgs } from "./getSourceDelighted";
 export const getSourceDelighted: typeof import("./getSourceDelighted").getSourceDelighted = null as any;
 export const getSourceDelightedOutput: typeof import("./getSourceDelighted").getSourceDelightedOutput = null as any;
@@ -1085,6 +1130,11 @@ export const getSourceFastbill: typeof import("./getSourceFastbill").getSourceFa
 export const getSourceFastbillOutput: typeof import("./getSourceFastbill").getSourceFastbillOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceFastbill","getSourceFastbillOutput"], () => require("./getSourceFastbill"));
 
+export { GetSourceFastlyArgs, GetSourceFastlyResult, GetSourceFastlyOutputArgs } from "./getSourceFastly";
+export const getSourceFastly: typeof import("./getSourceFastly").getSourceFastly = null as any;
+export const getSourceFastlyOutput: typeof import("./getSourceFastly").getSourceFastlyOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceFastly","getSourceFastlyOutput"], () => require("./getSourceFastly"));
+
 export { GetSourceFaunaArgs, GetSourceFaunaResult, GetSourceFaunaOutputArgs } from "./getSourceFauna";
 export const getSourceFauna: typeof import("./getSourceFauna").getSourceFauna = null as any;
 export const getSourceFaunaOutput: typeof import("./getSourceFauna").getSourceFaunaOutput = null as any;
@@ -1234,6 +1284,11 @@ export { GetSourceGetlagoArgs, GetSourceGetlagoResult, GetSourceGetlagoOutputArg
 export const getSourceGetlago: typeof import("./getSourceGetlago").getSourceGetlago = null as any;
 export const getSourceGetlagoOutput: typeof import("./getSourceGetlago").getSourceGetlagoOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceGetlago","getSourceGetlagoOutput"], () => require("./getSourceGetlago"));
+
+export { GetSourceGiphyArgs, GetSourceGiphyResult, GetSourceGiphyOutputArgs } from "./getSourceGiphy";
+export const getSourceGiphy: typeof import("./getSourceGiphy").getSourceGiphy = null as any;
+export const getSourceGiphyOutput: typeof import("./getSourceGiphy").getSourceGiphyOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceGiphy","getSourceGiphyOutput"], () => require("./getSourceGiphy"));
 
 export { GetSourceGitbookArgs, GetSourceGitbookResult, GetSourceGitbookOutputArgs } from "./getSourceGitbook";
 export const getSourceGitbook: typeof import("./getSourceGitbook").getSourceGitbook = null as any;
@@ -1450,6 +1505,11 @@ export const getSourceIlluminaBasespace: typeof import("./getSourceIlluminaBases
 export const getSourceIlluminaBasespaceOutput: typeof import("./getSourceIlluminaBasespace").getSourceIlluminaBasespaceOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceIlluminaBasespace","getSourceIlluminaBasespaceOutput"], () => require("./getSourceIlluminaBasespace"));
 
+export { GetSourceImaggaArgs, GetSourceImaggaResult, GetSourceImaggaOutputArgs } from "./getSourceImagga";
+export const getSourceImagga: typeof import("./getSourceImagga").getSourceImagga = null as any;
+export const getSourceImaggaOutput: typeof import("./getSourceImagga").getSourceImaggaOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceImagga","getSourceImaggaOutput"], () => require("./getSourceImagga"));
+
 export { GetSourceIncidentIoArgs, GetSourceIncidentIoResult, GetSourceIncidentIoOutputArgs } from "./getSourceIncidentIo";
 export const getSourceIncidentIo: typeof import("./getSourceIncidentIo").getSourceIncidentIo = null as any;
 export const getSourceIncidentIoOutput: typeof import("./getSourceIncidentIo").getSourceIncidentIoOutput = null as any;
@@ -1459,6 +1519,11 @@ export { GetSourceInflowinventoryArgs, GetSourceInflowinventoryResult, GetSource
 export const getSourceInflowinventory: typeof import("./getSourceInflowinventory").getSourceInflowinventory = null as any;
 export const getSourceInflowinventoryOutput: typeof import("./getSourceInflowinventory").getSourceInflowinventoryOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceInflowinventory","getSourceInflowinventoryOutput"], () => require("./getSourceInflowinventory"));
+
+export { GetSourceInsightfulArgs, GetSourceInsightfulResult, GetSourceInsightfulOutputArgs } from "./getSourceInsightful";
+export const getSourceInsightful: typeof import("./getSourceInsightful").getSourceInsightful = null as any;
+export const getSourceInsightfulOutput: typeof import("./getSourceInsightful").getSourceInsightfulOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceInsightful","getSourceInsightfulOutput"], () => require("./getSourceInsightful"));
 
 export { GetSourceInsightlyArgs, GetSourceInsightlyResult, GetSourceInsightlyOutputArgs } from "./getSourceInsightly";
 export const getSourceInsightly: typeof import("./getSourceInsightly").getSourceInsightly = null as any;
@@ -1504,6 +1569,11 @@ export { GetSourceIterableArgs, GetSourceIterableResult, GetSourceIterableOutput
 export const getSourceIterable: typeof import("./getSourceIterable").getSourceIterable = null as any;
 export const getSourceIterableOutput: typeof import("./getSourceIterable").getSourceIterableOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceIterable","getSourceIterableOutput"], () => require("./getSourceIterable"));
+
+export { GetSourceJamfProArgs, GetSourceJamfProResult, GetSourceJamfProOutputArgs } from "./getSourceJamfPro";
+export const getSourceJamfPro: typeof import("./getSourceJamfPro").getSourceJamfPro = null as any;
+export const getSourceJamfProOutput: typeof import("./getSourceJamfPro").getSourceJamfProOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceJamfPro","getSourceJamfProOutput"], () => require("./getSourceJamfPro"));
 
 export { GetSourceJiraArgs, GetSourceJiraResult, GetSourceJiraOutputArgs } from "./getSourceJira";
 export const getSourceJira: typeof import("./getSourceJira").getSourceJira = null as any;
@@ -1690,6 +1760,11 @@ export const getSourceMarketstack: typeof import("./getSourceMarketstack").getSo
 export const getSourceMarketstackOutput: typeof import("./getSourceMarketstack").getSourceMarketstackOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceMarketstack","getSourceMarketstackOutput"], () => require("./getSourceMarketstack"));
 
+export { GetSourceMendeleyArgs, GetSourceMendeleyResult, GetSourceMendeleyOutputArgs } from "./getSourceMendeley";
+export const getSourceMendeley: typeof import("./getSourceMendeley").getSourceMendeley = null as any;
+export const getSourceMendeleyOutput: typeof import("./getSourceMendeley").getSourceMendeleyOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceMendeley","getSourceMendeleyOutput"], () => require("./getSourceMendeley"));
+
 export { GetSourceMentionArgs, GetSourceMentionResult, GetSourceMentionOutputArgs } from "./getSourceMention";
 export const getSourceMention: typeof import("./getSourceMention").getSourceMention = null as any;
 export const getSourceMentionOutput: typeof import("./getSourceMention").getSourceMentionOutput = null as any;
@@ -1834,6 +1909,11 @@ export { GetSourceNewsdataIoArgs, GetSourceNewsdataIoResult, GetSourceNewsdataIo
 export const getSourceNewsdataIo: typeof import("./getSourceNewsdataIo").getSourceNewsdataIo = null as any;
 export const getSourceNewsdataIoOutput: typeof import("./getSourceNewsdataIo").getSourceNewsdataIoOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceNewsdataIo","getSourceNewsdataIoOutput"], () => require("./getSourceNewsdataIo"));
+
+export { GetSourceNexiopayArgs, GetSourceNexiopayResult, GetSourceNexiopayOutputArgs } from "./getSourceNexiopay";
+export const getSourceNexiopay: typeof import("./getSourceNexiopay").getSourceNexiopay = null as any;
+export const getSourceNexiopayOutput: typeof import("./getSourceNexiopay").getSourceNexiopayOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceNexiopay","getSourceNexiopayOutput"], () => require("./getSourceNexiopay"));
 
 export { GetSourceNinjaoneRmmArgs, GetSourceNinjaoneRmmResult, GetSourceNinjaoneRmmOutputArgs } from "./getSourceNinjaoneRmm";
 export const getSourceNinjaoneRmm: typeof import("./getSourceNinjaoneRmm").getSourceNinjaoneRmm = null as any;
@@ -2035,6 +2115,11 @@ export const getSourcePennylane: typeof import("./getSourcePennylane").getSource
 export const getSourcePennylaneOutput: typeof import("./getSourcePennylane").getSourcePennylaneOutput = null as any;
 utilities.lazyLoad(exports, ["getSourcePennylane","getSourcePennylaneOutput"], () => require("./getSourcePennylane"));
 
+export { GetSourcePerigonArgs, GetSourcePerigonResult, GetSourcePerigonOutputArgs } from "./getSourcePerigon";
+export const getSourcePerigon: typeof import("./getSourcePerigon").getSourcePerigon = null as any;
+export const getSourcePerigonOutput: typeof import("./getSourcePerigon").getSourcePerigonOutput = null as any;
+utilities.lazyLoad(exports, ["getSourcePerigon","getSourcePerigonOutput"], () => require("./getSourcePerigon"));
+
 export { GetSourcePersistiqArgs, GetSourcePersistiqResult, GetSourcePersistiqOutputArgs } from "./getSourcePersistiq";
 export const getSourcePersistiq: typeof import("./getSourcePersistiq").getSourcePersistiq = null as any;
 export const getSourcePersistiqOutput: typeof import("./getSourcePersistiq").getSourcePersistiqOutput = null as any;
@@ -2154,6 +2239,11 @@ export { GetSourcePrimetricArgs, GetSourcePrimetricResult, GetSourcePrimetricOut
 export const getSourcePrimetric: typeof import("./getSourcePrimetric").getSourcePrimetric = null as any;
 export const getSourcePrimetricOutput: typeof import("./getSourcePrimetric").getSourcePrimetricOutput = null as any;
 utilities.lazyLoad(exports, ["getSourcePrimetric","getSourcePrimetricOutput"], () => require("./getSourcePrimetric"));
+
+export { GetSourcePrintifyArgs, GetSourcePrintifyResult, GetSourcePrintifyOutputArgs } from "./getSourcePrintify";
+export const getSourcePrintify: typeof import("./getSourcePrintify").getSourcePrintify = null as any;
+export const getSourcePrintifyOutput: typeof import("./getSourcePrintify").getSourcePrintifyOutput = null as any;
+utilities.lazyLoad(exports, ["getSourcePrintify","getSourcePrintifyOutput"], () => require("./getSourcePrintify"));
 
 export { GetSourceProductboardArgs, GetSourceProductboardResult, GetSourceProductboardOutputArgs } from "./getSourceProductboard";
 export const getSourceProductboard: typeof import("./getSourceProductboard").getSourceProductboard = null as any;
@@ -2430,6 +2520,11 @@ export const getSourceShopify: typeof import("./getSourceShopify").getSourceShop
 export const getSourceShopifyOutput: typeof import("./getSourceShopify").getSourceShopifyOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceShopify","getSourceShopifyOutput"], () => require("./getSourceShopify"));
 
+export { GetSourceShopwiredArgs, GetSourceShopwiredResult, GetSourceShopwiredOutputArgs } from "./getSourceShopwired";
+export const getSourceShopwired: typeof import("./getSourceShopwired").getSourceShopwired = null as any;
+export const getSourceShopwiredOutput: typeof import("./getSourceShopwired").getSourceShopwiredOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceShopwired","getSourceShopwiredOutput"], () => require("./getSourceShopwired"));
+
 export { GetSourceShortcutArgs, GetSourceShortcutResult, GetSourceShortcutOutputArgs } from "./getSourceShortcut";
 export const getSourceShortcut: typeof import("./getSourceShortcut").getSourceShortcut = null as any;
 export const getSourceShortcutOutput: typeof import("./getSourceShortcut").getSourceShortcutOutput = null as any;
@@ -2590,6 +2685,11 @@ export const getSourceSurvicate: typeof import("./getSourceSurvicate").getSource
 export const getSourceSurvicateOutput: typeof import("./getSourceSurvicate").getSourceSurvicateOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceSurvicate","getSourceSurvicateOutput"], () => require("./getSourceSurvicate"));
 
+export { GetSourceSvixArgs, GetSourceSvixResult, GetSourceSvixOutputArgs } from "./getSourceSvix";
+export const getSourceSvix: typeof import("./getSourceSvix").getSourceSvix = null as any;
+export const getSourceSvixOutput: typeof import("./getSourceSvix").getSourceSvixOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceSvix","getSourceSvixOutput"], () => require("./getSourceSvix"));
+
 export { GetSourceSystemeArgs, GetSourceSystemeResult, GetSourceSystemeOutputArgs } from "./getSourceSysteme";
 export const getSourceSysteme: typeof import("./getSourceSysteme").getSourceSysteme = null as any;
 export const getSourceSystemeOutput: typeof import("./getSourceSysteme").getSourceSystemeOutput = null as any;
@@ -2599,6 +2699,11 @@ export { GetSourceTaboolaArgs, GetSourceTaboolaResult, GetSourceTaboolaOutputArg
 export const getSourceTaboola: typeof import("./getSourceTaboola").getSourceTaboola = null as any;
 export const getSourceTaboolaOutput: typeof import("./getSourceTaboola").getSourceTaboolaOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceTaboola","getSourceTaboolaOutput"], () => require("./getSourceTaboola"));
+
+export { GetSourceTavusArgs, GetSourceTavusResult, GetSourceTavusOutputArgs } from "./getSourceTavus";
+export const getSourceTavus: typeof import("./getSourceTavus").getSourceTavus = null as any;
+export const getSourceTavusOutput: typeof import("./getSourceTavus").getSourceTavusOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceTavus","getSourceTavusOutput"], () => require("./getSourceTavus"));
 
 export { GetSourceTeamtailorArgs, GetSourceTeamtailorResult, GetSourceTeamtailorOutputArgs } from "./getSourceTeamtailor";
 export const getSourceTeamtailor: typeof import("./getSourceTeamtailor").getSourceTeamtailor = null as any;
@@ -2794,6 +2899,11 @@ export { GetSourceWasabiStatsApiArgs, GetSourceWasabiStatsApiResult, GetSourceWa
 export const getSourceWasabiStatsApi: typeof import("./getSourceWasabiStatsApi").getSourceWasabiStatsApi = null as any;
 export const getSourceWasabiStatsApiOutput: typeof import("./getSourceWasabiStatsApi").getSourceWasabiStatsApiOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceWasabiStatsApi","getSourceWasabiStatsApiOutput"], () => require("./getSourceWasabiStatsApi"));
+
+export { GetSourceWatchmodeArgs, GetSourceWatchmodeResult, GetSourceWatchmodeOutputArgs } from "./getSourceWatchmode";
+export const getSourceWatchmode: typeof import("./getSourceWatchmode").getSourceWatchmode = null as any;
+export const getSourceWatchmodeOutput: typeof import("./getSourceWatchmode").getSourceWatchmodeOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceWatchmode","getSourceWatchmodeOutput"], () => require("./getSourceWatchmode"));
 
 export { GetSourceWeatherstackArgs, GetSourceWeatherstackResult, GetSourceWeatherstackOutputArgs } from "./getSourceWeatherstack";
 export const getSourceWeatherstack: typeof import("./getSourceWeatherstack").getSourceWeatherstack = null as any;
@@ -3030,6 +3140,11 @@ export type Provider = import("./provider").Provider;
 export const Provider: typeof import("./provider").Provider = null as any;
 utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
 
+export { Source100msArgs, Source100msState } from "./source100ms";
+export type Source100ms = import("./source100ms").Source100ms;
+export const Source100ms: typeof import("./source100ms").Source100ms = null as any;
+utilities.lazyLoad(exports, ["Source100ms"], () => require("./source100ms"));
+
 export { Source7shiftsArgs, Source7shiftsState } from "./source7shifts";
 export type Source7shifts = import("./source7shifts").Source7shifts;
 export const Source7shifts: typeof import("./source7shifts").Source7shifts = null as any;
@@ -3145,10 +3260,20 @@ export type SourceAshby = import("./sourceAshby").SourceAshby;
 export const SourceAshby: typeof import("./sourceAshby").SourceAshby = null as any;
 utilities.lazyLoad(exports, ["SourceAshby"], () => require("./sourceAshby"));
 
+export { SourceAssemblyaiArgs, SourceAssemblyaiState } from "./sourceAssemblyai";
+export type SourceAssemblyai = import("./sourceAssemblyai").SourceAssemblyai;
+export const SourceAssemblyai: typeof import("./sourceAssemblyai").SourceAssemblyai = null as any;
+utilities.lazyLoad(exports, ["SourceAssemblyai"], () => require("./sourceAssemblyai"));
+
 export { SourceAuth0Args, SourceAuth0State } from "./sourceAuth0";
 export type SourceAuth0 = import("./sourceAuth0").SourceAuth0;
 export const SourceAuth0: typeof import("./sourceAuth0").SourceAuth0 = null as any;
 utilities.lazyLoad(exports, ["SourceAuth0"], () => require("./sourceAuth0"));
+
+export { SourceAviationstackArgs, SourceAviationstackState } from "./sourceAviationstack";
+export type SourceAviationstack = import("./sourceAviationstack").SourceAviationstack;
+export const SourceAviationstack: typeof import("./sourceAviationstack").SourceAviationstack = null as any;
+utilities.lazyLoad(exports, ["SourceAviationstack"], () => require("./sourceAviationstack"));
 
 export { SourceAwsCloudtrailArgs, SourceAwsCloudtrailState } from "./sourceAwsCloudtrail";
 export type SourceAwsCloudtrail = import("./sourceAwsCloudtrail").SourceAwsCloudtrail;
@@ -3209,6 +3334,11 @@ export { SourceBloggerArgs, SourceBloggerState } from "./sourceBlogger";
 export type SourceBlogger = import("./sourceBlogger").SourceBlogger;
 export const SourceBlogger: typeof import("./sourceBlogger").SourceBlogger = null as any;
 utilities.lazyLoad(exports, ["SourceBlogger"], () => require("./sourceBlogger"));
+
+export { SourceBluetallyArgs, SourceBluetallyState } from "./sourceBluetally";
+export type SourceBluetally = import("./sourceBluetally").SourceBluetally;
+export const SourceBluetally: typeof import("./sourceBluetally").SourceBluetally = null as any;
+utilities.lazyLoad(exports, ["SourceBluetally"], () => require("./sourceBluetally"));
 
 export { SourceBoldsignArgs, SourceBoldsignState } from "./sourceBoldsign";
 export type SourceBoldsign = import("./sourceBoldsign").SourceBoldsign;
@@ -3515,6 +3645,11 @@ export type SourceDbt = import("./sourceDbt").SourceDbt;
 export const SourceDbt: typeof import("./sourceDbt").SourceDbt = null as any;
 utilities.lazyLoad(exports, ["SourceDbt"], () => require("./sourceDbt"));
 
+export { SourceDefinitionArgs, SourceDefinitionState } from "./sourceDefinition";
+export type SourceDefinition = import("./sourceDefinition").SourceDefinition;
+export const SourceDefinition: typeof import("./sourceDefinition").SourceDefinition = null as any;
+utilities.lazyLoad(exports, ["SourceDefinition"], () => require("./sourceDefinition"));
+
 export { SourceDelightedArgs, SourceDelightedState } from "./sourceDelighted";
 export type SourceDelighted = import("./sourceDelighted").SourceDelighted;
 export const SourceDelighted: typeof import("./sourceDelighted").SourceDelighted = null as any;
@@ -3665,6 +3800,11 @@ export type SourceFastbill = import("./sourceFastbill").SourceFastbill;
 export const SourceFastbill: typeof import("./sourceFastbill").SourceFastbill = null as any;
 utilities.lazyLoad(exports, ["SourceFastbill"], () => require("./sourceFastbill"));
 
+export { SourceFastlyArgs, SourceFastlyState } from "./sourceFastly";
+export type SourceFastly = import("./sourceFastly").SourceFastly;
+export const SourceFastly: typeof import("./sourceFastly").SourceFastly = null as any;
+utilities.lazyLoad(exports, ["SourceFastly"], () => require("./sourceFastly"));
+
 export { SourceFaunaArgs, SourceFaunaState } from "./sourceFauna";
 export type SourceFauna = import("./sourceFauna").SourceFauna;
 export const SourceFauna: typeof import("./sourceFauna").SourceFauna = null as any;
@@ -3814,6 +3954,11 @@ export { SourceGetlagoArgs, SourceGetlagoState } from "./sourceGetlago";
 export type SourceGetlago = import("./sourceGetlago").SourceGetlago;
 export const SourceGetlago: typeof import("./sourceGetlago").SourceGetlago = null as any;
 utilities.lazyLoad(exports, ["SourceGetlago"], () => require("./sourceGetlago"));
+
+export { SourceGiphyArgs, SourceGiphyState } from "./sourceGiphy";
+export type SourceGiphy = import("./sourceGiphy").SourceGiphy;
+export const SourceGiphy: typeof import("./sourceGiphy").SourceGiphy = null as any;
+utilities.lazyLoad(exports, ["SourceGiphy"], () => require("./sourceGiphy"));
 
 export { SourceGitbookArgs, SourceGitbookState } from "./sourceGitbook";
 export type SourceGitbook = import("./sourceGitbook").SourceGitbook;
@@ -4030,6 +4175,11 @@ export type SourceIlluminaBasespace = import("./sourceIlluminaBasespace").Source
 export const SourceIlluminaBasespace: typeof import("./sourceIlluminaBasespace").SourceIlluminaBasespace = null as any;
 utilities.lazyLoad(exports, ["SourceIlluminaBasespace"], () => require("./sourceIlluminaBasespace"));
 
+export { SourceImaggaArgs, SourceImaggaState } from "./sourceImagga";
+export type SourceImagga = import("./sourceImagga").SourceImagga;
+export const SourceImagga: typeof import("./sourceImagga").SourceImagga = null as any;
+utilities.lazyLoad(exports, ["SourceImagga"], () => require("./sourceImagga"));
+
 export { SourceIncidentIoArgs, SourceIncidentIoState } from "./sourceIncidentIo";
 export type SourceIncidentIo = import("./sourceIncidentIo").SourceIncidentIo;
 export const SourceIncidentIo: typeof import("./sourceIncidentIo").SourceIncidentIo = null as any;
@@ -4039,6 +4189,11 @@ export { SourceInflowinventoryArgs, SourceInflowinventoryState } from "./sourceI
 export type SourceInflowinventory = import("./sourceInflowinventory").SourceInflowinventory;
 export const SourceInflowinventory: typeof import("./sourceInflowinventory").SourceInflowinventory = null as any;
 utilities.lazyLoad(exports, ["SourceInflowinventory"], () => require("./sourceInflowinventory"));
+
+export { SourceInsightfulArgs, SourceInsightfulState } from "./sourceInsightful";
+export type SourceInsightful = import("./sourceInsightful").SourceInsightful;
+export const SourceInsightful: typeof import("./sourceInsightful").SourceInsightful = null as any;
+utilities.lazyLoad(exports, ["SourceInsightful"], () => require("./sourceInsightful"));
 
 export { SourceInsightlyArgs, SourceInsightlyState } from "./sourceInsightly";
 export type SourceInsightly = import("./sourceInsightly").SourceInsightly;
@@ -4084,6 +4239,11 @@ export { SourceIterableArgs, SourceIterableState } from "./sourceIterable";
 export type SourceIterable = import("./sourceIterable").SourceIterable;
 export const SourceIterable: typeof import("./sourceIterable").SourceIterable = null as any;
 utilities.lazyLoad(exports, ["SourceIterable"], () => require("./sourceIterable"));
+
+export { SourceJamfProArgs, SourceJamfProState } from "./sourceJamfPro";
+export type SourceJamfPro = import("./sourceJamfPro").SourceJamfPro;
+export const SourceJamfPro: typeof import("./sourceJamfPro").SourceJamfPro = null as any;
+utilities.lazyLoad(exports, ["SourceJamfPro"], () => require("./sourceJamfPro"));
 
 export { SourceJiraArgs, SourceJiraState } from "./sourceJira";
 export type SourceJira = import("./sourceJira").SourceJira;
@@ -4270,6 +4430,11 @@ export type SourceMarketstack = import("./sourceMarketstack").SourceMarketstack;
 export const SourceMarketstack: typeof import("./sourceMarketstack").SourceMarketstack = null as any;
 utilities.lazyLoad(exports, ["SourceMarketstack"], () => require("./sourceMarketstack"));
 
+export { SourceMendeleyArgs, SourceMendeleyState } from "./sourceMendeley";
+export type SourceMendeley = import("./sourceMendeley").SourceMendeley;
+export const SourceMendeley: typeof import("./sourceMendeley").SourceMendeley = null as any;
+utilities.lazyLoad(exports, ["SourceMendeley"], () => require("./sourceMendeley"));
+
 export { SourceMentionArgs, SourceMentionState } from "./sourceMention";
 export type SourceMention = import("./sourceMention").SourceMention;
 export const SourceMention: typeof import("./sourceMention").SourceMention = null as any;
@@ -4414,6 +4579,11 @@ export { SourceNewsdataIoArgs, SourceNewsdataIoState } from "./sourceNewsdataIo"
 export type SourceNewsdataIo = import("./sourceNewsdataIo").SourceNewsdataIo;
 export const SourceNewsdataIo: typeof import("./sourceNewsdataIo").SourceNewsdataIo = null as any;
 utilities.lazyLoad(exports, ["SourceNewsdataIo"], () => require("./sourceNewsdataIo"));
+
+export { SourceNexiopayArgs, SourceNexiopayState } from "./sourceNexiopay";
+export type SourceNexiopay = import("./sourceNexiopay").SourceNexiopay;
+export const SourceNexiopay: typeof import("./sourceNexiopay").SourceNexiopay = null as any;
+utilities.lazyLoad(exports, ["SourceNexiopay"], () => require("./sourceNexiopay"));
 
 export { SourceNinjaoneRmmArgs, SourceNinjaoneRmmState } from "./sourceNinjaoneRmm";
 export type SourceNinjaoneRmm = import("./sourceNinjaoneRmm").SourceNinjaoneRmm;
@@ -4615,6 +4785,11 @@ export type SourcePennylane = import("./sourcePennylane").SourcePennylane;
 export const SourcePennylane: typeof import("./sourcePennylane").SourcePennylane = null as any;
 utilities.lazyLoad(exports, ["SourcePennylane"], () => require("./sourcePennylane"));
 
+export { SourcePerigonArgs, SourcePerigonState } from "./sourcePerigon";
+export type SourcePerigon = import("./sourcePerigon").SourcePerigon;
+export const SourcePerigon: typeof import("./sourcePerigon").SourcePerigon = null as any;
+utilities.lazyLoad(exports, ["SourcePerigon"], () => require("./sourcePerigon"));
+
 export { SourcePersistiqArgs, SourcePersistiqState } from "./sourcePersistiq";
 export type SourcePersistiq = import("./sourcePersistiq").SourcePersistiq;
 export const SourcePersistiq: typeof import("./sourcePersistiq").SourcePersistiq = null as any;
@@ -4734,6 +4909,11 @@ export { SourcePrimetricArgs, SourcePrimetricState } from "./sourcePrimetric";
 export type SourcePrimetric = import("./sourcePrimetric").SourcePrimetric;
 export const SourcePrimetric: typeof import("./sourcePrimetric").SourcePrimetric = null as any;
 utilities.lazyLoad(exports, ["SourcePrimetric"], () => require("./sourcePrimetric"));
+
+export { SourcePrintifyArgs, SourcePrintifyState } from "./sourcePrintify";
+export type SourcePrintify = import("./sourcePrintify").SourcePrintify;
+export const SourcePrintify: typeof import("./sourcePrintify").SourcePrintify = null as any;
+utilities.lazyLoad(exports, ["SourcePrintify"], () => require("./sourcePrintify"));
 
 export { SourceProductboardArgs, SourceProductboardState } from "./sourceProductboard";
 export type SourceProductboard = import("./sourceProductboard").SourceProductboard;
@@ -5010,6 +5190,11 @@ export type SourceShopify = import("./sourceShopify").SourceShopify;
 export const SourceShopify: typeof import("./sourceShopify").SourceShopify = null as any;
 utilities.lazyLoad(exports, ["SourceShopify"], () => require("./sourceShopify"));
 
+export { SourceShopwiredArgs, SourceShopwiredState } from "./sourceShopwired";
+export type SourceShopwired = import("./sourceShopwired").SourceShopwired;
+export const SourceShopwired: typeof import("./sourceShopwired").SourceShopwired = null as any;
+utilities.lazyLoad(exports, ["SourceShopwired"], () => require("./sourceShopwired"));
+
 export { SourceShortcutArgs, SourceShortcutState } from "./sourceShortcut";
 export type SourceShortcut = import("./sourceShortcut").SourceShortcut;
 export const SourceShortcut: typeof import("./sourceShortcut").SourceShortcut = null as any;
@@ -5170,6 +5355,11 @@ export type SourceSurvicate = import("./sourceSurvicate").SourceSurvicate;
 export const SourceSurvicate: typeof import("./sourceSurvicate").SourceSurvicate = null as any;
 utilities.lazyLoad(exports, ["SourceSurvicate"], () => require("./sourceSurvicate"));
 
+export { SourceSvixArgs, SourceSvixState } from "./sourceSvix";
+export type SourceSvix = import("./sourceSvix").SourceSvix;
+export const SourceSvix: typeof import("./sourceSvix").SourceSvix = null as any;
+utilities.lazyLoad(exports, ["SourceSvix"], () => require("./sourceSvix"));
+
 export { SourceSystemeArgs, SourceSystemeState } from "./sourceSysteme";
 export type SourceSysteme = import("./sourceSysteme").SourceSysteme;
 export const SourceSysteme: typeof import("./sourceSysteme").SourceSysteme = null as any;
@@ -5179,6 +5369,11 @@ export { SourceTaboolaArgs, SourceTaboolaState } from "./sourceTaboola";
 export type SourceTaboola = import("./sourceTaboola").SourceTaboola;
 export const SourceTaboola: typeof import("./sourceTaboola").SourceTaboola = null as any;
 utilities.lazyLoad(exports, ["SourceTaboola"], () => require("./sourceTaboola"));
+
+export { SourceTavusArgs, SourceTavusState } from "./sourceTavus";
+export type SourceTavus = import("./sourceTavus").SourceTavus;
+export const SourceTavus: typeof import("./sourceTavus").SourceTavus = null as any;
+utilities.lazyLoad(exports, ["SourceTavus"], () => require("./sourceTavus"));
 
 export { SourceTeamtailorArgs, SourceTeamtailorState } from "./sourceTeamtailor";
 export type SourceTeamtailor = import("./sourceTeamtailor").SourceTeamtailor;
@@ -5374,6 +5569,11 @@ export { SourceWasabiStatsApiArgs, SourceWasabiStatsApiState } from "./sourceWas
 export type SourceWasabiStatsApi = import("./sourceWasabiStatsApi").SourceWasabiStatsApi;
 export const SourceWasabiStatsApi: typeof import("./sourceWasabiStatsApi").SourceWasabiStatsApi = null as any;
 utilities.lazyLoad(exports, ["SourceWasabiStatsApi"], () => require("./sourceWasabiStatsApi"));
+
+export { SourceWatchmodeArgs, SourceWatchmodeState } from "./sourceWatchmode";
+export type SourceWatchmode = import("./sourceWatchmode").SourceWatchmode;
+export const SourceWatchmode: typeof import("./sourceWatchmode").SourceWatchmode = null as any;
+utilities.lazyLoad(exports, ["SourceWatchmode"], () => require("./sourceWatchmode"));
 
 export { SourceWeatherstackArgs, SourceWeatherstackState } from "./sourceWeatherstack";
 export type SourceWeatherstack = import("./sourceWeatherstack").SourceWeatherstack;
@@ -5616,6 +5816,8 @@ const _module = {
         switch (type) {
             case "airbyte:index/connection:Connection":
                 return new Connection(name, <any>undefined, { urn })
+            case "airbyte:index/declarativeSourceDefinition:DeclarativeSourceDefinition":
+                return new DeclarativeSourceDefinition(name, <any>undefined, { urn })
             case "airbyte:index/destinationAstra:DestinationAstra":
                 return new DestinationAstra(name, <any>undefined, { urn })
             case "airbyte:index/destinationAwsDatalake:DestinationAwsDatalake":
@@ -5636,6 +5838,8 @@ const _module = {
                 return new DestinationDatabricks(name, <any>undefined, { urn })
             case "airbyte:index/destinationDeepset:DestinationDeepset":
                 return new DestinationDeepset(name, <any>undefined, { urn })
+            case "airbyte:index/destinationDefinition:DestinationDefinition":
+                return new DestinationDefinition(name, <any>undefined, { urn })
             case "airbyte:index/destinationDevNull:DestinationDevNull":
                 return new DestinationDevNull(name, <any>undefined, { urn })
             case "airbyte:index/destinationDuckdb:DestinationDuckdb":
@@ -5704,6 +5908,8 @@ const _module = {
                 return new DestinationYellowbrick(name, <any>undefined, { urn })
             case "airbyte:index/permission:Permission":
                 return new Permission(name, <any>undefined, { urn })
+            case "airbyte:index/source100ms:Source100ms":
+                return new Source100ms(name, <any>undefined, { urn })
             case "airbyte:index/source7shifts:Source7shifts":
                 return new Source7shifts(name, <any>undefined, { urn })
             case "airbyte:index/sourceActivecampaign:SourceActivecampaign":
@@ -5750,8 +5956,12 @@ const _module = {
                 return new SourceAsana(name, <any>undefined, { urn })
             case "airbyte:index/sourceAshby:SourceAshby":
                 return new SourceAshby(name, <any>undefined, { urn })
+            case "airbyte:index/sourceAssemblyai:SourceAssemblyai":
+                return new SourceAssemblyai(name, <any>undefined, { urn })
             case "airbyte:index/sourceAuth0:SourceAuth0":
                 return new SourceAuth0(name, <any>undefined, { urn })
+            case "airbyte:index/sourceAviationstack:SourceAviationstack":
+                return new SourceAviationstack(name, <any>undefined, { urn })
             case "airbyte:index/sourceAwsCloudtrail:SourceAwsCloudtrail":
                 return new SourceAwsCloudtrail(name, <any>undefined, { urn })
             case "airbyte:index/sourceAzureBlobStorage:SourceAzureBlobStorage":
@@ -5776,6 +5986,8 @@ const _module = {
                 return new SourceBitly(name, <any>undefined, { urn })
             case "airbyte:index/sourceBlogger:SourceBlogger":
                 return new SourceBlogger(name, <any>undefined, { urn })
+            case "airbyte:index/sourceBluetally:SourceBluetally":
+                return new SourceBluetally(name, <any>undefined, { urn })
             case "airbyte:index/sourceBoldsign:SourceBoldsign":
                 return new SourceBoldsign(name, <any>undefined, { urn })
             case "airbyte:index/sourceBox:SourceBox":
@@ -5898,6 +6110,8 @@ const _module = {
                 return new SourceDatascope(name, <any>undefined, { urn })
             case "airbyte:index/sourceDbt:SourceDbt":
                 return new SourceDbt(name, <any>undefined, { urn })
+            case "airbyte:index/sourceDefinition:SourceDefinition":
+                return new SourceDefinition(name, <any>undefined, { urn })
             case "airbyte:index/sourceDelighted:SourceDelighted":
                 return new SourceDelighted(name, <any>undefined, { urn })
             case "airbyte:index/sourceDeputy:SourceDeputy":
@@ -5958,6 +6172,8 @@ const _module = {
                 return new SourceFaker(name, <any>undefined, { urn })
             case "airbyte:index/sourceFastbill:SourceFastbill":
                 return new SourceFastbill(name, <any>undefined, { urn })
+            case "airbyte:index/sourceFastly:SourceFastly":
+                return new SourceFastly(name, <any>undefined, { urn })
             case "airbyte:index/sourceFauna:SourceFauna":
                 return new SourceFauna(name, <any>undefined, { urn })
             case "airbyte:index/sourceFile:SourceFile":
@@ -6018,6 +6234,8 @@ const _module = {
                 return new SourceGetgist(name, <any>undefined, { urn })
             case "airbyte:index/sourceGetlago:SourceGetlago":
                 return new SourceGetlago(name, <any>undefined, { urn })
+            case "airbyte:index/sourceGiphy:SourceGiphy":
+                return new SourceGiphy(name, <any>undefined, { urn })
             case "airbyte:index/sourceGitbook:SourceGitbook":
                 return new SourceGitbook(name, <any>undefined, { urn })
             case "airbyte:index/sourceGithub:SourceGithub":
@@ -6104,10 +6322,14 @@ const _module = {
                 return new SourceHuntr(name, <any>undefined, { urn })
             case "airbyte:index/sourceIlluminaBasespace:SourceIlluminaBasespace":
                 return new SourceIlluminaBasespace(name, <any>undefined, { urn })
+            case "airbyte:index/sourceImagga:SourceImagga":
+                return new SourceImagga(name, <any>undefined, { urn })
             case "airbyte:index/sourceIncidentIo:SourceIncidentIo":
                 return new SourceIncidentIo(name, <any>undefined, { urn })
             case "airbyte:index/sourceInflowinventory:SourceInflowinventory":
                 return new SourceInflowinventory(name, <any>undefined, { urn })
+            case "airbyte:index/sourceInsightful:SourceInsightful":
+                return new SourceInsightful(name, <any>undefined, { urn })
             case "airbyte:index/sourceInsightly:SourceInsightly":
                 return new SourceInsightly(name, <any>undefined, { urn })
             case "airbyte:index/sourceInstagram:SourceInstagram":
@@ -6126,6 +6348,8 @@ const _module = {
                 return new SourceIp2whois(name, <any>undefined, { urn })
             case "airbyte:index/sourceIterable:SourceIterable":
                 return new SourceIterable(name, <any>undefined, { urn })
+            case "airbyte:index/sourceJamfPro:SourceJamfPro":
+                return new SourceJamfPro(name, <any>undefined, { urn })
             case "airbyte:index/sourceJira:SourceJira":
                 return new SourceJira(name, <any>undefined, { urn })
             case "airbyte:index/sourceJobnimbus:SourceJobnimbus":
@@ -6200,6 +6424,8 @@ const _module = {
                 return new SourceMarketo(name, <any>undefined, { urn })
             case "airbyte:index/sourceMarketstack:SourceMarketstack":
                 return new SourceMarketstack(name, <any>undefined, { urn })
+            case "airbyte:index/sourceMendeley:SourceMendeley":
+                return new SourceMendeley(name, <any>undefined, { urn })
             case "airbyte:index/sourceMention:SourceMention":
                 return new SourceMention(name, <any>undefined, { urn })
             case "airbyte:index/sourceMerge:SourceMerge":
@@ -6258,6 +6484,8 @@ const _module = {
                 return new SourceNewsdata(name, <any>undefined, { urn })
             case "airbyte:index/sourceNewsdataIo:SourceNewsdataIo":
                 return new SourceNewsdataIo(name, <any>undefined, { urn })
+            case "airbyte:index/sourceNexiopay:SourceNexiopay":
+                return new SourceNexiopay(name, <any>undefined, { urn })
             case "airbyte:index/sourceNinjaoneRmm:SourceNinjaoneRmm":
                 return new SourceNinjaoneRmm(name, <any>undefined, { urn })
             case "airbyte:index/sourceNocrm:SourceNocrm":
@@ -6338,6 +6566,8 @@ const _module = {
                 return new SourcePendo(name, <any>undefined, { urn })
             case "airbyte:index/sourcePennylane:SourcePennylane":
                 return new SourcePennylane(name, <any>undefined, { urn })
+            case "airbyte:index/sourcePerigon:SourcePerigon":
+                return new SourcePerigon(name, <any>undefined, { urn })
             case "airbyte:index/sourcePersistiq:SourcePersistiq":
                 return new SourcePersistiq(name, <any>undefined, { urn })
             case "airbyte:index/sourcePersona:SourcePersona":
@@ -6386,6 +6616,8 @@ const _module = {
                 return new SourcePretix(name, <any>undefined, { urn })
             case "airbyte:index/sourcePrimetric:SourcePrimetric":
                 return new SourcePrimetric(name, <any>undefined, { urn })
+            case "airbyte:index/sourcePrintify:SourcePrintify":
+                return new SourcePrintify(name, <any>undefined, { urn })
             case "airbyte:index/sourceProductboard:SourceProductboard":
                 return new SourceProductboard(name, <any>undefined, { urn })
             case "airbyte:index/sourceProductive:SourceProductive":
@@ -6496,6 +6728,8 @@ const _module = {
                 return new SourceShipstation(name, <any>undefined, { urn })
             case "airbyte:index/sourceShopify:SourceShopify":
                 return new SourceShopify(name, <any>undefined, { urn })
+            case "airbyte:index/sourceShopwired:SourceShopwired":
+                return new SourceShopwired(name, <any>undefined, { urn })
             case "airbyte:index/sourceShortcut:SourceShortcut":
                 return new SourceShortcut(name, <any>undefined, { urn })
             case "airbyte:index/sourceShortio:SourceShortio":
@@ -6560,10 +6794,14 @@ const _module = {
                 return new SourceSurveymonkey(name, <any>undefined, { urn })
             case "airbyte:index/sourceSurvicate:SourceSurvicate":
                 return new SourceSurvicate(name, <any>undefined, { urn })
+            case "airbyte:index/sourceSvix:SourceSvix":
+                return new SourceSvix(name, <any>undefined, { urn })
             case "airbyte:index/sourceSysteme:SourceSysteme":
                 return new SourceSysteme(name, <any>undefined, { urn })
             case "airbyte:index/sourceTaboola:SourceTaboola":
                 return new SourceTaboola(name, <any>undefined, { urn })
+            case "airbyte:index/sourceTavus:SourceTavus":
+                return new SourceTavus(name, <any>undefined, { urn })
             case "airbyte:index/sourceTeamtailor:SourceTeamtailor":
                 return new SourceTeamtailor(name, <any>undefined, { urn })
             case "airbyte:index/sourceTeamwork:SourceTeamwork":
@@ -6642,6 +6880,8 @@ const _module = {
                 return new SourceWaiteraid(name, <any>undefined, { urn })
             case "airbyte:index/sourceWasabiStatsApi:SourceWasabiStatsApi":
                 return new SourceWasabiStatsApi(name, <any>undefined, { urn })
+            case "airbyte:index/sourceWatchmode:SourceWatchmode":
+                return new SourceWatchmode(name, <any>undefined, { urn })
             case "airbyte:index/sourceWeatherstack:SourceWeatherstack":
                 return new SourceWeatherstack(name, <any>undefined, { urn })
             case "airbyte:index/sourceWebScrapper:SourceWebScrapper":
@@ -6738,6 +6978,7 @@ const _module = {
     },
 };
 pulumi.runtime.registerResourceModule("airbyte", "index/connection", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/declarativeSourceDefinition", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/destinationAstra", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/destinationAwsDatalake", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/destinationAzureBlobStorage", _module)
@@ -6748,6 +6989,7 @@ pulumi.runtime.registerResourceModule("airbyte", "index/destinationConvex", _mod
 pulumi.runtime.registerResourceModule("airbyte", "index/destinationCustom", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/destinationDatabricks", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/destinationDeepset", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/destinationDefinition", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/destinationDevNull", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/destinationDuckdb", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/destinationDynamodb", _module)
@@ -6782,6 +7024,7 @@ pulumi.runtime.registerResourceModule("airbyte", "index/destinationVectara", _mo
 pulumi.runtime.registerResourceModule("airbyte", "index/destinationWeaviate", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/destinationYellowbrick", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/permission", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/source100ms", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/source7shifts", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceActivecampaign", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceAgilecrm", _module)
@@ -6805,7 +7048,9 @@ pulumi.runtime.registerResourceModule("airbyte", "index/sourceAppleSearchAds", _
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceApptivo", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceAsana", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceAshby", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceAssemblyai", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceAuth0", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceAviationstack", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceAwsCloudtrail", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceAzureBlobStorage", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceAzureTable", _module)
@@ -6818,6 +7063,7 @@ pulumi.runtime.registerResourceModule("airbyte", "index/sourceBigquery", _module
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceBingAds", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceBitly", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceBlogger", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceBluetally", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceBoldsign", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceBox", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceBraintree", _module)
@@ -6879,6 +7125,7 @@ pulumi.runtime.registerResourceModule("airbyte", "index/sourceCustomerly", _modu
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceDatadog", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceDatascope", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceDbt", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceDefinition", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceDelighted", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceDeputy", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceDingConnect", _module)
@@ -6909,6 +7156,7 @@ pulumi.runtime.registerResourceModule("airbyte", "index/sourceFacebookMarketing"
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceFactorial", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceFaker", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceFastbill", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceFastly", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceFauna", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceFile", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceFillout", _module)
@@ -6939,6 +7187,7 @@ pulumi.runtime.registerResourceModule("airbyte", "index/sourceGainsightPx", _mod
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceGcs", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceGetgist", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceGetlago", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceGiphy", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceGitbook", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceGithub", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceGitlab", _module)
@@ -6982,8 +7231,10 @@ pulumi.runtime.registerResourceModule("airbyte", "index/sourceHuggingFaceDataset
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceHumanitix", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceHuntr", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceIlluminaBasespace", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceImagga", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceIncidentIo", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceInflowinventory", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceInsightful", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceInsightly", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceInstagram", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceInstatus", _module)
@@ -6993,6 +7244,7 @@ pulumi.runtime.registerResourceModule("airbyte", "index/sourceInvoiced", _module
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceInvoiceninja", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceIp2whois", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceIterable", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceJamfPro", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceJira", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceJobnimbus", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceJotform", _module)
@@ -7030,6 +7282,7 @@ pulumi.runtime.registerResourceModule("airbyte", "index/sourceMailosaur", _modul
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceMailtrap", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceMarketo", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceMarketstack", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceMendeley", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceMention", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceMerge", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceMetabase", _module)
@@ -7059,6 +7312,7 @@ pulumi.runtime.registerResourceModule("airbyte", "index/sourceNetsuiteEnterprise
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceNewsApi", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceNewsdata", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceNewsdataIo", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceNexiopay", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceNinjaoneRmm", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceNocrm", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceNorthpassLms", _module)
@@ -7099,6 +7353,7 @@ pulumi.runtime.registerResourceModule("airbyte", "index/sourcePaypalTransaction"
 pulumi.runtime.registerResourceModule("airbyte", "index/sourcePaystack", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourcePendo", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourcePennylane", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourcePerigon", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourcePersistiq", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourcePersona", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourcePexelsApi", _module)
@@ -7123,6 +7378,7 @@ pulumi.runtime.registerResourceModule("airbyte", "index/sourcePostmarkapp", _mod
 pulumi.runtime.registerResourceModule("airbyte", "index/sourcePrestashop", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourcePretix", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourcePrimetric", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourcePrintify", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceProductboard", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceProductive", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourcePypi", _module)
@@ -7178,6 +7434,7 @@ pulumi.runtime.registerResourceModule("airbyte", "index/sourceSharetribe", _modu
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceShippo", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceShipstation", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceShopify", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceShopwired", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceShortcut", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceShortio", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceShutterstock", _module)
@@ -7210,8 +7467,10 @@ pulumi.runtime.registerResourceModule("airbyte", "index/sourceStripe", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceSurveySparrow", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceSurveymonkey", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceSurvicate", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceSvix", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceSysteme", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceTaboola", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceTavus", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceTeamtailor", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceTeamwork", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceTempo", _module)
@@ -7251,6 +7510,7 @@ pulumi.runtime.registerResourceModule("airbyte", "index/sourceVitally", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceVwo", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceWaiteraid", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceWasabiStatsApi", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceWatchmode", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceWeatherstack", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceWebScrapper", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceWebflow", _module)
