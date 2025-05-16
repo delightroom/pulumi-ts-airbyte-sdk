@@ -61,5 +61,6 @@ export interface DeclarativeSourceDefinitionArgs {
      * Requires replacement if changed.
      */
     name?: pulumi.Input<string>;
+    version?: pulumi.Input<number>;
     workspaceId: pulumi.Input<string>;
 }

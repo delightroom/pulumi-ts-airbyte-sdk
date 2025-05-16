@@ -15,6 +15,10 @@ export interface ConnectionConfigurationsStream {
      */
     cursorFields: string[];
     /**
+     * Whether to move raw files from the source to the destination during the sync.
+     */
+    includeFiles: boolean;
+    /**
      * Mappers that should be applied to the stream before writing to the destination.
      */
     mappers: outputs.ConnectionConfigurationsStreamMapper[];
@@ -22,6 +26,10 @@ export interface ConnectionConfigurationsStream {
      * Not Null
      */
     name: string;
+    /**
+     * Namespace of the stream.
+     */
+    namespace: string;
     /**
      * Paths to the fields that will be used as primary key. This field is REQUIRED if `destination_sync_mode` is `*_dedup` unless it is already supplied by the source schema.
      */
@@ -644,7 +652,7 @@ export interface DestinationBigqueryConfiguration {
      */
     datasetId: string;
     /**
-     * The location of the dataset. Warning: Changes made after creation will not be applied. Read more <a href="https://cloud.google.com/bigquery/docs/locations">here</a>. must be one of ["US", "EU", "asia-east1", "asia-east2", "asia-northeast1", "asia-northeast2", "asia-northeast3", "asia-south1", "asia-south2", "asia-southeast1", "asia-southeast2", "australia-southeast1", "australia-southeast2", "europe-central1", "europe-central2", "europe-north1", "europe-southwest1", "europe-west1", "europe-west2", "europe-west3", "europe-west4", "europe-west6", "europe-west7", "europe-west8", "europe-west9", "europe-west12", "me-central1", "me-central2", "me-west1", "northamerica-northeast1", "northamerica-northeast2", "southamerica-east1", "southamerica-west1", "us-central1", "us-east1", "us-east2", "us-east3", "us-east4", "us-east5", "us-south1", "us-west1", "us-west2", "us-west3", "us-west4"]
+     * The location of the dataset. Warning: Changes made after creation will not be applied. Read more <a href="https://cloud.google.com/bigquery/docs/locations">here</a>. must be one of ["US", "EU", "asia-east1", "asia-east2", "asia-northeast1", "asia-northeast2", "asia-northeast3", "asia-south1", "asia-south2", "asia-southeast1", "asia-southeast2", "australia-southeast1", "australia-southeast2", "europe-central1", "europe-central2", "europe-north1", "europe-north2", "europe-southwest1", "europe-west1", "europe-west2", "europe-west3", "europe-west4", "europe-west6", "europe-west7", "europe-west8", "europe-west9", "europe-west12", "me-central1", "me-central2", "me-west1", "northamerica-northeast1", "northamerica-northeast2", "southamerica-east1", "southamerica-west1", "us-central1", "us-east1", "us-east2", "us-east3", "us-east4", "us-east5", "us-south1", "us-west1", "us-west2", "us-west3", "us-west4"]
      */
     datasetLocation: string;
     /**
@@ -6307,10 +6315,18 @@ export interface GetConnectionConfigurationsStream {
      */
     cursorFields: string[];
     /**
+     * Whether to move raw files from the source to the destination during the sync.
+     */
+    includeFiles: boolean;
+    /**
      * Mappers that should be applied to the stream before writing to the destination.
      */
     mappers: outputs.GetConnectionConfigurationsStreamMapper[];
     name: string;
+    /**
+     * Namespace of the stream.
+     */
+    namespace: string;
     /**
      * Paths to the fields that will be used as primary key. This field is REQUIRED if `destination_sync_mode` is `*_dedup` unless it is already supplied by the source schema.
      */
@@ -8991,6 +9007,43 @@ export interface GetSourceAviationstackResourceAllocationJobSpecific {
 }
 
 export interface GetSourceAviationstackResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface GetSourceAwinAdvertiserResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceAwinAdvertiserResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceAwinAdvertiserResourceAllocationJobSpecific[];
+}
+
+export interface GetSourceAwinAdvertiserResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface GetSourceAwinAdvertiserResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceAwinAdvertiserResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface GetSourceAwinAdvertiserResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -12728,6 +12781,43 @@ export interface GetSourceFacebookMarketingResourceAllocationJobSpecific {
 }
 
 export interface GetSourceFacebookMarketingResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface GetSourceFacebookPagesResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceFacebookPagesResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceFacebookPagesResourceAllocationJobSpecific[];
+}
+
+export interface GetSourceFacebookPagesResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface GetSourceFacebookPagesResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceFacebookPagesResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface GetSourceFacebookPagesResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -16880,6 +16970,43 @@ export interface GetSourceLightspeedRetailResourceAllocationJobSpecificResourceR
     memoryRequest: string;
 }
 
+export interface GetSourceLinearResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceLinearResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceLinearResourceAllocationJobSpecific[];
+}
+
+export interface GetSourceLinearResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface GetSourceLinearResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceLinearResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface GetSourceLinearResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
 export interface GetSourceLinkedinAdsResourceAllocation {
     /**
      * optional resource requirements to run workers (blank for unbounded allocations)
@@ -19351,6 +19478,43 @@ export interface GetSourceOpsgenieResourceAllocationJobSpecific {
 }
 
 export interface GetSourceOpsgenieResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface GetSourceOpuswatchResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceOpuswatchResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceOpuswatchResourceAllocationJobSpecific[];
+}
+
+export interface GetSourceOpuswatchResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface GetSourceOpuswatchResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceOpuswatchResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface GetSourceOpuswatchResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -22977,6 +23141,43 @@ export interface GetSourceSftpResourceAllocationJobSpecific {
 }
 
 export interface GetSourceSftpResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface GetSourceSharepointEnterpriseResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceSharepointEnterpriseResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceSharepointEnterpriseResourceAllocationJobSpecific[];
+}
+
+export interface GetSourceSharepointEnterpriseResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface GetSourceSharepointEnterpriseResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceSharepointEnterpriseResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface GetSourceSharepointEnterpriseResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -29314,6 +29515,68 @@ export interface SourceAviationstackResourceAllocationJobSpecificResourceRequire
     memoryRequest: string;
 }
 
+export interface SourceAwinAdvertiserConfiguration {
+    /**
+     * Your Awin Advertiser ID. You can find this in your Awin dashboard or account settings.
+     */
+    advertiserId: string;
+    /**
+     * Your Awin API key. Generate this from your Awin account under API Credentials.
+     */
+    apiKey: string;
+    /**
+     * Number of days to look back on each sync to catch any updates to existing records.
+     */
+    lookbackDays: number;
+    /**
+     * Start date for data replication in YYYY-MM-DD format
+     */
+    startDate: string;
+    /**
+     * The time window size for each API request in ISO8601 duration format.
+     * For the campaign performance stream, Awin API explicitly limits the period between startDate and endDate to 400 days maximum.
+     * Default: "P400D"
+     */
+    stepIncrement: string;
+}
+
+export interface SourceAwinAdvertiserResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceAwinAdvertiserResourceAllocationDefault;
+    jobSpecifics: outputs.SourceAwinAdvertiserResourceAllocationJobSpecific[];
+}
+
+export interface SourceAwinAdvertiserResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface SourceAwinAdvertiserResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceAwinAdvertiserResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface SourceAwinAdvertiserResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
 export interface SourceAwsCloudtrailConfiguration {
     /**
      * AWS CloudTrail Access Key ID. See the <a href="https://docs.airbyte.com/integrations/sources/aws-cloudtrail">docs</a> for more information on how to obtain this key.
@@ -32800,10 +33063,46 @@ export interface SourceConfluenceResourceAllocationJobSpecificResourceRequiremen
 }
 
 export interface SourceConvertkitConfiguration {
+    credentials: outputs.SourceConvertkitConfigurationCredentials;
     /**
-     * API Secret
+     * Default: "2013-01-01T00:00:00Z"
      */
-    apiSecret: string;
+    startDate: string;
+}
+
+export interface SourceConvertkitConfigurationCredentials {
+    apiKey?: outputs.SourceConvertkitConfigurationCredentialsApiKey;
+    oAuth20?: outputs.SourceConvertkitConfigurationCredentialsOAuth20;
+}
+
+export interface SourceConvertkitConfigurationCredentialsApiKey {
+    /**
+     * Kit/ConvertKit API Key. Default: "{{ config.get('credentials',{}).get('api_key') or config.get('api_secret') }}"
+     */
+    apiKey: string;
+}
+
+export interface SourceConvertkitConfigurationCredentialsOAuth20 {
+    /**
+     * An access token generated using the provided client information and refresh token.
+     */
+    accessToken?: string;
+    /**
+     * The client ID of your OAuth application.
+     */
+    clientId: string;
+    /**
+     * The client secret of your OAuth application.
+     */
+    clientSecret: string;
+    /**
+     * The time at which the current access token is set to expire
+     */
+    expiresAt?: string;
+    /**
+     * A current, non-expired refresh token genereted using the provided client ID and secret.
+     */
+    refreshToken: string;
 }
 
 export interface SourceConvertkitResourceAllocation {
@@ -34787,6 +35086,54 @@ export interface SourceFacebookMarketingResourceAllocationJobSpecific {
 }
 
 export interface SourceFacebookMarketingResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface SourceFacebookPagesConfiguration {
+    /**
+     * Facebook Page Access Token
+     */
+    accessToken: string;
+    /**
+     * Page ID
+     */
+    pageId: string;
+}
+
+export interface SourceFacebookPagesResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceFacebookPagesResourceAllocationDefault;
+    jobSpecifics: outputs.SourceFacebookPagesResourceAllocationJobSpecific[];
+}
+
+export interface SourceFacebookPagesResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface SourceFacebookPagesResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceFacebookPagesResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface SourceFacebookPagesResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -40140,6 +40487,10 @@ export interface SourceHubspotConfiguration {
      */
     enableExperimentalStreams: boolean;
     /**
+     * The number of worker threads to use for the sync. Default: 3
+     */
+    numWorker: number;
+    /**
      * UTC date and time in the format 2017-01-25T00:00:00Z. Any data before this date will not be replicated. If not set, "2006-06-01T00:00:00Z" (Hubspot creation date) will be used as start date. It's recommended to provide relevant to your data start date value to optimize synchronization.
      */
     startDate?: string;
@@ -42067,6 +42418,47 @@ export interface SourceLightspeedRetailResourceAllocationJobSpecific {
 }
 
 export interface SourceLightspeedRetailResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface SourceLinearConfiguration {
+    apiKey: string;
+}
+
+export interface SourceLinearResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceLinearResourceAllocationDefault;
+    jobSpecifics: outputs.SourceLinearResourceAllocationJobSpecific[];
+}
+
+export interface SourceLinearResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface SourceLinearResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceLinearResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface SourceLinearResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -44418,6 +44810,10 @@ export interface SourceMongodbV2Configuration {
      */
     discoverSampleSize: number;
     /**
+     * The amount of time the connector will wait when it discovers a document. Defaults to 600 seconds. Valid range: 5 seconds to 1200 seconds. Default: 600
+     */
+    discoverTimeoutSeconds: number;
+    /**
      * The amount of time an initial load is allowed to continue for before catching up on CDC logs. Default: 8
      */
     initialLoadTimeoutHours: number;
@@ -44882,7 +45278,7 @@ export interface SourceMysqlConfiguration {
      */
     replicationMethod: outputs.SourceMysqlConfigurationReplicationMethod;
     /**
-     * The encryption method with is used when communicating with the database.
+     * The encryption method which is used when communicating with the database.
      */
     sslMode?: outputs.SourceMysqlConfigurationSslMode;
     /**
@@ -46937,6 +47333,51 @@ export interface SourceOpsgenieResourceAllocationJobSpecific {
 }
 
 export interface SourceOpsgenieResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface SourceOpuswatchConfiguration {
+    apiKey: string;
+    /**
+     * Default: "20250101"
+     */
+    startDate: string;
+}
+
+export interface SourceOpuswatchResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceOpuswatchResourceAllocationDefault;
+    jobSpecifics: outputs.SourceOpuswatchResourceAllocationJobSpecific[];
+}
+
+export interface SourceOpuswatchResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface SourceOpuswatchResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceOpuswatchResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface SourceOpuswatchResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -53476,6 +53917,320 @@ export interface SourceSftpResourceAllocationJobSpecificResourceRequirements {
     memoryRequest: string;
 }
 
+export interface SourceSharepointEnterpriseConfiguration {
+    /**
+     * Credentials for connecting to the One Drive API
+     */
+    credentials: outputs.SourceSharepointEnterpriseConfigurationCredentials;
+    deliveryMethod?: outputs.SourceSharepointEnterpriseConfigurationDeliveryMethod;
+    /**
+     * Path to a specific folder within the drives to search for files. Leave empty to search all folders of the drives. This does not apply to shared items. Default: "."
+     */
+    folderPath: string;
+    /**
+     * Specifies the location(s) to search for files. Valid options are 'ACCESSIBLE_DRIVES' for all SharePoint drives the user can access, 'SHARED_ITEMS' for shared items the user has access to, and 'ALL' to search both. Default: "ALL"; must be one of ["ACCESSIBLE_DRIVES", "SHARED_ITEMS", "ALL"]
+     */
+    searchScope: string;
+    /**
+     * Url of SharePoint site to search for files. Leave empty to search in the main site. Use 'https://<tenant_name>.sharepoint.com/sites/' to iterate over all sites. Default: ""
+     */
+    siteUrl: string;
+    /**
+     * UTC date and time in the format 2017-01-25T00:00:00.000000Z. Any file modified before this date will not be replicated.
+     */
+    startDate?: string;
+    /**
+     * Each instance of this configuration defines a <a href="https://docs.airbyte.com/cloud/core-concepts#stream">stream</a>. Use this to define which files belong in the stream, their format, and how they should be parsed and validated. When sending data to warehouse destination such as Snowflake or BigQuery, each stream is a separate table.
+     */
+    streams: outputs.SourceSharepointEnterpriseConfigurationStream[];
+}
+
+export interface SourceSharepointEnterpriseConfigurationCredentials {
+    /**
+     * OAuthCredentials class to hold authentication details for Microsoft OAuth authentication.
+     * This class uses pydantic for data validation and settings management.
+     */
+    authenticateViaMicrosoftOAuth?: outputs.SourceSharepointEnterpriseConfigurationCredentialsAuthenticateViaMicrosoftOAuth;
+    /**
+     * ServiceCredentials class for service key authentication.
+     * This class is structured similarly to OAuthCredentials but for a different authentication method.
+     */
+    serviceKeyAuthentication?: outputs.SourceSharepointEnterpriseConfigurationCredentialsServiceKeyAuthentication;
+}
+
+export interface SourceSharepointEnterpriseConfigurationCredentialsAuthenticateViaMicrosoftOAuth {
+    /**
+     * Client ID of your Microsoft developer application
+     */
+    clientId: string;
+    /**
+     * Client Secret of your Microsoft developer application
+     */
+    clientSecret: string;
+    /**
+     * Refresh Token of your Microsoft developer application
+     */
+    refreshToken?: string;
+    /**
+     * Tenant ID of the Microsoft SharePoint user
+     */
+    tenantId: string;
+}
+
+export interface SourceSharepointEnterpriseConfigurationCredentialsServiceKeyAuthentication {
+    /**
+     * Client ID of your Microsoft developer application
+     */
+    clientId: string;
+    /**
+     * Client Secret of your Microsoft developer application
+     */
+    clientSecret: string;
+    /**
+     * Tenant ID of the Microsoft SharePoint user
+     */
+    tenantId: string;
+    /**
+     * Special characters such as a period, comma, space, and the at sign (@) are converted to underscores (_). More details: https://learn.microsoft.com/en-us/sharepoint/list-onedrive-urls
+     */
+    userPrincipalName: string;
+}
+
+export interface SourceSharepointEnterpriseConfigurationDeliveryMethod {
+    /**
+     * Copy raw files without parsing their contents. Bits are copied into the destination exactly as they appeared in the source. Recommended for use with unstructured text data, non-text and compressed files.
+     */
+    copyRawFiles?: outputs.SourceSharepointEnterpriseConfigurationDeliveryMethodCopyRawFiles;
+    /**
+     * Sends one identity stream and one for more permissions (ACL) streams to the destination. This data can be used in downstream systems to recreate permission restrictions mirroring the original source.
+     */
+    replicatePermissionsAcl?: outputs.SourceSharepointEnterpriseConfigurationDeliveryMethodReplicatePermissionsAcl;
+    /**
+     * Recommended - Extract and load structured records into your destination of choice. This is the classic method of moving data in Airbyte. It allows for blocking and hashing individual fields or files from a structured schema. Data can be flattened, typed and deduped depending on the destination.
+     */
+    replicateRecords?: outputs.SourceSharepointEnterpriseConfigurationDeliveryMethodReplicateRecords;
+}
+
+export interface SourceSharepointEnterpriseConfigurationDeliveryMethodCopyRawFiles {
+    /**
+     * If enabled, sends subdirectory folder structure along with source file names to the destination. Otherwise, files will be synced by their names only. This option is ignored when file-based replication is not enabled. Default: true
+     */
+    preserveDirectoryStructure: boolean;
+}
+
+export interface SourceSharepointEnterpriseConfigurationDeliveryMethodReplicatePermissionsAcl {
+    /**
+     * This data can be used in downstream systems to recreate permission restrictions mirroring the original source. Default: true
+     */
+    includeIdentitiesStream: boolean;
+}
+
+export interface SourceSharepointEnterpriseConfigurationDeliveryMethodReplicateRecords {
+}
+
+export interface SourceSharepointEnterpriseConfigurationStream {
+    /**
+     * When the state history of the file store is full, syncs will only read files that were last modified in the provided day range. Default: 3
+     */
+    daysToSyncIfHistoryIsFull: number;
+    /**
+     * The configuration options that are used to alter how to read incoming files that deviate from the standard formatting.
+     */
+    format: outputs.SourceSharepointEnterpriseConfigurationStreamFormat;
+    /**
+     * The pattern used to specify which files should be selected from the file system. For more information on glob pattern matching look <a href="https://en.wikipedia.org/wiki/Glob_(programming)">here</a>.
+     */
+    globs?: string[];
+    /**
+     * The schema that will be used to validate records extracted from the file. This will override the stream schema that is auto-detected from incoming files.
+     */
+    inputSchema?: string;
+    /**
+     * The name of the stream.
+     */
+    name: string;
+    /**
+     * The number of resent files which will be used to discover the schema for this stream.
+     */
+    recentNFilesToReadForSchemaDiscovery?: number;
+    /**
+     * When enabled, syncs will not validate or structure records against the stream's schema. Default: false
+     */
+    schemaless: boolean;
+    /**
+     * The name of the validation policy that dictates sync behavior when a record does not adhere to the stream schema. Default: "Emit Record"; must be one of ["Emit Record", "Skip Record", "Wait for Discover"]
+     */
+    validationPolicy: string;
+}
+
+export interface SourceSharepointEnterpriseConfigurationStreamFormat {
+    avroFormat?: outputs.SourceSharepointEnterpriseConfigurationStreamFormatAvroFormat;
+    csvFormat?: outputs.SourceSharepointEnterpriseConfigurationStreamFormatCsvFormat;
+    excelFormat?: outputs.SourceSharepointEnterpriseConfigurationStreamFormatExcelFormat;
+    jsonlFormat?: outputs.SourceSharepointEnterpriseConfigurationStreamFormatJsonlFormat;
+    parquetFormat?: outputs.SourceSharepointEnterpriseConfigurationStreamFormatParquetFormat;
+    /**
+     * Extract text from document formats (.pdf, .docx, .md, .pptx) and emit as one record per file.
+     */
+    unstructuredDocumentFormat?: outputs.SourceSharepointEnterpriseConfigurationStreamFormatUnstructuredDocumentFormat;
+}
+
+export interface SourceSharepointEnterpriseConfigurationStreamFormatAvroFormat {
+    /**
+     * Whether to convert double fields to strings. This is recommended if you have decimal numbers with a high degree of precision because there can be a loss precision when handling floating point numbers. Default: false
+     */
+    doubleAsString: boolean;
+}
+
+export interface SourceSharepointEnterpriseConfigurationStreamFormatCsvFormat {
+    /**
+     * The character delimiting individual cells in the CSV data. This may only be a 1-character string. For tab-delimited data enter '\t'. Default: ","
+     */
+    delimiter: string;
+    /**
+     * Whether two quotes in a quoted CSV value denote a single quote in the data. Default: true
+     */
+    doubleQuote: boolean;
+    /**
+     * The character encoding of the CSV data. Leave blank to default to <strong>UTF8</strong>. See <a href="https://docs.python.org/3/library/codecs.html#standard-encodings" target="_blank">list of python encodings</a> for allowable options. Default: "utf8"
+     */
+    encoding: string;
+    /**
+     * The character used for escaping special characters. To disallow escaping, leave this field blank.
+     */
+    escapeChar?: string;
+    /**
+     * A set of case-sensitive strings that should be interpreted as false values.
+     */
+    falseValues?: string[];
+    /**
+     * How headers will be defined. `User Provided` assumes the CSV does not have a header row and uses the headers provided and `Autogenerated` assumes the CSV does not have a header row and the CDK will generate headers using for `f{i}` where `i` is the index starting from 0. Else, the default behavior is to use the header from the CSV file. If a user wants to autogenerate or provide column names for a CSV having headers, they can skip rows.
+     */
+    headerDefinition?: outputs.SourceSharepointEnterpriseConfigurationStreamFormatCsvFormatHeaderDefinition;
+    /**
+     * Whether to ignore errors that occur when the number of fields in the CSV does not match the number of columns in the schema. Default: false
+     */
+    ignoreErrorsOnFieldsMismatch: boolean;
+    /**
+     * A set of case-sensitive strings that should be interpreted as null values. For example, if the value 'NA' should be interpreted as null, enter 'NA' in this field.
+     */
+    nullValues: string[];
+    /**
+     * The character used for quoting CSV values. To disallow quoting, make this field blank. Default: "\""
+     */
+    quoteChar: string;
+    /**
+     * The number of rows to skip after the header row. Default: 0
+     */
+    skipRowsAfterHeader: number;
+    /**
+     * The number of rows to skip before the header row. For example, if the header row is on the 3rd row, enter 2 in this field. Default: 0
+     */
+    skipRowsBeforeHeader: number;
+    /**
+     * Whether strings can be interpreted as null values. If true, strings that match the null_values set will be interpreted as null. If false, strings that match the null_values set will be interpreted as the string itself. Default: true
+     */
+    stringsCanBeNull: boolean;
+    /**
+     * A set of case-sensitive strings that should be interpreted as true values.
+     */
+    trueValues?: string[];
+}
+
+export interface SourceSharepointEnterpriseConfigurationStreamFormatCsvFormatHeaderDefinition {
+    autogenerated?: outputs.SourceSharepointEnterpriseConfigurationStreamFormatCsvFormatHeaderDefinitionAutogenerated;
+    fromCsv?: outputs.SourceSharepointEnterpriseConfigurationStreamFormatCsvFormatHeaderDefinitionFromCsv;
+    userProvided?: outputs.SourceSharepointEnterpriseConfigurationStreamFormatCsvFormatHeaderDefinitionUserProvided;
+}
+
+export interface SourceSharepointEnterpriseConfigurationStreamFormatCsvFormatHeaderDefinitionAutogenerated {
+}
+
+export interface SourceSharepointEnterpriseConfigurationStreamFormatCsvFormatHeaderDefinitionFromCsv {
+}
+
+export interface SourceSharepointEnterpriseConfigurationStreamFormatCsvFormatHeaderDefinitionUserProvided {
+    /**
+     * The column names that will be used while emitting the CSV records
+     */
+    columnNames: string[];
+}
+
+export interface SourceSharepointEnterpriseConfigurationStreamFormatExcelFormat {
+}
+
+export interface SourceSharepointEnterpriseConfigurationStreamFormatJsonlFormat {
+}
+
+export interface SourceSharepointEnterpriseConfigurationStreamFormatParquetFormat {
+    /**
+     * Whether to convert decimal fields to floats. There is a loss of precision when converting decimals to floats, so this is not recommended. Default: false
+     */
+    decimalAsFloat: boolean;
+}
+
+export interface SourceSharepointEnterpriseConfigurationStreamFormatUnstructuredDocumentFormat {
+    /**
+     * Processing configuration
+     */
+    processing?: outputs.SourceSharepointEnterpriseConfigurationStreamFormatUnstructuredDocumentFormatProcessing;
+    /**
+     * If true, skip files that cannot be parsed and pass the error message along as the _ab_source_file_parse_error field. If false, fail the sync. Default: true
+     */
+    skipUnprocessableFiles: boolean;
+    /**
+     * The strategy used to parse documents. `fast` extracts text directly from the document which doesn't work for all files. `ocr_only` is more reliable, but slower. `hi_res` is the most reliable, but requires an API key and a hosted instance of unstructured and can't be used with local mode. See the unstructured.io documentation for more details: https://unstructured-io.github.io/unstructured/core/partition.html#partition-pdf. Default: "auto"; must be one of ["auto", "fast", "ocr_only", "hi_res"]
+     */
+    strategy: string;
+}
+
+export interface SourceSharepointEnterpriseConfigurationStreamFormatUnstructuredDocumentFormatProcessing {
+    /**
+     * Process files locally, supporting `fast` and `ocr` modes. This is the default option.
+     */
+    local?: outputs.SourceSharepointEnterpriseConfigurationStreamFormatUnstructuredDocumentFormatProcessingLocal;
+}
+
+export interface SourceSharepointEnterpriseConfigurationStreamFormatUnstructuredDocumentFormatProcessingLocal {
+}
+
+export interface SourceSharepointEnterpriseResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceSharepointEnterpriseResourceAllocationDefault;
+    jobSpecifics: outputs.SourceSharepointEnterpriseResourceAllocationJobSpecific[];
+}
+
+export interface SourceSharepointEnterpriseResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface SourceSharepointEnterpriseResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceSharepointEnterpriseResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface SourceSharepointEnterpriseResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
 export interface SourceSharetribeConfiguration {
     clientId: string;
     clientSecret: string;
@@ -57605,7 +58360,7 @@ export interface SourceVitallyConfiguration {
      */
     basicAuthHeader?: string;
     /**
-     * Provide only the domain part, like https://{your-domain}.rest.vitally.io/.  Keep empty if you don't have a subdomain.
+     * Provide only the subdomain part, like https://{your-custom-subdomain}.rest.vitally.io/.  Keep empty if you don't have a subdomain.
      */
     domain: string;
     /**
