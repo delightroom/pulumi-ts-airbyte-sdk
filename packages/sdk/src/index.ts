@@ -240,6 +240,11 @@ export const getConnection: typeof import("./getConnection").getConnection = nul
 export const getConnectionOutput: typeof import("./getConnection").getConnectionOutput = null as any;
 utilities.lazyLoad(exports, ["getConnection","getConnectionOutput"], () => require("./getConnection"));
 
+export { GetConnectionsArgs, GetConnectionsResult, GetConnectionsOutputArgs } from "./getConnections";
+export const getConnections: typeof import("./getConnections").getConnections = null as any;
+export const getConnectionsOutput: typeof import("./getConnections").getConnectionsOutput = null as any;
+utilities.lazyLoad(exports, ["getConnections","getConnectionsOutput"], () => require("./getConnections"));
+
 export { GetDeclarativeSourceDefinitionArgs, GetDeclarativeSourceDefinitionResult, GetDeclarativeSourceDefinitionOutputArgs } from "./getDeclarativeSourceDefinition";
 export const getDeclarativeSourceDefinition: typeof import("./getDeclarativeSourceDefinition").getDeclarativeSourceDefinition = null as any;
 export const getDeclarativeSourceDefinitionOutput: typeof import("./getDeclarativeSourceDefinition").getDeclarativeSourceDefinitionOutput = null as any;
@@ -574,6 +579,11 @@ export { GetSourceAppleSearchAdsArgs, GetSourceAppleSearchAdsResult, GetSourceAp
 export const getSourceAppleSearchAds: typeof import("./getSourceAppleSearchAds").getSourceAppleSearchAds = null as any;
 export const getSourceAppleSearchAdsOutput: typeof import("./getSourceAppleSearchAds").getSourceAppleSearchAdsOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceAppleSearchAds","getSourceAppleSearchAdsOutput"], () => require("./getSourceAppleSearchAds"));
+
+export { GetSourceAppsflyerArgs, GetSourceAppsflyerResult, GetSourceAppsflyerOutputArgs } from "./getSourceAppsflyer";
+export const getSourceAppsflyer: typeof import("./getSourceAppsflyer").getSourceAppsflyer = null as any;
+export const getSourceAppsflyerOutput: typeof import("./getSourceAppsflyer").getSourceAppsflyerOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceAppsflyer","getSourceAppsflyerOutput"], () => require("./getSourceAppsflyer"));
 
 export { GetSourceApptivoArgs, GetSourceApptivoResult, GetSourceApptivoOutputArgs } from "./getSourceApptivo";
 export const getSourceApptivo: typeof import("./getSourceApptivo").getSourceApptivo = null as any;
@@ -1015,6 +1025,11 @@ export const getSourceDocuseal: typeof import("./getSourceDocuseal").getSourceDo
 export const getSourceDocusealOutput: typeof import("./getSourceDocuseal").getSourceDocusealOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceDocuseal","getSourceDocusealOutput"], () => require("./getSourceDocuseal"));
 
+export { GetSourceDolibarrArgs, GetSourceDolibarrResult, GetSourceDolibarrOutputArgs } from "./getSourceDolibarr";
+export const getSourceDolibarr: typeof import("./getSourceDolibarr").getSourceDolibarr = null as any;
+export const getSourceDolibarrOutput: typeof import("./getSourceDolibarr").getSourceDolibarrOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceDolibarr","getSourceDolibarrOutput"], () => require("./getSourceDolibarr"));
+
 export { GetSourceDremioArgs, GetSourceDremioResult, GetSourceDremioOutputArgs } from "./getSourceDremio";
 export const getSourceDremio: typeof import("./getSourceDremio").getSourceDremio = null as any;
 export const getSourceDremioOutput: typeof import("./getSourceDremio").getSourceDremioOutput = null as any;
@@ -1065,10 +1080,20 @@ export const getSourceEbayFinance: typeof import("./getSourceEbayFinance").getSo
 export const getSourceEbayFinanceOutput: typeof import("./getSourceEbayFinance").getSourceEbayFinanceOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceEbayFinance","getSourceEbayFinanceOutput"], () => require("./getSourceEbayFinance"));
 
+export { GetSourceEbayFulfillmentArgs, GetSourceEbayFulfillmentResult, GetSourceEbayFulfillmentOutputArgs } from "./getSourceEbayFulfillment";
+export const getSourceEbayFulfillment: typeof import("./getSourceEbayFulfillment").getSourceEbayFulfillment = null as any;
+export const getSourceEbayFulfillmentOutput: typeof import("./getSourceEbayFulfillment").getSourceEbayFulfillmentOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceEbayFulfillment","getSourceEbayFulfillmentOutput"], () => require("./getSourceEbayFulfillment"));
+
 export { GetSourceElasticemailArgs, GetSourceElasticemailResult, GetSourceElasticemailOutputArgs } from "./getSourceElasticemail";
 export const getSourceElasticemail: typeof import("./getSourceElasticemail").getSourceElasticemail = null as any;
 export const getSourceElasticemailOutput: typeof import("./getSourceElasticemail").getSourceElasticemailOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceElasticemail","getSourceElasticemailOutput"], () => require("./getSourceElasticemail"));
+
+export { GetSourceElasticsearchArgs, GetSourceElasticsearchResult, GetSourceElasticsearchOutputArgs } from "./getSourceElasticsearch";
+export const getSourceElasticsearch: typeof import("./getSourceElasticsearch").getSourceElasticsearch = null as any;
+export const getSourceElasticsearchOutput: typeof import("./getSourceElasticsearch").getSourceElasticsearchOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceElasticsearch","getSourceElasticsearchOutput"], () => require("./getSourceElasticsearch"));
 
 export { GetSourceEmailoctopusArgs, GetSourceEmailoctopusResult, GetSourceEmailoctopusOutputArgs } from "./getSourceEmailoctopus";
 export const getSourceEmailoctopus: typeof import("./getSourceEmailoctopus").getSourceEmailoctopus = null as any;
@@ -1785,6 +1810,11 @@ export const getSourceMention: typeof import("./getSourceMention").getSourceMent
 export const getSourceMentionOutput: typeof import("./getSourceMention").getSourceMentionOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceMention","getSourceMentionOutput"], () => require("./getSourceMention"));
 
+export { GetSourceMercadoAdsArgs, GetSourceMercadoAdsResult, GetSourceMercadoAdsOutputArgs } from "./getSourceMercadoAds";
+export const getSourceMercadoAds: typeof import("./getSourceMercadoAds").getSourceMercadoAds = null as any;
+export const getSourceMercadoAdsOutput: typeof import("./getSourceMercadoAds").getSourceMercadoAdsOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceMercadoAds","getSourceMercadoAdsOutput"], () => require("./getSourceMercadoAds"));
+
 export { GetSourceMergeArgs, GetSourceMergeResult, GetSourceMergeOutputArgs } from "./getSourceMerge";
 export const getSourceMerge: typeof import("./getSourceMerge").getSourceMerge = null as any;
 export const getSourceMergeOutput: typeof import("./getSourceMerge").getSourceMergeOutput = null as any;
@@ -1999,6 +2029,11 @@ export { GetSourceOpenDataDcArgs, GetSourceOpenDataDcResult, GetSourceOpenDataDc
 export const getSourceOpenDataDc: typeof import("./getSourceOpenDataDc").getSourceOpenDataDc = null as any;
 export const getSourceOpenDataDcOutput: typeof import("./getSourceOpenDataDc").getSourceOpenDataDcOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceOpenDataDc","getSourceOpenDataDcOutput"], () => require("./getSourceOpenDataDc"));
+
+export { GetSourceOpenExchangeRatesArgs, GetSourceOpenExchangeRatesResult, GetSourceOpenExchangeRatesOutputArgs } from "./getSourceOpenExchangeRates";
+export const getSourceOpenExchangeRates: typeof import("./getSourceOpenExchangeRates").getSourceOpenExchangeRates = null as any;
+export const getSourceOpenExchangeRatesOutput: typeof import("./getSourceOpenExchangeRates").getSourceOpenExchangeRatesOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceOpenExchangeRates","getSourceOpenExchangeRatesOutput"], () => require("./getSourceOpenExchangeRates"));
 
 export { GetSourceOpenaqArgs, GetSourceOpenaqResult, GetSourceOpenaqOutputArgs } from "./getSourceOpenaq";
 export const getSourceOpenaq: typeof import("./getSourceOpenaq").getSourceOpenaq = null as any;
@@ -2765,6 +2800,11 @@ export const getSourceThinkificCourses: typeof import("./getSourceThinkificCours
 export const getSourceThinkificCoursesOutput: typeof import("./getSourceThinkificCourses").getSourceThinkificCoursesOutput = null as any;
 utilities.lazyLoad(exports, ["getSourceThinkificCourses","getSourceThinkificCoursesOutput"], () => require("./getSourceThinkificCourses"));
 
+export { GetSourceThriveLearningArgs, GetSourceThriveLearningResult, GetSourceThriveLearningOutputArgs } from "./getSourceThriveLearning";
+export const getSourceThriveLearning: typeof import("./getSourceThriveLearning").getSourceThriveLearning = null as any;
+export const getSourceThriveLearningOutput: typeof import("./getSourceThriveLearning").getSourceThriveLearningOutput = null as any;
+utilities.lazyLoad(exports, ["getSourceThriveLearning","getSourceThriveLearningOutput"], () => require("./getSourceThriveLearning"));
+
 export { GetSourceTicketmasterArgs, GetSourceTicketmasterResult, GetSourceTicketmasterOutputArgs } from "./getSourceTicketmaster";
 export const getSourceTicketmaster: typeof import("./getSourceTicketmaster").getSourceTicketmaster = null as any;
 export const getSourceTicketmasterOutput: typeof import("./getSourceTicketmaster").getSourceTicketmasterOutput = null as any;
@@ -3270,6 +3310,11 @@ export type SourceAppleSearchAds = import("./sourceAppleSearchAds").SourceAppleS
 export const SourceAppleSearchAds: typeof import("./sourceAppleSearchAds").SourceAppleSearchAds = null as any;
 utilities.lazyLoad(exports, ["SourceAppleSearchAds"], () => require("./sourceAppleSearchAds"));
 
+export { SourceAppsflyerArgs, SourceAppsflyerState } from "./sourceAppsflyer";
+export type SourceAppsflyer = import("./sourceAppsflyer").SourceAppsflyer;
+export const SourceAppsflyer: typeof import("./sourceAppsflyer").SourceAppsflyer = null as any;
+utilities.lazyLoad(exports, ["SourceAppsflyer"], () => require("./sourceAppsflyer"));
+
 export { SourceApptivoArgs, SourceApptivoState } from "./sourceApptivo";
 export type SourceApptivo = import("./sourceApptivo").SourceApptivo;
 export const SourceApptivo: typeof import("./sourceApptivo").SourceApptivo = null as any;
@@ -3710,6 +3755,11 @@ export type SourceDocuseal = import("./sourceDocuseal").SourceDocuseal;
 export const SourceDocuseal: typeof import("./sourceDocuseal").SourceDocuseal = null as any;
 utilities.lazyLoad(exports, ["SourceDocuseal"], () => require("./sourceDocuseal"));
 
+export { SourceDolibarrArgs, SourceDolibarrState } from "./sourceDolibarr";
+export type SourceDolibarr = import("./sourceDolibarr").SourceDolibarr;
+export const SourceDolibarr: typeof import("./sourceDolibarr").SourceDolibarr = null as any;
+utilities.lazyLoad(exports, ["SourceDolibarr"], () => require("./sourceDolibarr"));
+
 export { SourceDremioArgs, SourceDremioState } from "./sourceDremio";
 export type SourceDremio = import("./sourceDremio").SourceDremio;
 export const SourceDremio: typeof import("./sourceDremio").SourceDremio = null as any;
@@ -3760,10 +3810,20 @@ export type SourceEbayFinance = import("./sourceEbayFinance").SourceEbayFinance;
 export const SourceEbayFinance: typeof import("./sourceEbayFinance").SourceEbayFinance = null as any;
 utilities.lazyLoad(exports, ["SourceEbayFinance"], () => require("./sourceEbayFinance"));
 
+export { SourceEbayFulfillmentArgs, SourceEbayFulfillmentState } from "./sourceEbayFulfillment";
+export type SourceEbayFulfillment = import("./sourceEbayFulfillment").SourceEbayFulfillment;
+export const SourceEbayFulfillment: typeof import("./sourceEbayFulfillment").SourceEbayFulfillment = null as any;
+utilities.lazyLoad(exports, ["SourceEbayFulfillment"], () => require("./sourceEbayFulfillment"));
+
 export { SourceElasticemailArgs, SourceElasticemailState } from "./sourceElasticemail";
 export type SourceElasticemail = import("./sourceElasticemail").SourceElasticemail;
 export const SourceElasticemail: typeof import("./sourceElasticemail").SourceElasticemail = null as any;
 utilities.lazyLoad(exports, ["SourceElasticemail"], () => require("./sourceElasticemail"));
+
+export { SourceElasticsearchArgs, SourceElasticsearchState } from "./sourceElasticsearch";
+export type SourceElasticsearch = import("./sourceElasticsearch").SourceElasticsearch;
+export const SourceElasticsearch: typeof import("./sourceElasticsearch").SourceElasticsearch = null as any;
+utilities.lazyLoad(exports, ["SourceElasticsearch"], () => require("./sourceElasticsearch"));
 
 export { SourceEmailoctopusArgs, SourceEmailoctopusState } from "./sourceEmailoctopus";
 export type SourceEmailoctopus = import("./sourceEmailoctopus").SourceEmailoctopus;
@@ -4480,6 +4540,11 @@ export type SourceMention = import("./sourceMention").SourceMention;
 export const SourceMention: typeof import("./sourceMention").SourceMention = null as any;
 utilities.lazyLoad(exports, ["SourceMention"], () => require("./sourceMention"));
 
+export { SourceMercadoAdsArgs, SourceMercadoAdsState } from "./sourceMercadoAds";
+export type SourceMercadoAds = import("./sourceMercadoAds").SourceMercadoAds;
+export const SourceMercadoAds: typeof import("./sourceMercadoAds").SourceMercadoAds = null as any;
+utilities.lazyLoad(exports, ["SourceMercadoAds"], () => require("./sourceMercadoAds"));
+
 export { SourceMergeArgs, SourceMergeState } from "./sourceMerge";
 export type SourceMerge = import("./sourceMerge").SourceMerge;
 export const SourceMerge: typeof import("./sourceMerge").SourceMerge = null as any;
@@ -4694,6 +4759,11 @@ export { SourceOpenDataDcArgs, SourceOpenDataDcState } from "./sourceOpenDataDc"
 export type SourceOpenDataDc = import("./sourceOpenDataDc").SourceOpenDataDc;
 export const SourceOpenDataDc: typeof import("./sourceOpenDataDc").SourceOpenDataDc = null as any;
 utilities.lazyLoad(exports, ["SourceOpenDataDc"], () => require("./sourceOpenDataDc"));
+
+export { SourceOpenExchangeRatesArgs, SourceOpenExchangeRatesState } from "./sourceOpenExchangeRates";
+export type SourceOpenExchangeRates = import("./sourceOpenExchangeRates").SourceOpenExchangeRates;
+export const SourceOpenExchangeRates: typeof import("./sourceOpenExchangeRates").SourceOpenExchangeRates = null as any;
+utilities.lazyLoad(exports, ["SourceOpenExchangeRates"], () => require("./sourceOpenExchangeRates"));
 
 export { SourceOpenaqArgs, SourceOpenaqState } from "./sourceOpenaq";
 export type SourceOpenaq = import("./sourceOpenaq").SourceOpenaq;
@@ -5460,6 +5530,11 @@ export type SourceThinkificCourses = import("./sourceThinkificCourses").SourceTh
 export const SourceThinkificCourses: typeof import("./sourceThinkificCourses").SourceThinkificCourses = null as any;
 utilities.lazyLoad(exports, ["SourceThinkificCourses"], () => require("./sourceThinkificCourses"));
 
+export { SourceThriveLearningArgs, SourceThriveLearningState } from "./sourceThriveLearning";
+export type SourceThriveLearning = import("./sourceThriveLearning").SourceThriveLearning;
+export const SourceThriveLearning: typeof import("./sourceThriveLearning").SourceThriveLearning = null as any;
+utilities.lazyLoad(exports, ["SourceThriveLearning"], () => require("./sourceThriveLearning"));
+
 export { SourceTicketmasterArgs, SourceTicketmasterState } from "./sourceTicketmaster";
 export type SourceTicketmaster = import("./sourceTicketmaster").SourceTicketmaster;
 export const SourceTicketmaster: typeof import("./sourceTicketmaster").SourceTicketmaster = null as any;
@@ -6000,6 +6075,8 @@ const _module = {
                 return new SourceAppfollow(name, <any>undefined, { urn })
             case "airbyte:index/sourceAppleSearchAds:SourceAppleSearchAds":
                 return new SourceAppleSearchAds(name, <any>undefined, { urn })
+            case "airbyte:index/sourceAppsflyer:SourceAppsflyer":
+                return new SourceAppsflyer(name, <any>undefined, { urn })
             case "airbyte:index/sourceApptivo:SourceApptivo":
                 return new SourceApptivo(name, <any>undefined, { urn })
             case "airbyte:index/sourceAsana:SourceAsana":
@@ -6176,6 +6253,8 @@ const _module = {
                 return new SourceDockerhub(name, <any>undefined, { urn })
             case "airbyte:index/sourceDocuseal:SourceDocuseal":
                 return new SourceDocuseal(name, <any>undefined, { urn })
+            case "airbyte:index/sourceDolibarr:SourceDolibarr":
+                return new SourceDolibarr(name, <any>undefined, { urn })
             case "airbyte:index/sourceDremio:SourceDremio":
                 return new SourceDremio(name, <any>undefined, { urn })
             case "airbyte:index/sourceDrift:SourceDrift":
@@ -6196,8 +6275,12 @@ const _module = {
                 return new SourceEasypromos(name, <any>undefined, { urn })
             case "airbyte:index/sourceEbayFinance:SourceEbayFinance":
                 return new SourceEbayFinance(name, <any>undefined, { urn })
+            case "airbyte:index/sourceEbayFulfillment:SourceEbayFulfillment":
+                return new SourceEbayFulfillment(name, <any>undefined, { urn })
             case "airbyte:index/sourceElasticemail:SourceElasticemail":
                 return new SourceElasticemail(name, <any>undefined, { urn })
+            case "airbyte:index/sourceElasticsearch:SourceElasticsearch":
+                return new SourceElasticsearch(name, <any>undefined, { urn })
             case "airbyte:index/sourceEmailoctopus:SourceEmailoctopus":
                 return new SourceEmailoctopus(name, <any>undefined, { urn })
             case "airbyte:index/sourceEmploymentHero:SourceEmploymentHero":
@@ -6484,6 +6567,8 @@ const _module = {
                 return new SourceMendeley(name, <any>undefined, { urn })
             case "airbyte:index/sourceMention:SourceMention":
                 return new SourceMention(name, <any>undefined, { urn })
+            case "airbyte:index/sourceMercadoAds:SourceMercadoAds":
+                return new SourceMercadoAds(name, <any>undefined, { urn })
             case "airbyte:index/sourceMerge:SourceMerge":
                 return new SourceMerge(name, <any>undefined, { urn })
             case "airbyte:index/sourceMetabase:SourceMetabase":
@@ -6570,6 +6655,8 @@ const _module = {
                 return new SourceOnfleet(name, <any>undefined, { urn })
             case "airbyte:index/sourceOpenDataDc:SourceOpenDataDc":
                 return new SourceOpenDataDc(name, <any>undefined, { urn })
+            case "airbyte:index/sourceOpenExchangeRates:SourceOpenExchangeRates":
+                return new SourceOpenExchangeRates(name, <any>undefined, { urn })
             case "airbyte:index/sourceOpenaq:SourceOpenaq":
                 return new SourceOpenaq(name, <any>undefined, { urn })
             case "airbyte:index/sourceOpenfda:SourceOpenfda":
@@ -6876,6 +6963,8 @@ const _module = {
                 return new SourceThinkific(name, <any>undefined, { urn })
             case "airbyte:index/sourceThinkificCourses:SourceThinkificCourses":
                 return new SourceThinkificCourses(name, <any>undefined, { urn })
+            case "airbyte:index/sourceThriveLearning:SourceThriveLearning":
+                return new SourceThriveLearning(name, <any>undefined, { urn })
             case "airbyte:index/sourceTicketmaster:SourceTicketmaster":
                 return new SourceTicketmaster(name, <any>undefined, { urn })
             case "airbyte:index/sourceTickettailor:SourceTickettailor":
@@ -7105,6 +7194,7 @@ pulumi.runtime.registerResourceModule("airbyte", "index/sourceAppcues", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceAppfigures", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceAppfollow", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceAppleSearchAds", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceAppsflyer", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceApptivo", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceAsana", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceAshby", _module)
@@ -7193,6 +7283,7 @@ pulumi.runtime.registerResourceModule("airbyte", "index/sourceDingConnect", _mod
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceDixa", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceDockerhub", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceDocuseal", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceDolibarr", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceDremio", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceDrift", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceDrip", _module)
@@ -7203,7 +7294,9 @@ pulumi.runtime.registerResourceModule("airbyte", "index/sourceEConomic", _module
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceEasypost", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceEasypromos", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceEbayFinance", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceEbayFulfillment", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceElasticemail", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceElasticsearch", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceEmailoctopus", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceEmploymentHero", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceEncharge", _module)
@@ -7347,6 +7440,7 @@ pulumi.runtime.registerResourceModule("airbyte", "index/sourceMarketo", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceMarketstack", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceMendeley", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceMention", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceMercadoAds", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceMerge", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceMetabase", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceMicrosoftDataverse", _module)
@@ -7390,6 +7484,7 @@ pulumi.runtime.registerResourceModule("airbyte", "index/sourceOnepagecrm", _modu
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceOnesignal", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceOnfleet", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceOpenDataDc", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceOpenExchangeRates", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceOpenaq", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceOpenfda", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceOpenweather", _module)
@@ -7543,6 +7638,7 @@ pulumi.runtime.registerResourceModule("airbyte", "index/sourceTestrail", _module
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceTheGuardianApi", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceThinkific", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceThinkificCourses", _module)
+pulumi.runtime.registerResourceModule("airbyte", "index/sourceThriveLearning", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceTicketmaster", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceTickettailor", _module)
 pulumi.runtime.registerResourceModule("airbyte", "index/sourceTiktokMarketing", _module)

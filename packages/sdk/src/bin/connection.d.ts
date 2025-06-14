@@ -26,7 +26,7 @@ export declare class Connection extends pulumi.CustomResource {
     /**
      * @deprecated Deprecated
      */
-    readonly dataResidency: pulumi.Output<string>;
+    readonly dataResidency: pulumi.Output<string | undefined>;
     /**
      * Requires replacement if changed.
      */

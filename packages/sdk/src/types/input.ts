@@ -15,6 +15,10 @@ export interface ConnectionConfigurationsStream {
      */
     cursorFields?: pulumi.Input<pulumi.Input<string>[]>;
     /**
+     * The name of the destination object that this stream will be written to, used for data activation destinations.
+     */
+    destinationObjectName?: pulumi.Input<string>;
+    /**
      * Whether to move raw files from the source to the destination during the sync.
      */
     includeFiles?: pulumi.Input<boolean>;
@@ -1504,6 +1508,10 @@ export interface DestinationElasticsearchConfiguration {
      * The full url of the Elasticsearch server
      */
     endpoint: pulumi.Input<string>;
+    /**
+     * The Path Prefix of the Elasticsearch server
+     */
+    pathPrefix?: pulumi.Input<string>;
     /**
      * Whether to initiate an SSH tunnel before connecting to the database, and if so, which kind of authentication to use.
      */
@@ -5466,6 +5474,14 @@ export interface DestinationSnowflakeResourceAllocationJobSpecificResourceRequir
 
 export interface DestinationTeradataConfiguration {
     /**
+     * Disable Writing Final Tables. WARNING! The data format in _airbyte_data is likely stable but there are no guarantees that other metadata columns will remain the same in future versions. Default: false
+     */
+    disableTypeDedupe?: pulumi.Input<boolean>;
+    /**
+     * Drop tables with CASCADE. WARNING! This will delete all data in all dependent objects (views, etc.). Use with caution. This option is intended for usecases which can easily rebuild the dependent objects. Default: false
+     */
+    dropCascade?: pulumi.Input<boolean>;
+    /**
      * Hostname of the database.
      */
     host: pulumi.Input<string>;
@@ -5478,6 +5494,10 @@ export interface DestinationTeradataConfiguration {
      * Defines the custom session query band using name-value pairs. For example, 'org=Finance;report=Fin123;'
      */
     queryBand?: pulumi.Input<string>;
+    /**
+     * The database to write raw tables into
+     */
+    rawDataSchema?: pulumi.Input<string>;
     /**
      * The default schema tables are written to if the source does not specify a namespace. The usual value for this field is "public". Default: "airbyte_td"
      */
@@ -7486,6 +7506,10 @@ export interface SourceAppleSearchAdsConfiguration {
      * The timezone for the reporting data. Use 'ORTZ' for Organization Time Zone or 'UTC' for Coordinated Universal Time. Default is UTC. Default: "UTC"; must be one of ["ORTZ", "UTC"]
      */
     timezone?: pulumi.Input<string>;
+    /**
+     * Token Refresh Endpoint. You should override the default value in scenarios  where it's required to proxy requests to Apple's token endpoint. Default: "https://appleid.apple.com/auth/oauth2/token?grant_type=client_credentials&scope=searchadsorg"
+     */
+    tokenRefreshEndpoint?: pulumi.Input<string>;
 }
 
 export interface SourceAppleSearchAdsResourceAllocation {
@@ -7517,6 +7541,62 @@ export interface SourceAppleSearchAdsResourceAllocationJobSpecific {
 }
 
 export interface SourceAppleSearchAdsResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+
+export interface SourceAppsflyerConfiguration {
+    /**
+     * Pull API token for authentication. If you change the account admin, the token changes, and you must update scripts with the new token. <a href="https://support.appsflyer.com/hc/en-us/articles/360004562377">Get the API token in the Dashboard</a>.
+     */
+    apiToken: pulumi.Input<string>;
+    /**
+     * App identifier as found in AppsFlyer.
+     */
+    appId: pulumi.Input<string>;
+    /**
+     * The default value to use if no bookmark exists for an endpoint. Raw Reports historical lookback is limited to 90 days.
+     */
+    startDate: pulumi.Input<string>;
+    /**
+     * Time zone in which date times are stored. The project timezone may be found in the App settings in the AppsFlyer console. Default: "UTC"
+     */
+    timezone?: pulumi.Input<string>;
+}
+
+export interface SourceAppsflyerResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceAppsflyerResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceAppsflyerResourceAllocationJobSpecific>[]>;
+}
+
+export interface SourceAppsflyerResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+
+export interface SourceAppsflyerResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceAppsflyerResourceAllocationJobSpecificResourceRequirements>;
+}
+
+export interface SourceAppsflyerResourceAllocationJobSpecificResourceRequirements {
     cpuLimit?: pulumi.Input<string>;
     cpuRequest?: pulumi.Input<string>;
     ephemeralStorageLimit?: pulumi.Input<string>;
@@ -9484,6 +9564,10 @@ export interface SourceCalendlyConfiguration {
      * Go to Integrations → API & Webhooks to obtain your bearer token. https://calendly.com/integrations/api_webhooks
      */
     apiKey: pulumi.Input<string>;
+    /**
+     * Number of days to be subtracted from the last cutoff date before starting to sync the `scheduled_events` stream. Default: 0
+     */
+    lookbackDays?: pulumi.Input<number>;
     startDate: pulumi.Input<string>;
 }
 
@@ -12266,6 +12350,52 @@ export interface SourceDocusealResourceAllocationJobSpecificResourceRequirements
     memoryRequest?: pulumi.Input<string>;
 }
 
+export interface SourceDolibarrConfiguration {
+    apiKey: pulumi.Input<string>;
+    /**
+     * enter your "domain/dolibarr_url" without https:// Example: mydomain.com/dolibarr
+     */
+    myDolibarrDomainUrl: pulumi.Input<string>;
+    startDate: pulumi.Input<string>;
+}
+
+export interface SourceDolibarrResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceDolibarrResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceDolibarrResourceAllocationJobSpecific>[]>;
+}
+
+export interface SourceDolibarrResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+
+export interface SourceDolibarrResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceDolibarrResourceAllocationJobSpecificResourceRequirements>;
+}
+
+export interface SourceDolibarrResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+
 export interface SourceDremioConfiguration {
     /**
      * API Key that is generated when you authenticate to Dremio API
@@ -12806,6 +12936,59 @@ export interface SourceEbayFinanceResourceAllocationJobSpecificResourceRequireme
     memoryRequest?: pulumi.Input<string>;
 }
 
+export interface SourceEbayFulfillmentConfiguration {
+    /**
+     * Default: "https://api.ebay.com"; must be one of ["https://api.ebay.com", "https://api.sandbox.ebay.com"]
+     */
+    apiHost?: pulumi.Input<string>;
+    password: pulumi.Input<string>;
+    redirectUri: pulumi.Input<string>;
+    refreshToken: pulumi.Input<string>;
+    /**
+     * Default: "https://api.ebay.com/identity/v1/oauth2/token"; must be one of ["https://api.ebay.com/identity/v1/oauth2/token", "https://api.sandbox.ebay.com/identity/v1/oauth2/token"]
+     */
+    refreshTokenEndpoint?: pulumi.Input<string>;
+    startDate: pulumi.Input<string>;
+    username: pulumi.Input<string>;
+}
+
+export interface SourceEbayFulfillmentResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceEbayFulfillmentResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceEbayFulfillmentResourceAllocationJobSpecific>[]>;
+}
+
+export interface SourceEbayFulfillmentResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+
+export interface SourceEbayFulfillmentResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceEbayFulfillmentResourceAllocationJobSpecificResourceRequirements>;
+}
+
+export interface SourceEbayFulfillmentResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+
 export interface SourceElasticemailConfiguration {
     apiKey: pulumi.Input<string>;
     from?: pulumi.Input<string>;
@@ -12845,6 +13028,106 @@ export interface SourceElasticemailResourceAllocationJobSpecific {
 }
 
 export interface SourceElasticemailResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+
+export interface SourceElasticsearchConfiguration {
+    /**
+     * The type of authentication to be used
+     */
+    authenticationMethod?: pulumi.Input<inputs.SourceElasticsearchConfigurationAuthenticationMethod>;
+    /**
+     * The full url of the Elasticsearch server
+     */
+    endpoint: pulumi.Input<string>;
+}
+
+export interface SourceElasticsearchConfigurationAuthenticationMethod {
+    /**
+     * Use a api key and secret combination to authenticate
+     */
+    apiKeySecret?: pulumi.Input<inputs.SourceElasticsearchConfigurationAuthenticationMethodApiKeySecret>;
+    /**
+     * No authentication will be used
+     */
+    none?: pulumi.Input<inputs.SourceElasticsearchConfigurationAuthenticationMethodNone>;
+    /**
+     * Basic auth header with a username and password
+     */
+    usernamePassword?: pulumi.Input<inputs.SourceElasticsearchConfigurationAuthenticationMethodUsernamePassword>;
+}
+
+export interface SourceElasticsearchConfigurationAuthenticationMethodApiKeySecret {
+    /**
+     * Parsed as JSON.
+     */
+    additionalProperties?: pulumi.Input<string>;
+    /**
+     * The Key ID to used when accessing an enterprise Elasticsearch instance.
+     */
+    apiKeyId: pulumi.Input<string>;
+    /**
+     * The secret associated with the API Key ID.
+     */
+    apiKeySecret: pulumi.Input<string>;
+}
+
+export interface SourceElasticsearchConfigurationAuthenticationMethodNone {
+    /**
+     * Parsed as JSON.
+     */
+    additionalProperties?: pulumi.Input<string>;
+}
+
+export interface SourceElasticsearchConfigurationAuthenticationMethodUsernamePassword {
+    /**
+     * Parsed as JSON.
+     */
+    additionalProperties?: pulumi.Input<string>;
+    /**
+     * Basic auth password to access a secure Elasticsearch server
+     */
+    password: pulumi.Input<string>;
+    /**
+     * Basic auth username to access a secure Elasticsearch server
+     */
+    username: pulumi.Input<string>;
+}
+
+export interface SourceElasticsearchResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceElasticsearchResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceElasticsearchResourceAllocationJobSpecific>[]>;
+}
+
+export interface SourceElasticsearchResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+
+export interface SourceElasticsearchResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceElasticsearchResourceAllocationJobSpecificResourceRequirements>;
+}
+
+export interface SourceElasticsearchResourceAllocationJobSpecificResourceRequirements {
     cpuLimit?: pulumi.Input<string>;
     cpuRequest?: pulumi.Input<string>;
     ephemeralStorageLimit?: pulumi.Input<string>;
@@ -13362,10 +13645,6 @@ export interface SourceFacebookMarketingConfigurationCustomInsight {
      * A list of chosen action_breakdowns for action_breakdowns
      */
     actionBreakdowns?: pulumi.Input<pulumi.Input<string>[]>;
-    /**
-     * Determines the report time of action stats. For example, if a person saw the ad on Jan 1st but converted on Jan 2nd, when you query the API with action_report_time=impression, you see a conversion on Jan 1st. When you query the API with action_report_time=conversion, you see a conversion on Jan 2nd. Default: "mixed"; must be one of ["conversion", "impression", "mixed"]
-     */
-    actionReportTime?: pulumi.Input<string>;
     /**
      * A list of chosen breakdowns for breakdowns
      */
@@ -17736,6 +18015,10 @@ export interface SourceGooglePagespeedInsightsResourceAllocationJobSpecificResou
 }
 
 export interface SourceGoogleSearchConsoleConfiguration {
+    /**
+     * Some search analytics streams fail with a 400 error if the specified `aggregationType` is not supported. This is customer implementation dependent and if this error is encountered, enable this setting which will override the existing `aggregationType` to use `auto` which should resolve the stream errors. Default: false
+     */
+    alwaysUseAggregationTypeAuto?: pulumi.Input<boolean>;
     authorization: pulumi.Input<inputs.SourceGoogleSearchConsoleConfigurationAuthorization>;
     /**
      * You can add your Custom Analytics report by creating one.
@@ -17749,6 +18032,10 @@ export interface SourceGoogleSearchConsoleConfiguration {
      * UTC date in the format YYYY-MM-DD. Any data created after this date will not be replicated. Must be greater or equal to the start date field. Leaving this field blank will replicate all data from the start date onward.
      */
     endDate?: pulumi.Input<string>;
+    /**
+     * The number of worker threads to use for the sync. For more details on Google Search Console rate limits, refer to the <a href="https://developers.google.com/webmaster-tools/limits">docs</a>. Default: 40
+     */
+    numWorkers?: pulumi.Input<number>;
     /**
      * The URLs of the website property attached to your GSC account. Learn more about properties <a href="https://support.google.com/webmasters/answer/34592?hl=en">here</a>.
      */
@@ -17844,21 +18131,56 @@ export interface SourceGoogleSearchConsoleResourceAllocationJobSpecificResourceR
 
 export interface SourceGoogleSheetsConfiguration {
     /**
+     * Allows column names to start with numbers. Example: "50th Percentile" → "50_th_percentile" This option will only work if "Convert Column Names to SQL-Compliant Format (names_conversion)" is enabled. Default: false
+     */
+    allowLeadingNumbers?: pulumi.Input<boolean>;
+    /**
      * Default value is 1000000. An integer representing row batch size for each sent request to Google Sheets API. Row batch size means how many rows are processed from the google sheet, for example default value 1000000 would process rows 2-1000002, then 1000003-2000003 and so on. Based on <a href='https://developers.google.com/sheets/api/limits'>Google Sheets API limits documentation</a>, it is possible to send up to 300 requests per minute, but each individual request has to be processed under 180 seconds, otherwise the request returns a timeout error. In regards to this information, consider network speed and number of columns of the google sheet when deciding a batch_size value. Default: 1000000
      */
     batchSize?: pulumi.Input<number>;
+    /**
+     * Combines adjacent letters and numbers. Example: "Q3 2023" → "q3_2023" This option will only work if "Convert Column Names to SQL-Compliant Format (names_conversion)" is enabled. Default: false
+     */
+    combineLetterNumberPairs?: pulumi.Input<boolean>;
+    /**
+     * Combines adjacent numbers and words. Example: "50th Percentile?" → "_50th_percentile_" This option will only work if "Convert Column Names to SQL-Compliant Format (names_conversion)" is enabled. Default: false
+     */
+    combineNumberWordPairs?: pulumi.Input<boolean>;
     /**
      * Credentials for connecting to the Google Sheets API
      */
     credentials: pulumi.Input<inputs.SourceGoogleSheetsConfigurationCredentials>;
     /**
-     * Enables the conversion of column names to a standardized, SQL-compliant format. For example, 'My Name' > 'my_name'. Enable this option if your destination is SQL-based. Default: false
+     * Converts column names to a SQL-compliant format (snake_case, lowercase, etc). If enabled, you can further customize the sanitization using the options below. Default: false
      */
     namesConversion?: pulumi.Input<boolean>;
+    /**
+     * Removes leading and trailing underscores from column names. Does not remove leading underscores from column names that start with a number. Example: "50th Percentile? "→ "_50_th_percentile" This option will only work if "Convert Column Names to SQL-Compliant Format (names_conversion)" is enabled. Default: false
+     */
+    removeLeadingTrailingUnderscores?: pulumi.Input<boolean>;
+    /**
+     * Removes all special characters from column names. Example: "Example ID*" → "example_id" This option will only work if "Convert Column Names to SQL-Compliant Format (names_conversion)" is enabled. Default: false
+     */
+    removeSpecialCharacters?: pulumi.Input<boolean>;
     /**
      * Enter the link to the Google spreadsheet you want to sync. To copy the link, click the 'Share' button in the top-right corner of the spreadsheet, then click 'Copy link'.
      */
     spreadsheetId: pulumi.Input<string>;
+    /**
+     * **Overridden streams will default to Sync Mode: Full Refresh (Append), which does not support primary keys. If you want to use primary keys and deduplication, update the sync mode to "Full Refresh | Overwrite + Deduped" in your connection settings.**
+     * Allows you to rename streams (Google Sheet tab names) as they appear in Airbyte. 
+     * Each item should be an object with a `source_stream_name` (the exact name of the sheet/tab in your spreadsheet)  and a `custom_stream_name` (the name you want it to appear as in Airbyte and the destination).
+     * If a `source_stream_name` is not found in your spreadsheet, it will be ignored and the default name will be used. This feature only affects stream (sheet/tab) names, not field/column names.
+     * If you want to rename fields or column names, you can do so using the Airbyte Mappings feature after your connection is created. See the Airbyte documentation for more details on how to use Mappings.
+     * Examples:
+     *   - To rename a sheet called "Sheet1" to "sales_data", and "2024 Q1" to "q1_2024":
+     *     [
+     *       { "source_stream_name": "Sheet1", "custom_stream_name": "sales_data" },
+     *       { "source_stream_name": "2024 Q1", "custom_stream_name": "q1_2024" }
+     *     ]
+     *   - If you do not wish to rename any streams, leave this blank.
+     */
+    streamNameOverrides?: pulumi.Input<pulumi.Input<inputs.SourceGoogleSheetsConfigurationStreamNameOverride>[]>;
 }
 
 export interface SourceGoogleSheetsConfigurationCredentials {
@@ -17886,6 +18208,17 @@ export interface SourceGoogleSheetsConfigurationCredentialsServiceAccountKeyAuth
      * The JSON key of the service account to use for authorization. Read more <a href="https://cloud.google.com/iam/docs/creating-managing-service-account-keys#creating_service_account_keys">here</a>.
      */
     serviceAccountInfo: pulumi.Input<string>;
+}
+
+export interface SourceGoogleSheetsConfigurationStreamNameOverride {
+    /**
+     * The name you want this stream to appear as in Airbyte and your destination.
+     */
+    customStreamName: pulumi.Input<string>;
+    /**
+     * The exact name of the sheet/tab in your Google Spreadsheet.
+     */
+    sourceStreamName: pulumi.Input<string>;
 }
 
 export interface SourceGoogleSheetsResourceAllocation {
@@ -19773,10 +20106,6 @@ export interface SourceJiraConfiguration {
      * The user email for your Jira account which you used to generate the API token. This field is used for Authorization to your account by BasicAuth.
      */
     email: pulumi.Input<string>;
-    /**
-     * Allow the use of experimental streams which rely on undocumented Jira API endpoints. See https://docs.airbyte.com/integrations/sources/jira#experimental-tables for more info. Default: false
-     */
-    enableExperimentalStreams?: pulumi.Input<boolean>;
     /**
      * When set to N, the connector will always refresh resources created within the past N minutes. By default, updated objects that are not newly created are not incrementally synced. Default: 0
      */
@@ -21858,6 +22187,61 @@ export interface SourceMentionResourceAllocationJobSpecificResourceRequirements 
     memoryRequest?: pulumi.Input<string>;
 }
 
+export interface SourceMercadoAdsConfiguration {
+    clientId: pulumi.Input<string>;
+    clientRefreshToken: pulumi.Input<string>;
+    clientSecret: pulumi.Input<string>;
+    /**
+     * Cannot exceed 90 days from current day for Product Ads
+     */
+    endDate?: pulumi.Input<string>;
+    /**
+     * Default: 7
+     */
+    lookbackDays?: pulumi.Input<number>;
+    /**
+     * Cannot exceed 90 days from current day for Product Ads, and 90 days from "End Date" on Brand and Display Ads
+     */
+    startDate?: pulumi.Input<string>;
+}
+
+export interface SourceMercadoAdsResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceMercadoAdsResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceMercadoAdsResourceAllocationJobSpecific>[]>;
+}
+
+export interface SourceMercadoAdsResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+
+export interface SourceMercadoAdsResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceMercadoAdsResourceAllocationJobSpecificResourceRequirements>;
+}
+
+export interface SourceMercadoAdsResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+
 export interface SourceMergeConfiguration {
     /**
      * Link your other integrations with account credentials on accounts section to get account token (ref - https://app.merge.dev/linked-accounts/accounts)
@@ -23207,9 +23591,9 @@ export interface SourceMongodbV2ConfigurationDatabaseConfigMongoDbAtlasReplicaSe
      */
     connectionString: pulumi.Input<string>;
     /**
-     * The name of the MongoDB database that contains the collection(s) to replicate.
+     * The names of the MongoDB databases that contain the collection(s) to replicate.
      */
-    database: pulumi.Input<string>;
+    databases: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * The password associated with this username.
      */
@@ -23238,9 +23622,9 @@ export interface SourceMongodbV2ConfigurationDatabaseConfigSelfManagedReplicaSet
      */
     connectionString: pulumi.Input<string>;
     /**
-     * The name of the MongoDB database that contains the collection(s) to replicate.
+     * The names of the MongoDB databases that contain the collection(s) to replicate.
      */
-    database: pulumi.Input<string>;
+    databases: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * The password associated with this username.
      */
@@ -25438,6 +25822,58 @@ export interface SourceOpenDataDcResourceAllocationJobSpecific {
 }
 
 export interface SourceOpenDataDcResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+
+export interface SourceOpenExchangeRatesConfiguration {
+    /**
+     * App ID provided by Open Exchange Rates
+     */
+    appId: pulumi.Input<string>;
+    /**
+     * Change base currency (3-letter code, default is USD - only modifiable in paid plans). Default: "USD"
+     */
+    base?: pulumi.Input<string>;
+    /**
+     * Start getting data from that date.
+     */
+    startDate: pulumi.Input<string>;
+}
+
+export interface SourceOpenExchangeRatesResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceOpenExchangeRatesResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceOpenExchangeRatesResourceAllocationJobSpecific>[]>;
+}
+
+export interface SourceOpenExchangeRatesResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+
+export interface SourceOpenExchangeRatesResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceOpenExchangeRatesResourceAllocationJobSpecificResourceRequirements>;
+}
+
+export interface SourceOpenExchangeRatesResourceAllocationJobSpecificResourceRequirements {
     cpuLimit?: pulumi.Input<string>;
     cpuRequest?: pulumi.Input<string>;
     ephemeralStorageLimit?: pulumi.Input<string>;
@@ -29284,6 +29720,10 @@ export interface SourceRechargeConfiguration {
      * The value of the Access Token generated. See the <a href="https://docs.airbyte.com/integrations/sources/recharge">docs</a> for more information.
      */
     accessToken: pulumi.Input<string>;
+    /**
+     * Specifies how many days of historical data should be reloaded each time the recharge connector runs. Default: 0
+     */
+    lookbackWindowDays?: pulumi.Input<number>;
     /**
      * The date from which you'd like to replicate data for Recharge API, in the format YYYY-MM-DDT00:00:00Z. Any data before this date will not be replicated.
      */
@@ -35189,6 +35629,52 @@ export interface SourceThinkificResourceAllocationJobSpecific {
 }
 
 export interface SourceThinkificResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+
+export interface SourceThriveLearningConfiguration {
+    password?: pulumi.Input<string>;
+    startDate: pulumi.Input<string>;
+    /**
+     * Your website Tenant ID (eu-west-000000 please contact support for your tenant)
+     */
+    username: pulumi.Input<string>;
+}
+
+export interface SourceThriveLearningResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default?: pulumi.Input<inputs.SourceThriveLearningResourceAllocationDefault>;
+    jobSpecifics?: pulumi.Input<pulumi.Input<inputs.SourceThriveLearningResourceAllocationJobSpecific>[]>;
+}
+
+export interface SourceThriveLearningResourceAllocationDefault {
+    cpuLimit?: pulumi.Input<string>;
+    cpuRequest?: pulumi.Input<string>;
+    ephemeralStorageLimit?: pulumi.Input<string>;
+    ephemeralStorageRequest?: pulumi.Input<string>;
+    memoryLimit?: pulumi.Input<string>;
+    memoryRequest?: pulumi.Input<string>;
+}
+
+export interface SourceThriveLearningResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType?: pulumi.Input<string>;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements?: pulumi.Input<inputs.SourceThriveLearningResourceAllocationJobSpecificResourceRequirements>;
+}
+
+export interface SourceThriveLearningResourceAllocationJobSpecificResourceRequirements {
     cpuLimit?: pulumi.Input<string>;
     cpuRequest?: pulumi.Input<string>;
     ephemeralStorageLimit?: pulumi.Input<string>;

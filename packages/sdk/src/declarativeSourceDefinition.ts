@@ -40,7 +40,7 @@ export class DeclarativeSourceDefinition extends pulumi.CustomResource {
      * Requires replacement if changed.
      */
     public readonly name!: pulumi.Output<string>;
-    public readonly version!: pulumi.Output<number>;
+    public /*out*/ readonly version!: pulumi.Output<number>;
     public readonly workspaceId!: pulumi.Output<string>;
 
     /**
@@ -70,8 +70,8 @@ export class DeclarativeSourceDefinition extends pulumi.CustomResource {
             }
             resourceInputs["manifest"] = args ? args.manifest : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
-            resourceInputs["version"] = args ? args.version : undefined;
             resourceInputs["workspaceId"] = args ? args.workspaceId : undefined;
+            resourceInputs["version"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(DeclarativeSourceDefinition.__pulumiType, name, resourceInputs, opts, false /*dependency*/, utilities.getPackage());
@@ -106,6 +106,5 @@ export interface DeclarativeSourceDefinitionArgs {
      * Requires replacement if changed.
      */
     name?: pulumi.Input<string>;
-    version?: pulumi.Input<number>;
     workspaceId: pulumi.Input<string>;
 }

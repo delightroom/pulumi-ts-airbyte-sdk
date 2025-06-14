@@ -79,6 +79,7 @@ function lazyLoad(exports, props, loadModule) {
         });
     }
 }
+/** @internal */
 function callAsync(tok, props, res, opts) {
     return __awaiter(this, void 0, void 0, function* () {
         const o = runtime.call(tok, props, res);
@@ -113,8 +114,8 @@ function getPackage() {
                 const monitor = runtime.getMonitor();
                 const params = new resproto.Parameterization();
                 params.setName("airbyte");
-                params.setVersion("0.12.0");
-                params.setValue(Uint8Array.from(atob("eyJyZW1vdGUiOnsidXJsIjoicmVnaXN0cnkub3BlbnRvZnUub3JnL2FpcmJ5dGVocS9haXJieXRlIiwidmVyc2lvbiI6IjAuMTIuMCJ9fQ=="), c => c.charCodeAt(0)));
+                params.setVersion("0.13.0");
+                params.setValue(Uint8Array.from(atob("eyJyZW1vdGUiOnsidXJsIjoicmVnaXN0cnkub3BlbnRvZnUub3JnL2FpcmJ5dGVocS9haXJieXRlIiwidmVyc2lvbiI6IjAuMTMuMCJ9fQ=="), c => c.charCodeAt(0)));
                 const req = new resproto.RegisterPackageRequest();
                 req.setName("terraform-provider");
                 req.setVersion("0.11.0");

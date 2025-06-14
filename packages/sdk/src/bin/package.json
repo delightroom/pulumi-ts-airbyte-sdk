@@ -1,6 +1,6 @@
 {
     "name": "@pulumi/airbyte",
-    "version": "0.12.0",
+    "version": "0.13.0",
     "description": "A Pulumi provider dynamically bridged from airbyte.",
     "repository": "https://github.com/airbytehq/terraform-provider-airbyte",
     "main": "bin/index.js",
@@ -22,8 +22,8 @@
         "version": "0.11.0",
         "parameterization": {
             "name": "airbyte",
-            "version": "0.12.0",
-            "value": "eyJyZW1vdGUiOnsidXJsIjoicmVnaXN0cnkub3BlbnRvZnUub3JnL2FpcmJ5dGVocS9haXJieXRlIiwidmVyc2lvbiI6IjAuMTIuMCJ9fQ=="
+            "version": "0.13.0",
+            "value": "eyJyZW1vdGUiOnsidXJsIjoicmVnaXN0cnkub3BlbnRvZnUub3JnL2FpcmJ5dGVocS9haXJieXRlIiwidmVyc2lvbiI6IjAuMTMuMCJ9fQ=="
         }
     }
 }

@@ -14,7 +14,6 @@ export interface GetConnectionResult {
     readonly configurations: outputs.GetConnectionConfigurations;
     readonly connectionId: string;
     readonly createdAt: number;
-    readonly dataResidency: string;
     readonly destinationId: string;
     /**
      * The provider-assigned unique ID for this managed resource.

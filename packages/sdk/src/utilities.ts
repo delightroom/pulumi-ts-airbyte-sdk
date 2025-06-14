@@ -70,6 +70,7 @@ export function lazyLoad(exports: any, props: string[], loadModule: any) {
     }
 }
 
+/** @internal */
 export async function callAsync<T>(
     tok: string,
     props: pulumi.Inputs,
@@ -109,8 +110,8 @@ export async function getPackage() : Promise<string | undefined> {
 			const monitor = runtime.getMonitor();
 			const params = new resproto.Parameterization();
 			params.setName("airbyte");
-			params.setVersion("0.12.0");
-			params.setValue(Uint8Array.from(atob("eyJyZW1vdGUiOnsidXJsIjoicmVnaXN0cnkub3BlbnRvZnUub3JnL2FpcmJ5dGVocS9haXJieXRlIiwidmVyc2lvbiI6IjAuMTIuMCJ9fQ=="), c => c.charCodeAt(0)));
+			params.setVersion("0.13.0");
+			params.setValue(Uint8Array.from(atob("eyJyZW1vdGUiOnsidXJsIjoicmVnaXN0cnkub3BlbnRvZnUub3JnL2FpcmJ5dGVocS9haXJieXRlIiwidmVyc2lvbiI6IjAuMTMuMCJ9fQ=="), c => c.charCodeAt(0)));
 
 			const req = new resproto.RegisterPackageRequest();
 			req.setName("terraform-provider");

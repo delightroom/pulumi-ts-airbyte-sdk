@@ -15,6 +15,10 @@ export interface ConnectionConfigurationsStream {
      */
     cursorFields: string[];
     /**
+     * The name of the destination object that this stream will be written to, used for data activation destinations.
+     */
+    destinationObjectName: string;
+    /**
      * Whether to move raw files from the source to the destination during the sync.
      */
     includeFiles: boolean;
@@ -1504,6 +1508,10 @@ export interface DestinationElasticsearchConfiguration {
      * The full url of the Elasticsearch server
      */
     endpoint: string;
+    /**
+     * The Path Prefix of the Elasticsearch server
+     */
+    pathPrefix?: string;
     /**
      * Whether to initiate an SSH tunnel before connecting to the database, and if so, which kind of authentication to use.
      */
@@ -5466,6 +5474,14 @@ export interface DestinationSnowflakeResourceAllocationJobSpecificResourceRequir
 
 export interface DestinationTeradataConfiguration {
     /**
+     * Disable Writing Final Tables. WARNING! The data format in _airbyte_data is likely stable but there are no guarantees that other metadata columns will remain the same in future versions. Default: false
+     */
+    disableTypeDedupe: boolean;
+    /**
+     * Drop tables with CASCADE. WARNING! This will delete all data in all dependent objects (views, etc.). Use with caution. This option is intended for usecases which can easily rebuild the dependent objects. Default: false
+     */
+    dropCascade: boolean;
+    /**
      * Hostname of the database.
      */
     host: string;
@@ -5478,6 +5494,10 @@ export interface DestinationTeradataConfiguration {
      * Defines the custom session query band using name-value pairs. For example, 'org=Finance;report=Fin123;'
      */
     queryBand?: string;
+    /**
+     * The database to write raw tables into
+     */
+    rawDataSchema?: string;
     /**
      * The default schema tables are written to if the source does not specify a namespace. The usual value for this field is "public". Default: "airbyte_td"
      */
@@ -6315,6 +6335,10 @@ export interface GetConnectionConfigurationsStream {
      */
     cursorFields: string[];
     /**
+     * The name of the destination object that this stream will be written to, used for data activation destinations.
+     */
+    destinationObjectName: string;
+    /**
      * Whether to move raw files from the source to the destination during the sync.
      */
     includeFiles: boolean;
@@ -6419,6 +6443,159 @@ export interface GetConnectionSchedule {
 }
 
 export interface GetConnectionTag {
+    color: string;
+    name: string;
+    tagId: string;
+    workspaceId: string;
+}
+
+export interface GetConnectionsData {
+    /**
+     * A list of configured stream options for a connection.
+     */
+    configurations: outputs.GetConnectionsDataConfigurations;
+    connectionId: string;
+    createdAt: number;
+    destinationId: string;
+    name: string;
+    /**
+     * Define the location where the data will be stored in the destination
+     */
+    namespaceDefinition: string;
+    namespaceFormat: string;
+    /**
+     * Set how Airbyte handles syncs when it detects a non-breaking schema change in the source
+     */
+    nonBreakingSchemaUpdatesBehavior: string;
+    prefix: string;
+    /**
+     * schedule for when the the connection should run, per the schedule type
+     */
+    schedule: outputs.GetConnectionsDataSchedule;
+    sourceId: string;
+    status: string;
+    tags: outputs.GetConnectionsDataTag[];
+    workspaceId: string;
+}
+
+export interface GetConnectionsDataConfigurations {
+    streams: outputs.GetConnectionsDataConfigurationsStream[];
+}
+
+export interface GetConnectionsDataConfigurationsStream {
+    /**
+     * Path to the field that will be used to determine if a record is new or modified since the last sync. This field is REQUIRED if `sync_mode` is `incremental` unless there is a default.
+     */
+    cursorFields: string[];
+    /**
+     * The name of the destination object that this stream will be written to, used for data activation destinations.
+     */
+    destinationObjectName: string;
+    /**
+     * Whether to move raw files from the source to the destination during the sync.
+     */
+    includeFiles: boolean;
+    /**
+     * Mappers that should be applied to the stream before writing to the destination.
+     */
+    mappers: outputs.GetConnectionsDataConfigurationsStreamMapper[];
+    name: string;
+    /**
+     * Namespace of the stream.
+     */
+    namespace: string;
+    /**
+     * Paths to the fields that will be used as primary key. This field is REQUIRED if `destination_sync_mode` is `*_dedup` unless it is already supplied by the source schema.
+     */
+    primaryKeys: string[][];
+    /**
+     * Paths to the fields that will be included in the configured catalog.
+     */
+    selectedFields: outputs.GetConnectionsDataConfigurationsStreamSelectedField[];
+    syncMode: string;
+}
+
+export interface GetConnectionsDataConfigurationsStreamMapper {
+    id: string;
+    /**
+     * The values required to configure the mapper.
+     */
+    mapperConfiguration: outputs.GetConnectionsDataConfigurationsStreamMapperMapperConfiguration;
+    type: string;
+}
+
+export interface GetConnectionsDataConfigurationsStreamMapperMapperConfiguration {
+    encryption: outputs.GetConnectionsDataConfigurationsStreamMapperMapperConfigurationEncryption;
+    fieldRenaming: outputs.GetConnectionsDataConfigurationsStreamMapperMapperConfigurationFieldRenaming;
+    hashing: outputs.GetConnectionsDataConfigurationsStreamMapperMapperConfigurationHashing;
+    rowFiltering: outputs.GetConnectionsDataConfigurationsStreamMapperMapperConfigurationRowFiltering;
+}
+
+export interface GetConnectionsDataConfigurationsStreamMapperMapperConfigurationEncryption {
+    aes: outputs.GetConnectionsDataConfigurationsStreamMapperMapperConfigurationEncryptionAes;
+    rsa: outputs.GetConnectionsDataConfigurationsStreamMapperMapperConfigurationEncryptionRsa;
+}
+
+export interface GetConnectionsDataConfigurationsStreamMapperMapperConfigurationEncryptionAes {
+    algorithm: string;
+    fieldNameSuffix: string;
+    key: string;
+    mode: string;
+    padding: string;
+    targetField: string;
+}
+
+export interface GetConnectionsDataConfigurationsStreamMapperMapperConfigurationEncryptionRsa {
+    algorithm: string;
+    fieldNameSuffix: string;
+    publicKey: string;
+    targetField: string;
+}
+
+export interface GetConnectionsDataConfigurationsStreamMapperMapperConfigurationFieldRenaming {
+    /**
+     * The new name for the field after renaming.
+     */
+    newFieldName: string;
+    /**
+     * The current name of the field to rename.
+     */
+    originalFieldName: string;
+}
+
+export interface GetConnectionsDataConfigurationsStreamMapperMapperConfigurationHashing {
+    /**
+     * The suffix to append to the field name after hashing.
+     */
+    fieldNameSuffix: string;
+    /**
+     * The hashing algorithm to use.
+     */
+    method: string;
+    /**
+     * The name of the field to be hashed.
+     */
+    targetField: string;
+}
+
+export interface GetConnectionsDataConfigurationsStreamMapperMapperConfigurationRowFiltering {
+    /**
+     * Parsed as JSON.
+     */
+    conditions: string;
+}
+
+export interface GetConnectionsDataConfigurationsStreamSelectedField {
+    fieldPaths: string[];
+}
+
+export interface GetConnectionsDataSchedule {
+    basicTiming: string;
+    cronExpression: string;
+    scheduleType: string;
+}
+
+export interface GetConnectionsDataTag {
     color: string;
     name: string;
     tagId: string;
@@ -8785,6 +8962,43 @@ export interface GetSourceAppleSearchAdsResourceAllocationJobSpecific {
 }
 
 export interface GetSourceAppleSearchAdsResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface GetSourceAppsflyerResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceAppsflyerResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceAppsflyerResourceAllocationJobSpecific[];
+}
+
+export interface GetSourceAppsflyerResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface GetSourceAppsflyerResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceAppsflyerResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface GetSourceAppsflyerResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -12012,6 +12226,43 @@ export interface GetSourceDocusealResourceAllocationJobSpecificResourceRequireme
     memoryRequest: string;
 }
 
+export interface GetSourceDolibarrResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceDolibarrResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceDolibarrResourceAllocationJobSpecific[];
+}
+
+export interface GetSourceDolibarrResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface GetSourceDolibarrResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceDolibarrResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface GetSourceDolibarrResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
 export interface GetSourceDremioResourceAllocation {
     /**
      * optional resource requirements to run workers (blank for unbounded allocations)
@@ -12382,6 +12633,43 @@ export interface GetSourceEbayFinanceResourceAllocationJobSpecificResourceRequir
     memoryRequest: string;
 }
 
+export interface GetSourceEbayFulfillmentResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceEbayFulfillmentResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceEbayFulfillmentResourceAllocationJobSpecific[];
+}
+
+export interface GetSourceEbayFulfillmentResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface GetSourceEbayFulfillmentResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceEbayFulfillmentResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface GetSourceEbayFulfillmentResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
 export interface GetSourceElasticemailResourceAllocation {
     /**
      * optional resource requirements to run workers (blank for unbounded allocations)
@@ -12411,6 +12699,43 @@ export interface GetSourceElasticemailResourceAllocationJobSpecific {
 }
 
 export interface GetSourceElasticemailResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface GetSourceElasticsearchResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceElasticsearchResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceElasticsearchResourceAllocationJobSpecific[];
+}
+
+export interface GetSourceElasticsearchResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface GetSourceElasticsearchResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceElasticsearchResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface GetSourceElasticsearchResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -17710,6 +18035,43 @@ export interface GetSourceMentionResourceAllocationJobSpecificResourceRequiremen
     memoryRequest: string;
 }
 
+export interface GetSourceMercadoAdsResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceMercadoAdsResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceMercadoAdsResourceAllocationJobSpecific[];
+}
+
+export interface GetSourceMercadoAdsResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface GetSourceMercadoAdsResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceMercadoAdsResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface GetSourceMercadoAdsResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
 export interface GetSourceMergeResourceAllocation {
     /**
      * optional resource requirements to run workers (blank for unbounded allocations)
@@ -19293,6 +19655,43 @@ export interface GetSourceOpenDataDcResourceAllocationJobSpecific {
 }
 
 export interface GetSourceOpenDataDcResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface GetSourceOpenExchangeRatesResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceOpenExchangeRatesResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceOpenExchangeRatesResourceAllocationJobSpecific[];
+}
+
+export interface GetSourceOpenExchangeRatesResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface GetSourceOpenExchangeRatesResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceOpenExchangeRatesResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface GetSourceOpenExchangeRatesResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -24962,6 +25361,43 @@ export interface GetSourceThinkificResourceAllocationJobSpecificResourceRequirem
     memoryRequest: string;
 }
 
+export interface GetSourceThriveLearningResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.GetSourceThriveLearningResourceAllocationDefault;
+    jobSpecifics: outputs.GetSourceThriveLearningResourceAllocationJobSpecific[];
+}
+
+export interface GetSourceThriveLearningResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface GetSourceThriveLearningResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs.
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.GetSourceThriveLearningResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface GetSourceThriveLearningResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
 export interface GetSourceTicketmasterResourceAllocation {
     /**
      * optional resource requirements to run workers (blank for unbounded allocations)
@@ -29139,6 +29575,10 @@ export interface SourceAppleSearchAdsConfiguration {
      * The timezone for the reporting data. Use 'ORTZ' for Organization Time Zone or 'UTC' for Coordinated Universal Time. Default is UTC. Default: "UTC"; must be one of ["ORTZ", "UTC"]
      */
     timezone: string;
+    /**
+     * Token Refresh Endpoint. You should override the default value in scenarios  where it's required to proxy requests to Apple's token endpoint. Default: "https://appleid.apple.com/auth/oauth2/token?grant_type=client_credentials&scope=searchadsorg"
+     */
+    tokenRefreshEndpoint: string;
 }
 
 export interface SourceAppleSearchAdsResourceAllocation {
@@ -29170,6 +29610,62 @@ export interface SourceAppleSearchAdsResourceAllocationJobSpecific {
 }
 
 export interface SourceAppleSearchAdsResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface SourceAppsflyerConfiguration {
+    /**
+     * Pull API token for authentication. If you change the account admin, the token changes, and you must update scripts with the new token. <a href="https://support.appsflyer.com/hc/en-us/articles/360004562377">Get the API token in the Dashboard</a>.
+     */
+    apiToken: string;
+    /**
+     * App identifier as found in AppsFlyer.
+     */
+    appId: string;
+    /**
+     * The default value to use if no bookmark exists for an endpoint. Raw Reports historical lookback is limited to 90 days.
+     */
+    startDate: string;
+    /**
+     * Time zone in which date times are stored. The project timezone may be found in the App settings in the AppsFlyer console. Default: "UTC"
+     */
+    timezone: string;
+}
+
+export interface SourceAppsflyerResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceAppsflyerResourceAllocationDefault;
+    jobSpecifics: outputs.SourceAppsflyerResourceAllocationJobSpecific[];
+}
+
+export interface SourceAppsflyerResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface SourceAppsflyerResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceAppsflyerResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface SourceAppsflyerResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -31137,6 +31633,10 @@ export interface SourceCalendlyConfiguration {
      * Go to Integrations → API & Webhooks to obtain your bearer token. https://calendly.com/integrations/api_webhooks
      */
     apiKey: string;
+    /**
+     * Number of days to be subtracted from the last cutoff date before starting to sync the `scheduled_events` stream. Default: 0
+     */
+    lookbackDays: number;
     startDate: string;
 }
 
@@ -33919,6 +34419,52 @@ export interface SourceDocusealResourceAllocationJobSpecificResourceRequirements
     memoryRequest: string;
 }
 
+export interface SourceDolibarrConfiguration {
+    apiKey: string;
+    /**
+     * enter your "domain/dolibarr_url" without https:// Example: mydomain.com/dolibarr
+     */
+    myDolibarrDomainUrl: string;
+    startDate: string;
+}
+
+export interface SourceDolibarrResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceDolibarrResourceAllocationDefault;
+    jobSpecifics: outputs.SourceDolibarrResourceAllocationJobSpecific[];
+}
+
+export interface SourceDolibarrResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface SourceDolibarrResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceDolibarrResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface SourceDolibarrResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
 export interface SourceDremioConfiguration {
     /**
      * API Key that is generated when you authenticate to Dremio API
@@ -34459,6 +35005,59 @@ export interface SourceEbayFinanceResourceAllocationJobSpecificResourceRequireme
     memoryRequest: string;
 }
 
+export interface SourceEbayFulfillmentConfiguration {
+    /**
+     * Default: "https://api.ebay.com"; must be one of ["https://api.ebay.com", "https://api.sandbox.ebay.com"]
+     */
+    apiHost: string;
+    password: string;
+    redirectUri: string;
+    refreshToken: string;
+    /**
+     * Default: "https://api.ebay.com/identity/v1/oauth2/token"; must be one of ["https://api.ebay.com/identity/v1/oauth2/token", "https://api.sandbox.ebay.com/identity/v1/oauth2/token"]
+     */
+    refreshTokenEndpoint: string;
+    startDate: string;
+    username: string;
+}
+
+export interface SourceEbayFulfillmentResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceEbayFulfillmentResourceAllocationDefault;
+    jobSpecifics: outputs.SourceEbayFulfillmentResourceAllocationJobSpecific[];
+}
+
+export interface SourceEbayFulfillmentResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface SourceEbayFulfillmentResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceEbayFulfillmentResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface SourceEbayFulfillmentResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
 export interface SourceElasticemailConfiguration {
     apiKey: string;
     from?: string;
@@ -34498,6 +35097,106 @@ export interface SourceElasticemailResourceAllocationJobSpecific {
 }
 
 export interface SourceElasticemailResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface SourceElasticsearchConfiguration {
+    /**
+     * The type of authentication to be used
+     */
+    authenticationMethod?: outputs.SourceElasticsearchConfigurationAuthenticationMethod;
+    /**
+     * The full url of the Elasticsearch server
+     */
+    endpoint: string;
+}
+
+export interface SourceElasticsearchConfigurationAuthenticationMethod {
+    /**
+     * Use a api key and secret combination to authenticate
+     */
+    apiKeySecret?: outputs.SourceElasticsearchConfigurationAuthenticationMethodApiKeySecret;
+    /**
+     * No authentication will be used
+     */
+    none?: outputs.SourceElasticsearchConfigurationAuthenticationMethodNone;
+    /**
+     * Basic auth header with a username and password
+     */
+    usernamePassword?: outputs.SourceElasticsearchConfigurationAuthenticationMethodUsernamePassword;
+}
+
+export interface SourceElasticsearchConfigurationAuthenticationMethodApiKeySecret {
+    /**
+     * Parsed as JSON.
+     */
+    additionalProperties?: string;
+    /**
+     * The Key ID to used when accessing an enterprise Elasticsearch instance.
+     */
+    apiKeyId: string;
+    /**
+     * The secret associated with the API Key ID.
+     */
+    apiKeySecret: string;
+}
+
+export interface SourceElasticsearchConfigurationAuthenticationMethodNone {
+    /**
+     * Parsed as JSON.
+     */
+    additionalProperties?: string;
+}
+
+export interface SourceElasticsearchConfigurationAuthenticationMethodUsernamePassword {
+    /**
+     * Parsed as JSON.
+     */
+    additionalProperties?: string;
+    /**
+     * Basic auth password to access a secure Elasticsearch server
+     */
+    password: string;
+    /**
+     * Basic auth username to access a secure Elasticsearch server
+     */
+    username: string;
+}
+
+export interface SourceElasticsearchResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceElasticsearchResourceAllocationDefault;
+    jobSpecifics: outputs.SourceElasticsearchResourceAllocationJobSpecific[];
+}
+
+export interface SourceElasticsearchResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface SourceElasticsearchResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceElasticsearchResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface SourceElasticsearchResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -35015,10 +35714,6 @@ export interface SourceFacebookMarketingConfigurationCustomInsight {
      * A list of chosen action_breakdowns for action_breakdowns
      */
     actionBreakdowns: string[];
-    /**
-     * Determines the report time of action stats. For example, if a person saw the ad on Jan 1st but converted on Jan 2nd, when you query the API with action_report_time=impression, you see a conversion on Jan 1st. When you query the API with action_report_time=conversion, you see a conversion on Jan 2nd. Default: "mixed"; must be one of ["conversion", "impression", "mixed"]
-     */
-    actionReportTime: string;
     /**
      * A list of chosen breakdowns for breakdowns
      */
@@ -39389,6 +40084,10 @@ export interface SourceGooglePagespeedInsightsResourceAllocationJobSpecificResou
 }
 
 export interface SourceGoogleSearchConsoleConfiguration {
+    /**
+     * Some search analytics streams fail with a 400 error if the specified `aggregationType` is not supported. This is customer implementation dependent and if this error is encountered, enable this setting which will override the existing `aggregationType` to use `auto` which should resolve the stream errors. Default: false
+     */
+    alwaysUseAggregationTypeAuto: boolean;
     authorization: outputs.SourceGoogleSearchConsoleConfigurationAuthorization;
     /**
      * You can add your Custom Analytics report by creating one.
@@ -39402,6 +40101,10 @@ export interface SourceGoogleSearchConsoleConfiguration {
      * UTC date in the format YYYY-MM-DD. Any data created after this date will not be replicated. Must be greater or equal to the start date field. Leaving this field blank will replicate all data from the start date onward.
      */
     endDate?: string;
+    /**
+     * The number of worker threads to use for the sync. For more details on Google Search Console rate limits, refer to the <a href="https://developers.google.com/webmaster-tools/limits">docs</a>. Default: 40
+     */
+    numWorkers: number;
     /**
      * The URLs of the website property attached to your GSC account. Learn more about properties <a href="https://support.google.com/webmasters/answer/34592?hl=en">here</a>.
      */
@@ -39497,21 +40200,56 @@ export interface SourceGoogleSearchConsoleResourceAllocationJobSpecificResourceR
 
 export interface SourceGoogleSheetsConfiguration {
     /**
+     * Allows column names to start with numbers. Example: "50th Percentile" → "50_th_percentile" This option will only work if "Convert Column Names to SQL-Compliant Format (names_conversion)" is enabled. Default: false
+     */
+    allowLeadingNumbers: boolean;
+    /**
      * Default value is 1000000. An integer representing row batch size for each sent request to Google Sheets API. Row batch size means how many rows are processed from the google sheet, for example default value 1000000 would process rows 2-1000002, then 1000003-2000003 and so on. Based on <a href='https://developers.google.com/sheets/api/limits'>Google Sheets API limits documentation</a>, it is possible to send up to 300 requests per minute, but each individual request has to be processed under 180 seconds, otherwise the request returns a timeout error. In regards to this information, consider network speed and number of columns of the google sheet when deciding a batch_size value. Default: 1000000
      */
     batchSize: number;
+    /**
+     * Combines adjacent letters and numbers. Example: "Q3 2023" → "q3_2023" This option will only work if "Convert Column Names to SQL-Compliant Format (names_conversion)" is enabled. Default: false
+     */
+    combineLetterNumberPairs: boolean;
+    /**
+     * Combines adjacent numbers and words. Example: "50th Percentile?" → "_50th_percentile_" This option will only work if "Convert Column Names to SQL-Compliant Format (names_conversion)" is enabled. Default: false
+     */
+    combineNumberWordPairs: boolean;
     /**
      * Credentials for connecting to the Google Sheets API
      */
     credentials: outputs.SourceGoogleSheetsConfigurationCredentials;
     /**
-     * Enables the conversion of column names to a standardized, SQL-compliant format. For example, 'My Name' > 'my_name'. Enable this option if your destination is SQL-based. Default: false
+     * Converts column names to a SQL-compliant format (snake_case, lowercase, etc). If enabled, you can further customize the sanitization using the options below. Default: false
      */
     namesConversion: boolean;
+    /**
+     * Removes leading and trailing underscores from column names. Does not remove leading underscores from column names that start with a number. Example: "50th Percentile? "→ "_50_th_percentile" This option will only work if "Convert Column Names to SQL-Compliant Format (names_conversion)" is enabled. Default: false
+     */
+    removeLeadingTrailingUnderscores: boolean;
+    /**
+     * Removes all special characters from column names. Example: "Example ID*" → "example_id" This option will only work if "Convert Column Names to SQL-Compliant Format (names_conversion)" is enabled. Default: false
+     */
+    removeSpecialCharacters: boolean;
     /**
      * Enter the link to the Google spreadsheet you want to sync. To copy the link, click the 'Share' button in the top-right corner of the spreadsheet, then click 'Copy link'.
      */
     spreadsheetId: string;
+    /**
+     * **Overridden streams will default to Sync Mode: Full Refresh (Append), which does not support primary keys. If you want to use primary keys and deduplication, update the sync mode to "Full Refresh | Overwrite + Deduped" in your connection settings.**
+     * Allows you to rename streams (Google Sheet tab names) as they appear in Airbyte. 
+     * Each item should be an object with a `source_stream_name` (the exact name of the sheet/tab in your spreadsheet)  and a `custom_stream_name` (the name you want it to appear as in Airbyte and the destination).
+     * If a `source_stream_name` is not found in your spreadsheet, it will be ignored and the default name will be used. This feature only affects stream (sheet/tab) names, not field/column names.
+     * If you want to rename fields or column names, you can do so using the Airbyte Mappings feature after your connection is created. See the Airbyte documentation for more details on how to use Mappings.
+     * Examples:
+     *   - To rename a sheet called "Sheet1" to "sales_data", and "2024 Q1" to "q1_2024":
+     *     [
+     *       { "source_stream_name": "Sheet1", "custom_stream_name": "sales_data" },
+     *       { "source_stream_name": "2024 Q1", "custom_stream_name": "q1_2024" }
+     *     ]
+     *   - If you do not wish to rename any streams, leave this blank.
+     */
+    streamNameOverrides?: outputs.SourceGoogleSheetsConfigurationStreamNameOverride[];
 }
 
 export interface SourceGoogleSheetsConfigurationCredentials {
@@ -39539,6 +40277,17 @@ export interface SourceGoogleSheetsConfigurationCredentialsServiceAccountKeyAuth
      * The JSON key of the service account to use for authorization. Read more <a href="https://cloud.google.com/iam/docs/creating-managing-service-account-keys#creating_service_account_keys">here</a>.
      */
     serviceAccountInfo: string;
+}
+
+export interface SourceGoogleSheetsConfigurationStreamNameOverride {
+    /**
+     * The name you want this stream to appear as in Airbyte and your destination.
+     */
+    customStreamName: string;
+    /**
+     * The exact name of the sheet/tab in your Google Spreadsheet.
+     */
+    sourceStreamName: string;
 }
 
 export interface SourceGoogleSheetsResourceAllocation {
@@ -41426,10 +42175,6 @@ export interface SourceJiraConfiguration {
      * The user email for your Jira account which you used to generate the API token. This field is used for Authorization to your account by BasicAuth.
      */
     email: string;
-    /**
-     * Allow the use of experimental streams which rely on undocumented Jira API endpoints. See https://docs.airbyte.com/integrations/sources/jira#experimental-tables for more info. Default: false
-     */
-    enableExperimentalStreams: boolean;
     /**
      * When set to N, the connector will always refresh resources created within the past N minutes. By default, updated objects that are not newly created are not incrementally synced. Default: 0
      */
@@ -43511,6 +44256,61 @@ export interface SourceMentionResourceAllocationJobSpecificResourceRequirements 
     memoryRequest: string;
 }
 
+export interface SourceMercadoAdsConfiguration {
+    clientId: string;
+    clientRefreshToken: string;
+    clientSecret: string;
+    /**
+     * Cannot exceed 90 days from current day for Product Ads
+     */
+    endDate?: string;
+    /**
+     * Default: 7
+     */
+    lookbackDays: number;
+    /**
+     * Cannot exceed 90 days from current day for Product Ads, and 90 days from "End Date" on Brand and Display Ads
+     */
+    startDate?: string;
+}
+
+export interface SourceMercadoAdsResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceMercadoAdsResourceAllocationDefault;
+    jobSpecifics: outputs.SourceMercadoAdsResourceAllocationJobSpecific[];
+}
+
+export interface SourceMercadoAdsResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface SourceMercadoAdsResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceMercadoAdsResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface SourceMercadoAdsResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
 export interface SourceMergeConfiguration {
     /**
      * Link your other integrations with account credentials on accounts section to get account token (ref - https://app.merge.dev/linked-accounts/accounts)
@@ -44860,9 +45660,9 @@ export interface SourceMongodbV2ConfigurationDatabaseConfigMongoDbAtlasReplicaSe
      */
     connectionString: string;
     /**
-     * The name of the MongoDB database that contains the collection(s) to replicate.
+     * The names of the MongoDB databases that contain the collection(s) to replicate.
      */
-    database: string;
+    databases: string[];
     /**
      * The password associated with this username.
      */
@@ -44891,9 +45691,9 @@ export interface SourceMongodbV2ConfigurationDatabaseConfigSelfManagedReplicaSet
      */
     connectionString: string;
     /**
-     * The name of the MongoDB database that contains the collection(s) to replicate.
+     * The names of the MongoDB databases that contain the collection(s) to replicate.
      */
-    database: string;
+    databases: string[];
     /**
      * The password associated with this username.
      */
@@ -47091,6 +47891,58 @@ export interface SourceOpenDataDcResourceAllocationJobSpecific {
 }
 
 export interface SourceOpenDataDcResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface SourceOpenExchangeRatesConfiguration {
+    /**
+     * App ID provided by Open Exchange Rates
+     */
+    appId: string;
+    /**
+     * Change base currency (3-letter code, default is USD - only modifiable in paid plans). Default: "USD"
+     */
+    base: string;
+    /**
+     * Start getting data from that date.
+     */
+    startDate: string;
+}
+
+export interface SourceOpenExchangeRatesResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceOpenExchangeRatesResourceAllocationDefault;
+    jobSpecifics: outputs.SourceOpenExchangeRatesResourceAllocationJobSpecific[];
+}
+
+export interface SourceOpenExchangeRatesResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface SourceOpenExchangeRatesResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceOpenExchangeRatesResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface SourceOpenExchangeRatesResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;
@@ -50937,6 +51789,10 @@ export interface SourceRechargeConfiguration {
      * The value of the Access Token generated. See the <a href="https://docs.airbyte.com/integrations/sources/recharge">docs</a> for more information.
      */
     accessToken: string;
+    /**
+     * Specifies how many days of historical data should be reloaded each time the recharge connector runs. Default: 0
+     */
+    lookbackWindowDays: number;
     /**
      * The date from which you'd like to replicate data for Recharge API, in the format YYYY-MM-DDT00:00:00Z. Any data before this date will not be replicated.
      */
@@ -56842,6 +57698,52 @@ export interface SourceThinkificResourceAllocationJobSpecific {
 }
 
 export interface SourceThinkificResourceAllocationJobSpecificResourceRequirements {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface SourceThriveLearningConfiguration {
+    password?: string;
+    startDate: string;
+    /**
+     * Your website Tenant ID (eu-west-000000 please contact support for your tenant)
+     */
+    username: string;
+}
+
+export interface SourceThriveLearningResourceAllocation {
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    default: outputs.SourceThriveLearningResourceAllocationDefault;
+    jobSpecifics: outputs.SourceThriveLearningResourceAllocationJobSpecific[];
+}
+
+export interface SourceThriveLearningResourceAllocationDefault {
+    cpuLimit: string;
+    cpuRequest: string;
+    ephemeralStorageLimit: string;
+    ephemeralStorageRequest: string;
+    memoryLimit: string;
+    memoryRequest: string;
+}
+
+export interface SourceThriveLearningResourceAllocationJobSpecific {
+    /**
+     * enum that describes the different types of jobs that the platform runs. must be one of ["get_spec", "check_connection", "discover_schema", "sync", "reset_connection", "connection_updater", "replicate"]
+     */
+    jobType: string;
+    /**
+     * optional resource requirements to run workers (blank for unbounded allocations)
+     */
+    resourceRequirements: outputs.SourceThriveLearningResourceAllocationJobSpecificResourceRequirements;
+}
+
+export interface SourceThriveLearningResourceAllocationJobSpecificResourceRequirements {
     cpuLimit: string;
     cpuRequest: string;
     ephemeralStorageLimit: string;

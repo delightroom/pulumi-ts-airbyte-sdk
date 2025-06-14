@@ -43,7 +43,7 @@ export class Connection extends pulumi.CustomResource {
     /**
      * @deprecated Deprecated
      */
-    public readonly dataResidency!: pulumi.Output<string>;
+    public readonly dataResidency!: pulumi.Output<string | undefined>;
     /**
      * Requires replacement if changed.
      */
